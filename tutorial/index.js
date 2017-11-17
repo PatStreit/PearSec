@@ -16,7 +16,7 @@ var mysql = require('mysql');
     database: "pearsec"
   });
  // End of SQL-Connection
-//Launch Server 
+//Launch Server
 var server = app.listen(3000, listening);
 function listening(){
     console.log("listeninnnng");
@@ -34,19 +34,19 @@ app.get('/gesamtRisiko', getGesamtRisiko);
 function getAllAssets (req, res){
     // SQL Part
     var sqlResult;
-    
+
       con.query("SELECT * FROM Assets", function (err, result, fields) {
           if (err) throw err;
           console.log(result);
            sqlResult = result;
            res.send(result);
-         
+
       });
-      
-      
+
+
       // END OF SQL PART
       console.log(sqlResult);
-      
+
 //res.send(sqlResult);
 }
 
@@ -72,15 +72,15 @@ function postDaten (req, res){
 
 function risikoFurGefahrdung (req, res){
     // working
-  
+
      getRisikoFurEineGefahrung(req.params.param, (xy)=>{res.send((xy));});
-   
+
 }
 
 function getGesamtRisiko (req, res){
-     getGesamtRisiko2((xy)=>{console.log(xy);});   
-   
-          
+     getGesamtRisiko2((xy)=>{console.log(xy);});
+
+
 }
 
 function getRisikoFurEineGefahrung(giD, _callback){
@@ -105,7 +105,7 @@ con.query(sqlB, (err, result, fields) => {
  // console.log( result[key].KundenAssetID);
      //hier durch die json iterieren und jeweils patricks sql befehl aufrufen und dnn alles zusammen addieren
    //console.log(e.);
-   
+
     getRisikoFurEinAsset(result[key].KundenAssetID, (xy)=>{console.log("done : " + xy);
     counter++;
     gesamtRisiko= gesamtRisiko+xy});

@@ -26,14 +26,12 @@
 
   #right-defaults {
     padding-top: 4%;
-    padding-bottom: 20%;
-    padding-right: auto;
-    width: 30%;
+    padding-bottom: 4%;
   }
 
   #left-defaults {
     padding-top: 4%;
-    width:70%;
+    padding-bottom: 4%;
   }
 
 
@@ -133,9 +131,10 @@
       </div>
       <div class="col-md-12">
         <div id="wrapper" style="color:white">
+          <p id="versteckt" hidden></p>
+          <div id="marker" style="display:none">Bitte ziehen Sie Ihre Vermögenswerte in das Feld!</div>
           <div id='left-defaults' class='container'>
-            <p id="versteckt" hidden></p>
-            <div id="marker" style="display:none">Bitte ziehen Sie Ihre Vermögenswerte in das Feld!</div>
+            
           </div>
           <div id='right-defaults' class='container'>
 
@@ -156,6 +155,10 @@
   </div>
   <div class="col-md-1"></div>
 </div>
+<!--  <div class="row">
+    <div class="col-md-10"></div>
+      <button onclick="myFunction()" class="btn rounded"/ value="Lunar">Lunar</button>
+  </div>-->
 
   <div class="row">
     <footer class="col-md-12 text-center mt-5" style="color:white">
@@ -163,6 +166,7 @@
     </footer>
   </div>
 
+  <!-- /Start your project here-->
 
   <!-- SCRIPTS -->
   <!-- JQuery -->
@@ -176,7 +180,7 @@
 
 <script src='dist/dragula.js'></script>
 <script src='example/example.min.js'></script>
-<script src="../target/ApiAi.js"></script>
+<script src="target/ApiAi.js"></script>
 <script defer src="formular1.js"></script>
 
 </body>

@@ -28,6 +28,21 @@
 
     queryInput.addEventListener("keydown", queryInputKeyDown);
     window.init();
+
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (xhttp.readyState == 4 && xhttp.status == 200) {
+        var obj = JSON.parse(xhttp.responseText);
+        for(var item in obj){
+          var el = document.createElement('div');
+          el.innerHTML = obj[item].Name;
+          el.setAttribute('id', obj[item].AID );
+          document.getElementById("right-defaults").appendChild(el);
+        }
+      }
+    };
+    xhttp.open("GET", "/allAssets", true);
+    xhttp.send();
   }
 
 
@@ -123,36 +138,33 @@ function abschicken(){
   var bar = document.getElementById("bar");
   var x = document.getElementById("marker");
   var versteckt = document.getElementById("versteckt");
+  var textAnfang = '{ "Paket" : [';
+  var textInhalt = "";
+  var textEnde = ']}';
 
     if (versteckt.innerHTML == "") {
         x.style.display = "block";
     } else {
       bar.style.width = "15%";
-    }
-
-    alert(left.innerHTML);
-
-    
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', "/post", true);
-    xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
-    xhr.responseType ='json';
-    xhr.send(datasend);
-}
-
-window.onload = function (){
-  var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function() {
-    if (xhttp.readyState == 4 && xhttp.status == 200) {
-      var obj = JSON.parse(xhttp.responseText);
-      for(var item in obj){
-        var el = document.createElement('div');
-        el.innerHTML = obj[item].Name;
-        el.setAttribute('id', obj[item].AID );
-        document.getElementById("right-defaults").appendChild(el);
+      var c = document.getElementById("left-defaults").childNodes;
+      var i = 1;
+      for(i; i < c.length; i++){
+//        alert(c[i].innerHTML);
+        if(i == c.length-1){
+          textInhalt += '{ "AID": "' + c[i].id + '", "Name": "' + c[i].innerHTML + '" }'
+        }else {
+          textInhalt += '{ "AID": "' + c[i].id + '", "Name": "' + c[i].innerHTML + '" },'
+        }
       }
+      alert(textAnfang + textInhalt + textEnde);
+      var obj = JSON.parse(textAnfang + textInhalt + textEnde);
+//      alert(obj.text);
+
+      var xhr = new XMLHttpRequest();
+      xhr.open('POST', "/post", true);
+      xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+      xhr.responseType ='json';
+      xhr.send(obj);
     }
-  };
-  xhttp.open("GET", "/allAssets", true);
-  xhttp.send();
+
 }

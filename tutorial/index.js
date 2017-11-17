@@ -33,7 +33,7 @@ app.get('/risikoFurGefahrdung/:param', risikoFurGefahrdung);
 //get RisikoJeGefährdung
 app.get('/gesamtRisiko', getGesamtRisiko);
 //berechne Risiko für ein Asset
-app.get('getRisikoFurEinAsset/:param',getRisikoFurEinAsset2);
+app.get('/getRisikoFurEinAsset/:param',getRisikoFurEinAsset2);
 //////////////////////////
 // API-POST Pfäde
 /////////////////////////
@@ -91,28 +91,23 @@ function getGesamtRisiko2(_callback) {
 }
 // ruft eine Funktion auf die das Risiko für eine Asset zurück gibt. Das Ergebnis wird direkt gesendet
 function getRisikoFurEinAsset2(req, res) {
-  console.log("getRisiko2");
   getRisikoFurEinAsset(req.params.param, (xy) => { res.send((xy)); });
 }
 // berechnet das Risiko für ein Asset
 function getRisikoFurEinAsset(KundenAssetID, _callback) {
-  console.log("getRisiko3");
   //größte Gefährdung für ein Asset suchen:
   var sqlB = "SELECT MAX (a.Eintrittswahrscheinlichkeit*a.Schadenshohe) as erg from Gefährdungen a, Assets b, Kunde1Verbindungen c, Kunde1Assets d where a.GID = c.GID and b.AID = c.AID and b.AID = d.AID and d.KundenAssetID = \"" + KundenAssetID + " \";";
   con.query(sqlB, (err, result, fields) => {
     if (err) throw err;
     //ist die Gefährdung größer gleich 15 wird der _callback aufgerufen, ansonsten wird der avg wert berechnet
-    // console.log(result[0].erg);
-    if (result[0].erg >= 15) {
-      //console.log(result[0].erg);
+    if (result[0] >= 15) {
       _callback(15);
     } else {
       // avg wert berechnen
       var sqlB = "SELECT AVG (a.Eintrittswahrscheinlichkeit*a.Schadenshohe) as erg from Gefährdungen a, Assets b, Kunde1Verbindungen c, Kunde1Assets d where a.GID = c.GID and b.AID = c.AID and b.AID = d.AID and d.KundenAssetID = \"" + KundenAssetID + " \";";
       con.query(sqlB, (err, result, fields) => {
         if (err) throw err;
-        //console.log(result[0].erg);
-        _callback(result[0].erg);
+        _callback(result[0]);
       });
     }
   });

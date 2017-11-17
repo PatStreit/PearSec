@@ -2,7 +2,7 @@
 *node.js webserver providing static and dynamic html files, a front-end api, database connection
 * TODO : Catch all possible error relating to mysql
 */
-//console.log ('server is running');
+console.log ('server is running');
 var express = require('express');
 var app = express();
 var bodyparser = require('body-parser');
@@ -15,42 +15,76 @@ var mysql = require('mysql');
     password: "1610337",
     database: "pearsec"
   });
- // End of SQL-Connection
-//Launch Server 
+//Launch Server on port 3000
 var server = app.listen(3000, listening);
 function listening(){
-    console.log("listeninnnng");
+    console.log("Server was launched");
 }
 //Provide static files
 app.use(express.static('public'));
+////////////////////////////
 //API-GET Pfäde & Methoden:
-
+////////////////////////////
 app.get('/allAssets', getAllAssets);
 //get RisikoJeGefährdung
 app.get('/risikoFurGefahrdung/:param', risikoFurGefahrdung);
 //get RisikoJeGefährdung
 app.get('/gesamtRisiko', getGesamtRisiko);
+//////////////////////////
+// API-POST Pfäde
+/////////////////////////
+app.post('/post', postDaten);
 
+////////////////////////
+//Funktionen der get/post API
+////////////////////////
+
+//senden alle Assets die in der normalen DB hinterlegt sind als Json Response
 function getAllAssets (req, res){
-    // SQL Part
-    var sqlResult;
-    
+    var sqlResult;   
       con.query("SELECT * FROM Assets", function (err, result, fields) {
           if (err) throw err;
           console.log(result);
            sqlResult = result;
-           res.send(result);
-         
+           res.send(result);        
       });
-      
-      
-      // END OF SQL PART
       console.log(sqlResult);
-      
-//res.send(sqlResult);
+}
+// ruft eine Funktion auf die das Risiko für eine Gefährdung zurück gibt. Das Ergebnis wird direkt gesendet
+function risikoFurGefahrdung (req, res){
+   getRisikoFurEineGefahrung(req.params.param, (xy)=>{res.send((xy));});
+}
+//wird von der Funktion risikoFurGefahrdung aufgerufen
+function getRisikoFurEineGefahrung(giD, _callback){
+var sqlB = "SELECT (Eintrittswahrscheinlichkeit * Schadenshohe) as erg FROM Gefährdungen where GID= \"" + giD + " \";";
+con.query(sqlB, (err, result, fields) => {
+  if (err) throw err;
+  _callback(result[0]);
+});
+}
+// ruft eine Methode auf die das GesamtRisiko des Unternehmens berechnet und ausgibt
+function getGesamtRisiko (req, res){
+  getGesamtRisiko2((xy)=>{console.log(xy);});            
+}
+//wird von der Methode getGEsamtRisiko aufgerufen und 
+function getGesamtRisiko2( _callback){
+  var sqlB = "SELECT KundenAssetID from Kunde1Assets; ";
+con.query(sqlB, (err, result, fields) => {
+  if (err) throw err;
+ var counter;
+    var gesamtRisiko;
+ Object.keys(result).forEach(function(key) {
+     //hier durch die json iterieren und jeweils patricks sql befehl aufrufen und dnn alles zusammen addieren
+    getRisikoFurEinAsset(result[key].KundenAssetID, (xy)=>{console.log("done : " + xy);
+    counter++;
+    gesamtRisiko= gesamtRisiko+xy});
+});
+console.log(gesamtRisiko);
+  _callback((gesamtRisiko/counter));
+});
 }
 
-app.post('/post', postDaten);
+
 
 function postDaten (req, res){
     // SQL Part
@@ -70,52 +104,7 @@ function postDaten (req, res){
 };
 
 
-function risikoFurGefahrdung (req, res){
-    // working
-  
-     getRisikoFurEineGefahrung(req.params.param, (xy)=>{res.send((xy));});
-   
-}
 
-function getGesamtRisiko (req, res){
-     getGesamtRisiko2((xy)=>{console.log(xy);});   
-   
-          
-}
-
-function getRisikoFurEineGefahrung(giD, _callback){
-  var sqlB = "SELECT (Eintrittswahrscheinlichkeit * Schadenshohe) as erg FROM Gefährdungen where GID= \"" + giD + " \";";
-//copied
-con.query(sqlB, (err, result, fields) => {
-  if (err) throw err;
-  _callback(result[0]);
-});
-}
-
-function getGesamtRisiko2( _callback){
-  var sqlB = "SELECT KundenAssetID from Kunde1Assets; ";
- // var sqlB = "SELECT * from AssetsZuGefährdungen ;";
-//copied
-con.query(sqlB, (err, result, fields) => {
-  if (err) throw err;
- // console.log(result[0].GiD);
- var counter;
-    var gesamtRisiko;
- Object.keys(result).forEach(function(key) {
- // console.log( result[key].KundenAssetID);
-     //hier durch die json iterieren und jeweils patricks sql befehl aufrufen und dnn alles zusammen addieren
-   //console.log(e.);
-   
-    getRisikoFurEinAsset(result[key].KundenAssetID, (xy)=>{console.log("done : " + xy);
-    counter++;
-    gesamtRisiko= gesamtRisiko+xy});
-   //ende des sql parts
-
-});
-console.log(gesamtRisiko);
-  _callback((gesamtRisiko/counter));
-});
-}
 function getRisikoFurEinAsset(KundenAssetID, _callback){
 
   //größte Gefährdung für ein Asset suchen:

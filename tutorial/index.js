@@ -22,14 +22,18 @@ function listening() {
 }
 //Provide static files
 app.use(express.static('public'));
+
 ////////////////////////////
 //API-GET Pfäde & Methoden:
 ////////////////////////////
+
 app.get('/allAssets', getAllAssets);
 //get RisikoJeGefährdung
 app.get('/risikoFurGefahrdung/:param', risikoFurGefahrdung);
 //get RisikoJeGefährdung
 app.get('/gesamtRisiko', getGesamtRisiko);
+//berechne Risiko für ein Asset
+app.get('getRisikoFurEinAsset/:param',getRisikoFurEinAsset2);
 //////////////////////////
 // API-POST Pfäde
 /////////////////////////
@@ -85,9 +89,14 @@ function getGesamtRisiko2(_callback) {
     _callback((gesamtRisiko / counter));
   });
 }
+// ruft eine Funktion auf die das Risiko für eine Asset zurück gibt. Das Ergebnis wird direkt gesendet
+function getRisikoFurEinAsset2(req, res) {
+  console.log("getRisiko2");
+  getRisikoFurEinAsset(req.params.param, (xy) => { res.send((xy)); });
+}
 // berechnet das Risiko für ein Asset
 function getRisikoFurEinAsset(KundenAssetID, _callback) {
-
+  console.log("getRisiko3");
   //größte Gefährdung für ein Asset suchen:
   var sqlB = "SELECT MAX (a.Eintrittswahrscheinlichkeit*a.Schadenshohe) as erg from Gefährdungen a, Assets b, Kunde1Verbindungen c, Kunde1Assets d where a.GID = c.GID and b.AID = c.AID and b.AID = d.AID and d.KundenAssetID = \"" + KundenAssetID + " \";";
   con.query(sqlB, (err, result, fields) => {

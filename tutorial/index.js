@@ -1,7 +1,6 @@
 /*
 *node.js webserver providing static and dynamic html files, a front-end api, database connection
 * TODO : Catch all possible error relating to mysql
-//Hallo
 */
 //console.log ('server is running');
 var express = require('express');
@@ -16,7 +15,6 @@ var mysql = require('mysql');
     password: "1610337",
     database: "pearsec"
   });
-  // HALLLLLLOOOOOO
  // End of SQL-Connection
 //Launch Server 
 var server = app.listen(3000, listening);

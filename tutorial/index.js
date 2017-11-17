@@ -1,4 +1,4 @@
-/*
+/*1
 *node.js webserver providing static and dynamic html files, a front-end api, database connection
 * TODO : Catch all possible error relating to mysql
 */

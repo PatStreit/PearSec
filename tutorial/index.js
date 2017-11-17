@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 /*1
-=======
-/*jo
->>>>>>> 8501779c25b43f074c3b4966c8f777b1bfa3ba49
 *node.js webserver providing static and dynamic html files, a front-end api, database connection
 * TODO : Catch all possible error relating to mysql
 */
@@ -107,7 +103,7 @@ function getRisikoFurEinAsset(KundenAssetID, _callback) {
     if (err) throw err;
     //ist die Gefährdung größer gleich 15 wird der _callback aufgerufen, ansonsten wird der avg wert berechnet
     // console.log(result[0].erg);
-    if (result[0].erg >= 15) {
+    if (result[0] >= 15) {
       //console.log(result[0].erg);
       _callback(15);
     } else {
@@ -116,7 +112,7 @@ function getRisikoFurEinAsset(KundenAssetID, _callback) {
       con.query(sqlB, (err, result, fields) => {
         if (err) throw err;
         //console.log(result[0].erg);
-        _callback(result[0].erg);
+        _callback(result[0]);
       });
     }
   });

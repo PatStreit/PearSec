@@ -12,18 +12,10 @@ var mysql = require('mysql');
 var con = mysql.createConnection({
   host: "141.19.141.151",
   user: "t_schaefer",
-<<<<<<< HEAD
-    password: "1610337",
-    database: "pearsec"
-  });
- // End of SQL-Connection
-//Launch Server
-=======
   password: "1610337",
   database: "pearsec"
 });
 //Launch Server on port 3000
->>>>>>> d1a312947a54d7bacf44d75e02ff1333c7d23ddb
 var server = app.listen(3000, listening);
 function listening() {
   console.log("Server was launched");
@@ -40,53 +32,17 @@ app.get('/allAssets', getAllAssets);
 app.get('/risikoFurGefahrdung/:param', risikoFurGefahrdung);
 //get RisikoJeGefährdung
 app.get('/gesamtRisiko', getGesamtRisiko);
-<<<<<<< HEAD
-
-function getAllAssets (req, res){
-    // SQL Part
-    var sqlResult;
-
-      con.query("SELECT * FROM Assets", function (err, result, fields) {
-          if (err) throw err;
-          console.log(result);
-           sqlResult = result;
-           res.send(result);
-
-      });
-
-
-      // END OF SQL PART
-      console.log(sqlResult);
-
-//res.send(sqlResult);
-}
-
-=======
 //berechne Risiko für ein Asset
 app.get('/getRisikoFurEinAsset/:param',getRisikoFurEinAsset2);
 //////////////////////////
 // API-POST Pfäde
 /////////////////////////
->>>>>>> d1a312947a54d7bacf44d75e02ff1333c7d23ddb
 app.post('/post', postDaten);
 
 ////////////////////////
 //Funktionen der get API
 ////////////////////////
 
-<<<<<<< HEAD
-function risikoFurGefahrdung (req, res){
-    // working
-
-     getRisikoFurEineGefahrung(req.params.param, (xy)=>{res.send((xy));});
-
-}
-
-function getGesamtRisiko (req, res){
-     getGesamtRisiko2((xy)=>{console.log(xy);});
-
-
-=======
 //senden alle Assets die in der normalen DB hinterlegt sind als Json Response
 function getAllAssets(req, res) {
   var sqlResult;
@@ -101,7 +57,6 @@ function getAllAssets(req, res) {
 // ruft eine Funktion auf die das Risiko für eine Gefährdung zurück gibt. Das Ergebnis wird direkt gesendet
 function risikoFurGefahrdung(req, res) {
   getRisikoFurEineGefahrung(req.params.param, (xy) => { res.send((xy)); });
->>>>>>> d1a312947a54d7bacf44d75e02ff1333c7d23ddb
 }
 //wird von der Funktion risikoFurGefahrdung aufgerufen
 function getRisikoFurEineGefahrung(giD, _callback) {
@@ -122,22 +77,6 @@ function getGesamtRisiko2(_callback) {
     if (err) throw err;
     var counter;
     var gesamtRisiko;
-<<<<<<< HEAD
- Object.keys(result).forEach(function(key) {
- // console.log( result[key].KundenAssetID);
-     //hier durch die json iterieren und jeweils patricks sql befehl aufrufen und dnn alles zusammen addieren
-   //console.log(e.);
-
-    getRisikoFurEinAsset(result[key].KundenAssetID, (xy)=>{console.log("done : " + xy);
-    counter++;
-    gesamtRisiko= gesamtRisiko+xy});
-   //ende des sql parts
-
-});
-console.log(gesamtRisiko);
-  _callback((gesamtRisiko/counter));
-});
-=======
     Object.keys(result).forEach(function (key) {
       //hier durch die json iterieren und jeweils patricks sql befehl aufrufen und dnn alles zusammen addieren
       getRisikoFurEinAsset(result[key].KundenAssetID, (xy) => {
@@ -149,7 +88,6 @@ console.log(gesamtRisiko);
     console.log(gesamtRisiko);
     _callback((gesamtRisiko / counter));
   });
->>>>>>> d1a312947a54d7bacf44d75e02ff1333c7d23ddb
 }
 // ruft eine Funktion auf die das Risiko für eine Asset zurück gibt. Das Ergebnis wird direkt gesendet
 function getRisikoFurEinAsset2(req, res) {
@@ -195,11 +133,7 @@ function postDaten(req, res) {
   con.query(sql, function (err, result) {
     if (err) throw err;
   });
-<<<<<<< HEAD
-}
-=======
 };
 
 
 
->>>>>>> d1a312947a54d7bacf44d75e02ff1333c7d23ddb

@@ -36,7 +36,7 @@ app.get('/gesamtRisiko', getGesamtRisiko);
 app.post('/post', postDaten);
 
 ////////////////////////
-//Funktionen der get/post API
+//Funktionen der get API
 ////////////////////////
 
 //senden alle Assets die in der normalen DB hinterlegt sind als Json Response
@@ -83,49 +83,46 @@ console.log(gesamtRisiko);
   _callback((gesamtRisiko/counter));
 });
 }
+// berechnet das Risiko für ein Asset
+function getRisikoFurEinAsset(KundenAssetID, _callback){
+  
+    //größte Gefährdung für ein Asset suchen:
+    var sqlB = "SELECT MAX (a.Eintrittswahrscheinlichkeit*a.Schadenshohe) as erg from Gefährdungen a, Assets b, Kunde1Verbindungen c, Kunde1Assets d where a.GID = c.GID and b.AID = c.AID and b.AID = d.AID and d.KundenAssetID = \"" + KundenAssetID + " \";";
+    con.query(sqlB, (err, result, fields) => {
+      if (err) throw err;
+      //ist die Gefährdung größer gleich 15 wird der _callback aufgerufen, ansonsten wird der avg wert berechnet
+     // console.log(result[0].erg);
+      if (result[0].erg>=15){
+        //console.log(result[0].erg);
+        _callback(15);
+      }else{
+        // avg wert berechnen
+        var sqlB = "SELECT AVG (a.Eintrittswahrscheinlichkeit*a.Schadenshohe) as erg from Gefährdungen a, Assets b, Kunde1Verbindungen c, Kunde1Assets d where a.GID = c.GID and b.AID = c.AID and b.AID = d.AID and d.KundenAssetID = \"" + KundenAssetID + " \";";
+        con.query(sqlB, (err, result, fields) => {
+          if (err) throw err;
+          //console.log(result[0].erg);
+          _callback(result[0].erg);
+        });
+      } 
+    });
+  }
 
-
+////////////////////////
+//Funktionen der get API
+////////////////////////
 
 function postDaten (req, res){
     // SQL Part
    /* var sql = "INSERT INTO test1 (t1ID, text) VALUES ('57', 'patrick')";
   con.query(sql, function (err, result) {
     if (err) throw err;*/
-
     console.log("1 record inserted");
     console.log(req.body);
-
     var sql = ("INSERT INTO test1 (t1ID, text) VALUES (' " + req.body.zahl +"','" + req.body.text +"');");
     con.query(sql, function (err, result) {
       if (err) throw err;
     });
-
-//});
 };
 
 
 
-function getRisikoFurEinAsset(KundenAssetID, _callback){
-
-  //größte Gefährdung für ein Asset suchen:
-  var sqlB = "SELECT MAX (a.Eintrittswahrscheinlichkeit*a.Schadenshohe) as erg from Gefährdungen a, Assets b, Kunde1Verbindungen c, Kunde1Assets d where a.GID = c.GID and b.AID = c.AID and b.AID = d.AID and d.KundenAssetID = \"" + KundenAssetID + " \";";
-  con.query(sqlB, (err, result, fields) => {
-    if (err) throw err;
-    //ist die Gefährdung größer gleich 15 wird der _callback aufgerufen, ansonsten wird der avg wert berechnet
-   // console.log(result[0].erg);
-    if (result[0].erg>=15){
-      //console.log(result[0].erg);
-      _callback(15);
-    }else{
-      // avg wert berechnen
-      var sqlB = "SELECT AVG (a.Eintrittswahrscheinlichkeit*a.Schadenshohe) as erg from Gefährdungen a, Assets b, Kunde1Verbindungen c, Kunde1Assets d where a.GID = c.GID and b.AID = c.AID and b.AID = d.AID and d.KundenAssetID = \"" + KundenAssetID + " \";";
-      con.query(sqlB, (err, result, fields) => {
-        if (err) throw err;
-        //console.log(result[0].erg);
-        _callback(result[0].erg);
-      });
-      //ende der avg wert berechnung
-    }
-
-  });
-}

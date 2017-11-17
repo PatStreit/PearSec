@@ -1,0 +1,183 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>PearSec.</title>
+  <link href='dist/dragula.css' rel='stylesheet' type='text/css' />
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- Bootstrap core CSS -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <!-- Material Design Bootstrap -->
+  <link href="css/mdb.min.css" rel="stylesheet">
+  <!-- Your custom styles (optional) -->
+  <link href="css/style.css" rel="stylesheet">
+  <script src="demoFunctions.js"></script>
+</head>
+<style>
+  body {
+    background-image: url("http://orangeparachute.com/assets/templates/img/information-program-security-strategy.jpg");
+    background-size: 1920px 1080px;
+  }
+
+  pre {
+    font-family: sans-serif;
+  }
+
+  #right-defaults {
+    padding-top: 4%;
+    padding-bottom: 20%;
+    padding-right: auto;
+    width: 30%;
+  }
+
+  #left-defaults {
+    padding-top: 4%;
+    width:70%;
+  }
+
+
+  #eingabe {
+    height:100px;
+  }
+
+  #antwort {
+    height:100px;
+  }
+
+
+  .container {
+    display: table-cell;
+    border-radius: 2%;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+
+  .container > div,
+  .gu-mirror {
+    margin: auto;
+    margin-bottom: 2%;
+    padding:3%;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 2%;
+    transition: opacity 0.4s ease-in-out;
+  }
+  .container > div {
+    cursor: move;
+    cursor: grab;
+    cursor: -moz-grab;
+    cursor: -webkit-grab;
+  }
+  .gu-mirror {
+    cursor: grabbing;
+    cursor: -moz-grabbing;
+    cursor: -webkit-grabbing;
+  }
+
+</style>
+<body>
+  <nav class="navbar navbar-expand-md navbar-dark mdb-color mb-5">
+      <!-- Just an image -->
+      <a class="navbar-brand" href="#!">
+          <img src="https://mdbootstrap.com/img/logo/mdb-transparent.png" height="30" alt="">
+      </a>
+      <!-- Breadcrumb-->
+      <div class="mr-auto">
+          <ol class="breadcrumb d-inline-flex pl-0 pt-0">
+            <li class="breadcrumb-item"><a class="white-text" href="#!">Home</a></li>
+            <li class="breadcrumb-item active">Vermögenswerte</li>
+            <li class="breadcrumb-item"><a class="white-text" href="#!">Security Board</a></li>
+            <li class="breadcrumb-item"><a class="white-text" href="#!">Report erstellen</a></li>
+            <li class="breadcrumb-item"><a class="white-text" href="#!">Gesamtrisiko</a></li>
+          </ol>
+      </div>
+  </nav>
+
+
+<div class="row animated fadeIn">
+  <div class="col-md-1"></div>
+  <div class="col-md-6">
+    <div class="row">
+      <div class="col-md-4">
+        <img src="img/LUNAR_FINAL.png" class="img-fluid" alt="Lunar" />
+      </div>
+
+      <div class="col-md-8">
+        <button onclick="interact()" type="button" class="btn btn-rounded btn-mdb mx-auto">
+          <i class="fa fa-caret-right" aria-hidden="true"></i>Nächste Identifizierung</button>
+          <div id="result">
+            <div id="antwort" class="white rounded blue-text mt-2 p-3 font-weight-bold">
+              Welche mobilen Endgeräte befinden sich in Ihrem Unternehmen?
+            </div>
+          </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-8">
+            <div id="eingabe" class="green rounded accent-1 mt-3 p-3 font-weight-bold">
+              Interagiere mit Lunar!
+            </div>
+            <div class="mt-4">
+              <input placeholder="Hey, frag mich etwas..." id="q" type="text" style="color:white" >
+            </div>
+      </div>
+      <div class="col-md-4">
+        <img src="img/avatar.svg" alt="avatar" class="img-fluid" />
+      </div>
+    </div>
+  </div>
+
+    <div class="col-md-4">
+      <div class="col-md-12">
+        <pre class="white-text">Vermögenswerte                                         Vorschläge</pre>
+      </div>
+      <div class="col-md-12">
+        <div id="wrapper" style="color:white">
+          <div id='left-defaults' class='container'>
+            <p id="versteckt" hidden></p>
+            <div id="marker" style="display:none">Bitte ziehen Sie Ihre Vermögenswerte in das Feld!</div>
+          </div>
+          <div id='right-defaults' class='container'>
+
+          </div>
+        </div>
+      </div>
+      <button onclick="abschicken()" type="button" class="btn btn-rounded btn-mdb ml-3">
+        <i class="fa fa-caret-right" aria-hidden="true"></i>Abschicken</button>
+    </div>
+</div>
+
+<div class="row">
+  <div class="col-md-1"></div>
+  <div class="col-md-10 mt-3">
+    <div class="progress">
+      <div id="bar" class="progress-bar bg-success" role="progressbar" style="width: 0%"aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+    </div>
+  </div>
+  <div class="col-md-1"></div>
+</div>
+
+  <div class="row">
+    <footer class="col-md-12 text-center mt-5" style="color:white">
+      <p>&copy; Yu der Chef | <a href="#" style="color:white">Impressum</a></p>
+    </footer>
+  </div>
+
+
+  <!-- SCRIPTS -->
+  <!-- JQuery -->
+  <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+  <!-- Bootstrap tooltips -->
+  <script type="text/javascript" src="js/popper.min.js"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script type="text/javascript" src="js/bootstrap.min.js"></script>
+  <!-- MDB core JavaScript -->
+  <script type="text/javascript" src="js/mdb.min.js"></script>
+
+<script src='dist/dragula.js'></script>
+<script src='example/example.min.js'></script>
+<script src="../target/ApiAi.js"></script>
+<script defer src="formular1.js"></script>
+
+</body>
+</html>

@@ -157,7 +157,7 @@ function abschicken(){
         }
       }
       alert(textAnfang + textInhalt + textEnde);
-      var obj = JSON.parse(textAnfang + textInhalt + textEnde);
+      var obj = textAnfang + textInhalt + textEnde;
 //      alert(obj.text);
 
       var xhr = new XMLHttpRequest();

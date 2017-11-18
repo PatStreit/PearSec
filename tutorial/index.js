@@ -70,7 +70,7 @@ function getRisikoFurEineGefahrung(giD, _callback) {
 function getGesamtRisiko(req, res) {
   getGesamtRisiko2((xy) => { console.log(xy); });
 }
-//wird von der Methode getGEsamtRisiko aufgerufen und 
+//wird von der Methode getGEsamtRisiko aufgerufen und
 function getGesamtRisiko2(_callback) {
   var sqlB = "SELECT KundenAssetID from Kunde1Assets; ";
   con.query(sqlB, (err, result, fields) => {
@@ -128,12 +128,10 @@ function postDaten(req, res) {
  con.query(sql, function (err, result) {
    if (err) throw err;*/
   console.log("1 record inserted");
-  console.log(req.body);
+  console.log(req.body);/*
   var sql = ("INSERT INTO test1 (t1ID, text) VALUES (' " + req.body.zahl + "','" + req.body.text + "');");
   con.query(sql, function (err, result) {
     if (err) throw err;
   });
+  */
 };
-
-
-

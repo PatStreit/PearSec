@@ -36,11 +36,16 @@
 
 
   #eingabe {
-    height:100px;
+    height:70px;
   }
 
   #antwort {
-    height:100px;
+    height:70px;
+  }
+
+  #yes {
+    background-color: rgba(0, 0, 0, 0.5);
+    height:80px;
   }
 
 
@@ -100,11 +105,9 @@
       </div>
 
       <div class="col-md-8">
-        <button onclick="interact()" type="button" class="btn btn-rounded btn-mdb mx-auto">
-          <i class="fa fa-caret-right" aria-hidden="true"></i>Nächste Identifizierung</button>
           <div id="result">
             <div id="antwort" class="white rounded blue-text mt-2 p-3 font-weight-bold">
-              Welche mobilen Endgeräte befinden sich in Ihrem Unternehmen?
+              Was für IT-Systeme befinden sich in Ihrem Unternehmen?
             </div>
           </div>
       </div>
@@ -112,7 +115,7 @@
 
     <div class="row">
       <div class="col-md-8">
-            <div id="eingabe" class="green rounded accent-1 mt-3 p-3 font-weight-bold">
+            <div id="eingabe" class="green rounded accent-1 mt-5 p-3 font-weight-bold">
               Interagiere mit Lunar!
             </div>
             <div class="mt-4">
@@ -125,18 +128,24 @@
     </div>
   </div>
 
-    <div class="col-md-4">
+  <div id="yes" class="col-md-4 white-text rounded m-auto p-4" style="display:none">
+    <div id="erfolg">Vermögenswerte wurden identifziert!</div>
+    <button id="erfolgButton" onclick="identifizierung()" type="button" class="btn btn-rounded btn-mdb mx-auto">
+      <i class="fa fa-caret-right" aria-hidden="true"></i>Nächste Identifizierung</button>
+  </div>
+
+    <div id="wrapper" class="col-md-4">
       <div class="col-md-12">
-        <pre class="white-text">Vermögenswerte                                         Vorschläge</pre>
+        <pre class="white-text font-weight-bold">Vermögenswerte                                         Vorschläge</pre>
       </div>
       <div class="col-md-12">
-        <div id="wrapper" style="color:white">
+        <div style="color:white">
           <p id="versteckt" hidden></p>
-          <div id="marker" style="display:none">Bitte ziehen Sie Ihre Vermögenswerte in das Feld!</div>
-          <div id='left-defaults' class='container'>
-            
+          <div class="font-weight-bold" id="marker" style="display:none">Bitte ziehen Sie Ihre Vermögenswerte in das Feld!</div>
+          <div id='left-defaults' class='container col-md-8'>
+
           </div>
-          <div id='right-defaults' class='container'>
+          <div id='right-defaults' class='container col-md-4'>
 
           </div>
         </div>

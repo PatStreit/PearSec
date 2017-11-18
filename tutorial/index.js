@@ -128,14 +128,4 @@ function postDaten(req, res) {
  con.query(sql, function (err, result) {
    if (err) throw err;*/
   console.log("1 record inserted");
-<<<<<<< HEAD
-  console.log(req.body);/*
-=======
-  //console.log(req.body);
->>>>>>> 70219d061cdca1cb683db7545d71783d83b98825
-  var sql = ("INSERT INTO test1 (t1ID, text) VALUES (' " + req.body.zahl + "','" + req.body.text + "');");
-  con.query(sql, function (err, result) {
-    if (err) throw err;
-  });
-  */
 };

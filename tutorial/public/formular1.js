@@ -210,8 +210,14 @@ function abschicken(){
           textInhalt += '{ "AID": "' + c[i].id + '", "Name": "' + c[i].innerHTML + '" },'
         }
       }
+<<<<<<< HEAD
 //      alert(textAnfang + textInhalt + textEnde);
       var obj = textAnfang + textInhalt + textEnde;
+=======
+      alert(textAnfang + textInhalt + textEnde);
+      var obj = textAnfang + textInhalt + textEnde;
+//      alert(obj.text);
+>>>>>>> 70219d061cdca1cb683db7545d71783d83b98825
 
       var xhr = new XMLHttpRequest();
       xhr.open('POST', "/post", true);

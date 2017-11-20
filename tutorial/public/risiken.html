@@ -11,7 +11,7 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/mdb.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
-    <link href="css/securityboard.css" rel="stylesheet">
+    <link href="css/risiken.css" rel="stylesheet">
   </head>
 
 
@@ -50,6 +50,10 @@
 
 
 
+
+
+
+
     <div class="container-fluid">
 
     <div class="row">
@@ -65,59 +69,125 @@
     </div>
 
 
+
+
+
     <div class="row">
 
-    <div class="col-md-1"></div>
 
-    <div class="col-md-4">
+
+    <div class="col-md-4 ml-5 mt-2">
 
     <table class="table">
 
     <thead class="table" style="background-color: #2b6ca3">
         <tr style="color: white">
-            <th>#</th>
-            <th>Vermögenswerte</th>
-            <th>Risikoeinschätzung</th>
-            <th>Maßnahmen</th>
-        </tr>
+            <th><div class="btn-group">
+                <button type="button" class="btn btn-danger">Action</button>
+                <button type="button" class="btn btn-danger dropdown-toggle px-3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="sr-only">Toggle Dropdown</span></button>
+            <div class="dropdown-menu dropdown-ins">
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <a class="dropdown-item" href="#">Something else here</a>
+            <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#">Separated link</a>
+                </div>
+                </div>
+            </th>
+
+            <th><p>#</p></th>
+            <th><p>Vermögenswerte</p></th>
+            <th><p>Risikoeinschätzung</p></th>
+            <th><p class="ml-3">Maßnahmen</p></th>
+            </tr>
     </thead>
 
     <tbody>
         <tr>
+            <td></td>
             <th scope="row">1</th>
-            <td>Mobilgerät</td>
-            <td><img src="../public/img/RED.png" width="20px"></td>
-            <td><button type="button" class="btn btn-outline-primary btn-rounded waves-effect">Anzeigen</button></td>
+            <td><p class="mt-2">Mobilgerät</p></td>
+            <td><img src="../public/img/RED.png" width="20px"class="mt-2 ml-5"></td>
+            <td><button type="button" class="btn btn-blue-grey btn-sm" style="background-color: #2b6ca3">Anzeigen</button></td>
+            <td></td>
         </tr>
         <tr>
+            <td></td>
             <th scope="row">2</th>
-            <td>SPS</td>
-            <td><img src="../public/img/YELLOW.png" width="20px"></td>
-            <td>Maßnahmen anzeigen</td>
+            <td><p class="mt-2">SPS</p></td>
+            <td><img src="../public/img/YELLOW.png" width="20px" class="mt-2 ml-5"></td>
+            <td><button type="button" class="btn btn-blue-grey btn-sm" style="background-color: #2b6ca3">Anzeigen</button></td>
         </tr>
         <tr>
+            <td></td>
             <th scope="row">3</th>
-            <td>Laptop</td>
-            <td><img src="../public/img/YELLOW.png" width="20px"></td>
-            <td>Maßnahmen anzeigen</td>
+            <td><p class="mt-2">Laptop</p></td>
+            <td><img src="../public/img/YELLOW.png" width="20px" class="mt-2 ml-5"></td>
+            <td><button type="button" class="btn btn-blue-grey btn-sm" style="background-color: #2b6ca3">Anzeigen</button></td>
         </tr>
         <tr>
-            <th scope="row">3</th>
-            <td>Rechenzentrum</td>
-            <td><img src="../public/img/GREEN.png" width="20px"></td>
-            <td>Maßnahmen anzeigen</td>
+            <td></td>
+            <th scope="row">4</th>
+            <td><p class="mt-2">Rechenzentrum</p></td>
+            <td><img src="../public/img/GREEN.png" width="20px" class="mt-2 ml-5"></td>
+            <td><button type="button" class="btn btn-blue-grey btn-sm" style="background-color: #2b6ca3">Anzeigen</button></td>
         </tr>
         <tr>
-            <th scope="row">3</th>
-            <td>VPN</td>
-            <td><img src="../public/img/RED.png" width="20px"></td>
-            <td>Maßnahmen anzeigen</td>
+            <td></td>
+            <th scope="row">5</th>
+            <td><p class="mt-2">VPN</p></td>
+            <td><img src="../public/img/RED.png" width="20px" class="mt-2 ml-5"></td>
+            <td><button type="button" class="btn btn-blue-grey btn-sm" style="background-color: #2b6ca3">Anzeigen</button></td>
         </tr>
         <tr>
-            <th scope="row">3</th>
-            <td>CNC</td>
-            <td><img src="../public/img/GREEN.png" width="20px"></td>
-            <td>Maßnahmen anzeigen</td>
+            <td></td>
+            <th scope="row">6</th>
+            <td><p class="mt-2">CNC</p></td>
+            <td><img src="../public/img/GREEN.png" width="20px" class="mt-2 ml-5"></td>
+            <td><button type="button" class="btn btn-blue-grey btn-sm" style="background-color: #2b6ca3">Anzeigen</button></td>
+        </tr>
+        <tr>
+            <td></td>
+            <th scope="row">7</th>
+            <td><p class="mt-2">CAD</p></td>
+            <td><img src="../public/img/GREEN.png" width="20px" class="mt-2 ml-5"></td>
+            <td><button type="button" class="btn btn-blue-grey btn-sm" style="background-color: #2b6ca3">Anzeigen</button></td>
+        </tr>
+        <tr>
+            <td></td>
+            <th scope="row">8</th>
+            <td><p class="mt-2">Produktionsanlage</p></td>
+            <td><img src="../public/img/GREEN.png" width="20px" class="mt-2 ml-5"></td>
+            <td><button type="button" class="btn btn-blue-grey btn-sm" style="background-color: #2b6ca3">Anzeigen</button></td>
+        </tr>
+        <tr>
+            <td></td>
+            <th scope="row">9</th>
+            <td><p class="mt-2">Allgemeiner Server</p></td>
+            <td><img src="../public/img/GREEN.png" width="20px" class="mt-2 ml-5"></td>
+            <td><button type="button" class="btn btn-blue-grey btn-sm" style="background-color: #2b6ca3">Anzeigen</button></td>
+        </tr>
+        <tr>
+            <td></td>
+            <th scope="row">10</th>
+            <td><p class="mt-2">ERP-Daten</p></td>
+            <td><img src="../public/img/GREEN.png" width="20px" class="mt-2 ml-5"></td>
+            <td><button type="button" class="btn btn-blue-grey btn-sm" style="background-color: #2b6ca3">Anzeigen</button></td>
+        </tr>
+        <tr>
+            <td></td>
+            <th scope="row">11</th>
+            <td><p class="mt-2">Fertigungshalle</p></td>
+            <td><img src="../public/img/GREEN.png" width="20px" class="mt-2 ml-5"></td>
+            <td><button type="button" class="btn btn-blue-grey btn-sm" style="background-color: #2b6ca3">Anzeigen</button></td>
+        </tr>
+        <tr>
+            <td></td>
+            <th scope="row">12</th>
+            <td><p class="mt-2">WLAN</p></td>
+            <td><img src="../public/img/GREEN.png" width="20px" class="mt-2 ml-5"></td>
+            <td><button type="button" class="btn btn-blue-grey btn-sm" style="background-color: #2b6ca3">Anzeigen</button></td>
         </tr>
     </tbody>
 
@@ -125,10 +195,9 @@
 
     </div>
 
-    <div class="col-md-1 mt-5"></div>
+    <div class="col-md-2 mt-5"></div>
 
-    <div class="col-md-5 mt-5">
-      <p></p>
+    <div class="col-md-5">
       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,
         sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
         Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
@@ -136,7 +205,28 @@
         reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
         pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
         culpa qui officia deserunt mollit anim id est laborum.</p>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+      <p class="mt-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+        nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+        reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+        culpa qui officia deserunt mollit anim id est laborum.</p>
+        <p class="mt-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+        nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+        reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+        culpa qui officia deserunt mollit anim id est laborum.</p>
+        <p class="mt-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+        nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+        reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+        culpa qui officia deserunt mollit anim id est laborum.</p>
+        <p class="mt-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
         sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
         Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
         nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
@@ -150,10 +240,9 @@
 
 
 
-
-
-
-
+<div class="row">
+  <div class="col-md-12"><p>Hallo</p></div>
+</div>
 
 
 

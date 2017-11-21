@@ -189,9 +189,7 @@ function identifizierung(){
   }
 
 $("#abschicken").click(function(){
-//  var x = document.getElementById("marker");
-  var versteckt = document.getElementById("versteckt");
-  var textAnfang = '{ "Paket" : [';
+  var textAnfang = "{ \"Paket\" : [";
   var textInhalt = "";
   var textEnde = ']}';
 
@@ -199,18 +197,19 @@ $("#abschicken").click(function(){
       toastr.error('Bitte ziehen Sie Ihre Vermögenswerte in das Feld.');
     } else {
       var c = document.getElementById("left-defaults").childNodes;
-      var i = 1;
+//      alert(c.length);
+      var i = 0;
       for(i; i < c.length; i++){
 //        alert(c[i].innerHTML);
         if(i == c.length-1){
-          textInhalt += '{ "AID": "' + c[i].id + '", "Name": "' + c[i].innerHTML + '" }'
+          textInhalt += "{ \"AID\": \"" + c[i].id + "\", \"Name\": \"" + c[i].innerHTML + "\" }"
         }else {
-          textInhalt += '{ "AID": "' + c[i].id + '", "Name": "' + c[i].innerHTML + '" },'
+          textInhalt += "{ \"AID\": \"" + c[i].id + "\", \"Name\": \"" + c[i].innerHTML + "\" },"
         }
       }
 //      alert(textAnfang + textInhalt + textEnde);
       var obj = textAnfang + textInhalt + textEnde;
-
+      alert(obj);
 
       var xhr = new XMLHttpRequest();
       xhr.open('POST', "/post", true);

@@ -62,7 +62,7 @@ function init() {
       }
     }
 
-  xhttp.open("GET", "/allKundenAssets", true);
+  xhttp.open("GET", "/getAllKundenAssetsAndPruffragen", true);
   xhttp.send();
 
 }

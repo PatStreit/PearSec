@@ -86,7 +86,7 @@
 
   function createResponseNode() {
     var node = document.getElementById("antwort");
-    node.className = "white rounded blue-text mt-2 p-3 font-weight-bold";
+    node.className = "grey lighten-2 rounded black-text mt-2 p-3 font-weight-bold";
     node.innerHTML = "...";
 //    resultDiv.appendChild(node);
     return node;

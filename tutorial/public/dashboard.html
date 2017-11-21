@@ -13,34 +13,42 @@
   <link href="css/style.css" rel="stylesheet">
 
 </head>
-<style>
-/*  body{
-    background-image: url("http://orangeparachute.com/assets/templates/img/information-program-security-strategy.jpg");
-    background-size: 1920px 1080px;
-  }*/
-</style>
 <body>
 
-  <nav class="navbar navbar-expand-md navbar-dark mdb-color mb-5">
-      <!-- Just an image -->
-      <a class="navbar-brand" href="#!">
-          <img src="https://mdbootstrap.com/img/logo/mdb-transparent.png" height="30" alt="">
-      </a>
-      <!-- Breadcrumb-->
-      <div class="mr-auto">
-          <ol class="breadcrumb d-inline-flex pl-0 pt-0">
-            <li class="breadcrumb-item"><a class="white-text" href="#!">Home</a></li>
-            <li class="breadcrumb-item active">Vermögenswerte</li>
-            <li class="breadcrumb-item"><a class="white-text" href="#!">Security Board</a></li>
-            <li class="breadcrumb-item"><a class="white-text" href="#!">Report erstellen</a></li>
-            <li class="breadcrumb-item"><a class="white-text" href="#!">Gesamtrisiko</a></li>
-          </ol>
-      </div>
-
-  </nav>
 
 
-  <div class="row">
+
+  <div class="container-fluid">                            <!--Container Header-->
+  <div class="row">                                              <!--Row Header-->
+
+    <nav class="col-md-12 navbar navbar-expand-lg navbar-dark grey lighten-2">
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01"
+            aria-expanded="false" aria-label="Toggle navigation">
+
+            <span class="navbar-toggler-icon"></span>
+
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+            <a class="navbar-brand black-text" href="dashboard.html"><img src="img/PEAR_LOGO_OHNE.png" height="30">Dashboard</a>
+
+            <ul class="navbar-nav mr-auto mt-lg-0">
+                <li class="nav-item"><a class="nav-link black-text" href="formular1.html"> Vermögenswerte<span class="sr-only">(current)</span></a></li>
+                <li class="nav-item"><a class="nav-link black-text" href="risiken.html">Risiken</a></li>
+                <li class="nav-item"><a class="nav-link black-text" href="#">Bericht</a></li>
+                <li class="nav-item"><a class="nav-link black-text" href="securityboard.html">Securityboard</a></li>
+            </ul>
+
+        </div>
+    </nav>
+
+  </div>                                               <!--End Container Header-->
+  </div>                                                     <!--End Row Header-->
+
+
+
+  <div class="row mt-5">
     <div class="col-md-2"></div>
     <div class="col-md-4">
       <div class="view hm-teal-light">
@@ -84,9 +92,61 @@
     <div class="col-md-1"></div>
   </div>
 
+<!--Modal: modalVM-->
+<div class="modal fade" id="modalVM" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+
+    <!--Content-->
+    <div class="modal-content">
+
+      <!--Body-->
+      <div class="modal-body mb-0 p-0">
+
+        <div class="embed-responsive embed-responsive-16by9 z-depth-1-half">
+        <iframe class="embed-responsive-item" src="https://player.vimeo.com/video/115098447" allowfullscreen></iframe>
+        </div>
+
+      </div>
+
+      <!--Footer-->
+      <div class="modal-footer justify-content-center">
+
+        <button type="button" class="btn btn-outline-primary btn-rounded btn-md ml-4" data-dismiss="modal">Close</button>
+
+      </div>
+
+    </div>
+    <!--/.Content-->
+
+  </div>
+</div>
+
+
+
+<div class="container-fluid">                            <!--Container Footer-->
+<div class="row">                                              <!--Row Footer-->
+
+  <footer class="col-md-12 mt-5 text-center indigo grey lighten-2">
+    <p class="black-text pt-3">&copy; Pear | <a class="black-text" href="#">Impressum</a></p>
+  </footer>
+
+</div>                                                     <!--End Row Footer-->
+</div>                                               <!--End Container Footer-->
+
+
+
+<!--Modal: modalVM-->
+
+
 
   <!-- SCRIPTS -->
   <!-- JQuery -->
+  <script>
+  window.onload = function () {
+    $('#modalVM').modal('toggle');
+  }
+  </script>
+
   <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
   <!-- Bootstrap tooltips -->
   <script type="text/javascript" src="js/popper.min.js"></script>

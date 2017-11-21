@@ -12,43 +12,47 @@
   <!-- Your custom styles (optional) -->
   <link href="css/style.css" rel="stylesheet">
 </head>
-<style>
-  body {
-    background-image: url("http://orangeparachute.com/assets/templates/img/information-program-security-strategy.jpg");
-    background-size: 1920px 1080px;
-  }
 
-</style>
 <body>
 
-  <nav class="navbar navbar-expand-md navbar-dark mdb-color mb-5">
-      <!-- Just an image -->
-      <a class="navbar-brand" href="#!">
-          <img src="https://mdbootstrap.com/img/logo/mdb-transparent.png" height="30" alt="">
-      </a>
-      <!-- Breadcrumb-->
-      <div class="mr-auto">
-          <ol class="breadcrumb d-inline-flex pl-0 pt-0">
-            <li class="breadcrumb-item"><a class="white-text" href="#!">Home</a></li>
-            <li class="breadcrumb-item active">Vermögenswerte</li>
-            <li class="breadcrumb-item"><a class="white-text" href="#!">Security Board</a></li>
-            <li class="breadcrumb-item"><a class="white-text" href="#!">Report erstellen</a></li>
-            <li class="breadcrumb-item"><a class="white-text" href="#!">Gesamtrisiko</a></li>
-          </ol>
-      </div>
+  <div class="container-fluid">                            <!--Container Header-->
+  <div class="row">                                              <!--Row Header-->
 
-  </nav>
+    <nav class="col-md-12 navbar navbar-expand-lg navbar-dark grey lighten-2">
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01"
+            aria-expanded="false" aria-label="Toggle navigation">
+
+            <span class="navbar-toggler-icon"></span>
+
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+            <a class="navbar-brand black-text" href="dashboard.html"><img src="img/PEAR_LOGO_OHNE.png" height="30">Dashboard</a>
+
+            <ul class="navbar-nav mr-auto mt-lg-0">
+                <li class="nav-item"><a class="nav-link black-text" href="formular1.html"> Vermögenswerte<span class="sr-only">(current)</span></a></li>
+                <li class="nav-item"><a class="nav-link black-text" href="risiken.html">Risiken</a></li>
+                <li class="nav-item"><a class="nav-link black-text" href="#">Bericht</a></li>
+                <li class="nav-item"><a class="nav-link black-text" href="securityboard.html">Securityboard</a></li>
+            </ul>
+
+        </div>
+    </nav>
+
+  </div>                                               <!--End Container Header-->
+  </div>                                                     <!--End Row Header-->
 
 
   <!--Jumbotron-->
-  <div class="jumbotron blue-grey lighten-5 col-md-10 mx-auto rounded">
+  <div class="jumbotron blue-grey lighten-5 col-md-10 mx-auto rounded mt-5">
 
       <!--Title-->
       <h1 class="card-title h2-responsive font-bold mt-3"><strong>Formular</strong></h1>
       <!--Subtitle-->
 
       <p>
-          <button class="btn mdb-color col-md-10" type="button" data-toggle="collapse" data-target="#collapseExample"
+          <button style="background-color: #2b6ca3" class="btn col-md-10" type="button" data-toggle="collapse" data-target="#collapseExample"
            aria-expanded="true" aria-controls="collapseExample">
               IT-Systeme
           </button>
@@ -88,7 +92,7 @@
       </div>
 
       <p>
-          <button class="btn mdb-color col-md-10" type="button" data-toggle="collapse" data-target="#collapseExample1"
+          <button style="background-color: #2b6ca3" class="btn col-md-10" type="button" data-toggle="collapse" data-target="#collapseExample1"
           aria-expanded="false" aria-controls="collapseExample1">
               Maschinen / Anlagen
           </button>
@@ -128,7 +132,7 @@
       </div>
 
       <p>
-          <button class="btn mdb-color col-md-10" type="button" data-toggle="collapse" data-target="#collapseExample2"
+          <button style="background-color: #2b6ca3" class="btn col-md-10" type="button" data-toggle="collapse" data-target="#collapseExample2"
           aria-expanded="false" aria-controls="collapseExample2">
               Netze
           </button>
@@ -177,7 +181,7 @@
       </div>
 
       <p>
-          <button class="btn mdb-color col-md-10" type="button" data-toggle="collapse" data-target="#collapseExample3"
+          <button style="background-color: #2b6ca3" class="btn col-md-10" type="button" data-toggle="collapse" data-target="#collapseExample3"
           aria-expanded="false" aria-controls="collapseExample3">
               Daten
           </button>
@@ -226,7 +230,7 @@
       </div>
 
       <p>
-          <button class="btn mdb-color col-md-10" type="button" data-toggle="collapse" data-target="#collapseExample4"
+          <button style="background-color: #2b6ca3" class="btn col-md-10" type="button" data-toggle="collapse" data-target="#collapseExample4"
           aria-expanded="false" aria-controls="collapseExample4">
               Infrastruktur
           </button>
@@ -274,19 +278,24 @@
         </div>
       </div>
 
-      <a href="dashboard.html" class="btn btn-indigo btn-rounded">Weiter</a>
-      <button class="btn btn-indigo btn-rounded">Lunar<i class="fa fa-diamond ml-1"></i></button>
+      <a style="background-color: grey" href="dashboard.html" class="btn btn-indigo btn-rounded">Weiter</a>
+      <button style="background-color: grey" class="btn btn-indigo btn-rounded">Lunar<i class="fa fa-diamond ml-1"></i></button>
 
   </div>
   <!--Jumbotron-->
 
 
 
-  <div class="row">
-    <footer class="col-md-10 text-center" style="color:white">
-      <p>&copy; Yu der Chef | <a href="#" style="color:white">Impressum</a></p>
+  <div class="container-fluid">                            <!--Container Footer-->
+  <div class="row">                                              <!--Row Footer-->
+
+    <footer class="col-md-12 mt-5 text-center fixed-bottom indigo grey lighten-2">
+      <p class="black-text pt-3">&copy; Pear | <a class="black-text" href="#">Impressum</a></p>
     </footer>
-  </div>
+
+  </div>                                                     <!--End Row Footer-->
+  </div>                                               <!--End Container Footer-->
+
 
   <!-- /Start your project here-->
 

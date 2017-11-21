@@ -190,7 +190,7 @@ function identifizierung(){
   return;
   }
 
-function abschicken(){
+$("#abschicken").click(function(){
   var x = document.getElementById("marker");
   var versteckt = document.getElementById("versteckt");
   var textAnfang = '{ "Paket" : [';
@@ -212,7 +212,7 @@ function abschicken(){
       }
 //      alert(textAnfang + textInhalt + textEnde);
       var obj = textAnfang + textInhalt + textEnde;
-      
+
 
       var xhr = new XMLHttpRequest();
       xhr.open('POST', "/post", true);
@@ -235,4 +235,4 @@ function abschicken(){
       }
     }
 
-}
+});

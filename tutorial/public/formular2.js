@@ -53,7 +53,8 @@ function init() {
             buttonDIV.appendChild(buttonYes);
             buttonDIV.appendChild(buttonNo);
 
-            if(obj[item + 1].Kategorien !== obj[item].Kategorien){
+            var counter = item+1;
+            if(obj[counter].Name !== obj[item].Name){
               marker = 0;
             }
           }

@@ -131,8 +131,6 @@ function senden(kategorie){
 
 function identifizierung(){
   var antwort = document.getElementById("antwort");
-  var hide = document.createElement("p");
-  hide.setAttribute("id", "versteckt");
 
   xhttp.onreadystatechange = function() {
 
@@ -191,14 +189,14 @@ function identifizierung(){
   }
 
 $("#abschicken").click(function(){
-  var x = document.getElementById("marker");
+//  var x = document.getElementById("marker");
   var versteckt = document.getElementById("versteckt");
   var textAnfang = '{ "Paket" : [';
   var textInhalt = "";
   var textEnde = ']}';
 
-    if (versteckt.innerHTML == "") {
-        x.style.display = "block";
+    if (left.innerHTML == "") {
+      toastr.error('Bitte ziehen Sie Ihre Vermögenswerte in das Feld.');
     } else {
       var c = document.getElementById("left-defaults").childNodes;
       var i = 1;

@@ -20,9 +20,14 @@ function init() {
             assetName.innerHTML = "<br>" + obj[item].Name;
             assetName.setAttribute("class", "font-weight-bold");
 
+            var weiterleiten = document.createElement("button");
+            weiterleiten.innerHTML = "Weiterleiten";
+            weiterleiten.setAttribute("class", "btn btn-primary float-right");
+
             var text = document.createElement("p");
-            text.setAttribute("class", "ml-3 col-md-10");
+            text.setAttribute("class", "ml-3 col-md-12");
             if(marker == 0){
+              assetName.appendChild(weiterleiten);
               text.appendChild(assetName);
               marker = 1;
             }
@@ -31,12 +36,13 @@ function init() {
 //            alert(obj[item].Prüffrage);
 
             var buttonYes = document.createElement("label");
-            buttonYes.setAttribute("class", "btn btn-primary")
-            buttonYes.innerHTML = "Ja"
+            buttonYes.setAttribute("class", "btn btn-primary");
+            buttonYes.innerHTML = "Ja";
 
             var buttonNo = document.createElement("label");
             buttonNo.setAttribute("class", "btn btn-primary")
             buttonNo.innerHTML = "Nein"
+
 
             var button = document.createElement("input");
             button.setAttribute("type", "radio");

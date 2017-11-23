@@ -135,17 +135,5 @@ function postDaten(req, res) {
   });
 };
 
-function insert(AID, name){
-  var sql = ("INSERT INTO Kunde1Assets( KundenAssetID, AiD, Name )"+
-  " VALUES (NULL ,  " +AID +",  "+ name +"); INSERT INTO Kunde1Verbindungen"+
-  "SELECT f.KundenAssetID, b.gid, b.Eintrittswahrscheinlichkeit, c.mid"+
-  "FROM Assets a, Gefährdungen b, Maßnahmen c, AssetsZuGefährdungen d, "+
-  "Gefährdungen_haben e, Kunde1Assets f"+
-  "WHERE f.Name =  "+ name +" AND f.aid = a.aid"+
-  "AND a.AID = d.AID AND b.GID = d.GID"+
-  "AND b.GID = e.GID AND c.MID = e.MID");
-  con.query(sql, function (err, result) {
-    if (err) throw err;
-  });
-};
+
 

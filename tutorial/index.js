@@ -53,6 +53,8 @@ app.get('/risikoFurGefahrdung/:param', risikoFurGefahrdung);
 app.get('/gesamtRisiko', getGesamtRisiko);
 //berechne Risiko für ein Asset
 app.get('/getRisikoFurEinAsset/:param',getRisikoFurEinAsset2);
+//alle Kategorien
+app.get('/allKategorien', getAlleKategorien);
 //////////////////////////
 // API-POST Pfäde
 /////////////////////////
@@ -150,6 +152,7 @@ function getAllKundenAssetsAndPruffragen(req,res){
   console.log(sqlResult);
 
 }
+
 //neu
 // ruft eine Funktion auf die das Risiko für eine Gefährdung zurück gibt. Das Ergebnis wird direkt gesendet
 function getAllMaßnahmenFurAsset(req, res) {
@@ -162,6 +165,13 @@ function getAllMaßnahmenFurAsset2(aiD, _callback) {
   con.query(sqlB, (err, result, fields) => {
     if (err) throw err;
     _callback(result);
+  });
+}
+
+function getAlleKategorien(req, res){
+  con.query("Select distinct Kategorien from Assets", function (err, result, fields) {
+    if (err) console.log("Error bei den Kategorien");
+    res.send(result);
   });
 }
 /* Wird tendenziell nicht mehr gebraucht

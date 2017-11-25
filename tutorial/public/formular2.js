@@ -31,9 +31,9 @@ function init() {
               text.appendChild(assetName);
               marker = 1;
             }
-            text.innerHTML += obj[item].Prüffrage;
+            text.innerHTML += obj[item].Prüffragen;
             document.getElementById(obj[item].Kategorien).appendChild(text);
-//            alert(obj[item].Prüffrage);
+//            alert(obj[item].Prüffragen);
 
             var buttonYes = document.createElement("label");
             buttonYes.setAttribute("class", "btn btn-primary");

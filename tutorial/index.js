@@ -50,6 +50,7 @@ app.get('/getAllMassnahmenFurGefahrdung/:param', getAllMassnahmenFurGefahrdung);
 //Alle Kundenassets schicken
 app.get('/getAllKundenAssetsAndPruffragen', getAllKundenAssetsAndPruffragen); 
 //get alle Assets die im Unternehmen vorkommen können
+app.get('/getAssetsfurKategorien/:param', getAssetsfurKategorie);
 app.get('/allAssets', getAllAssets);
 //get RisikoJeGefährdung
 app.get('/risikoFurGefahrdung/:param', risikoFurGefahrdung);
@@ -86,6 +87,8 @@ function getAllAssets(req, res) {
   });
   console.log(sqlResult);
 }
+
+
 // ruft eine Funktion auf die das Risiko für eine Gefährdung zurück gibt. Das Ergebnis wird direkt gesendet
 function risikoFurGefahrdung(req, res) {
   getRisikoFurEineGefahrung(req.params.param, (xy) => { res.send((xy)); });
@@ -161,7 +164,25 @@ function getAllKundenAssetsAndPruffragen(req,res){
   console.log(sqlResult);
 
 }
-/*
+function getAssetsfurKategorie(req, res) {
+  console.log("pouha");
+  getAssetsfurKategorie2(req.params.param, (xy) => { res.send((xy)); });
+}
+function getAssetsfurKategorie2(Kategorien,_callback){
+  //senden alle Assets die in der normalen DB hinterlegt sind als Json Response
+  
+    var sqlResult;
+    //var sqlBef ="SELECT a.KundenAssetID, a.AiD, a.Name, b.Kategorien FROM Kunde1Assets a, Assets b where a.AID = b.AID";
+    sqlResult =" SELECT DISTINCT a.Aid, b.Kategorien, b.Name from Kunde1Assets a, Assets b WHERE a.aid = b.aid AND b.Kategorien =  \""+Kategorien+"\";";
+      con.query(sqlResult, (err, result, fields) => {
+        if (err) throw err;
+        _callback(result);
+    });
+    console.log(sqlResult);
+  
+  }
+
+  /*
 //neu
 // ruft eine Funktion auf die das Risiko für eine Gefährdung zurück gibt. Das Ergebnis wird direkt gesendet
 function getAllMaßnahmenFurAsset(req, res) {

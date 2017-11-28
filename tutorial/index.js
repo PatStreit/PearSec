@@ -250,7 +250,7 @@ function getAllePruffragen2(aiD, _callback) {
 */
 
 ///////////////////////////
-//Funktionen der get API///
+//Funktionen der get API Ramazan///
 ///////////////////////////
 function postDaten(req, res) {
   /*

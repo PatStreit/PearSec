@@ -220,7 +220,7 @@ function getAlleKundenAssets(req, res){
 }
 function getGefahrenFurAsset(req, res){
   var Kaid = req.params.KundenAssetID;
-  var sql = "SELECT DISTINCT a.KundenAssetID, a.GID, (Schadenshöhe * a.Eintrittswahrscheinlichkeit) AS erg FROM Kunde1Verbindungen a, Gefährdungen b WHERE a.KundenAssetID = \"" + Kaid + " \" AND a.gid = b.gid ORDER BY erg DESC LIMIT 0 , 10 ";
+  var sql = "SELECT DISTINCT b.GID, b.Name, c.Name AS Asset  FROM Kunde1Verbindungen a, Gefährdungen b, Kunde1Assets c  WHERE a.KundenAssetID =  \"" + Kaid + " \"AND a.GID = b.GID  AND c.KundenAssetID = a.KundenAssetID";
   con.query(sql, function (err, result, fields) {
     if (err) console.log("Error bei den Kategorien");
     res.send(result);

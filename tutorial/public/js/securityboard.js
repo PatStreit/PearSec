@@ -53,20 +53,7 @@ $(document).ready(function () {
     };
 
 
-    // ------------------------------------------------------- //
-    // Anzahl der kritischen, unbedenklichen und bedenklichen Assets auselesen und anzeigen
-    // ------------------------------------------------------ //
 
-    var anzahlRed = '5';
-    document.write(anzahlRed);
-
-    function getElementByID() {
-      parse.JSON;
-    }
-
-
-    var anzahlYellow = platzhalter.getElementByID('YellowAssets');
-    var anzahlGreen = platzhalter.getElementByID('GreenAssets');
 
 
 

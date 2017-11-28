@@ -65,6 +65,8 @@ app.get('/allKategorien', getAlleKategorien);
 app.get('/allKundenAssets', getAlleKundenAssets);
 //alle GefahrenF Für ein Asset
 app.get('/allGefahrenFurAsset/:KundenAssetID', getGefahrenFurAsset);
+//Maßnahmen für eine Gefährdung//
+app.get('/massnahmeFuerGefaehrdung/:GID',getMaßnahmeFuerGefaehrdung);
 //////////////////////////
 // API-POST Pfäde
 /////////////////////////
@@ -234,6 +236,25 @@ function getGefahrenFurAsset(req, res){
     res.send(result);
   });
 }
+
+function getMaßnahmeFuerGefaehrdung(req, res) {
+  console.log("pouha");
+  getMaßnahmeFuerGefaerdung2(req.params.GID, (xy) => { res.send((xy)); });
+}
+function getMaßnahmeFuerGefaerdung2(GID,_callback){
+  //senden alle Assets die in der normalen DB hinterlegt sind als Json Response
+  
+    var sqlResult;
+    //var sqlBef ="SELECT a.KundenAssetID, a.AiD, a.Name, b.Kategorien FROM Kunde1Assets a, Assets b where a.AID = b.AID";
+    sqlResult ="SELECT DISTINCT m.MID, m.Beschreibung FROM Maßnahmen m, Gefährdungen_haben gh WHERE m.MID = gh.MID AND gh.GID = \""+GID+"\";";
+      con.query(sqlResult, (err, result, fields) => {
+        if (err) throw err;
+        _callback(result);
+    });
+    console.log(sqlResult);
+  
+  }
+
 /* Wird tendenziell nicht mehr gebraucht
 // ruft eine Funktion auf die das Risiko für eine Gefährdung zurück gibt. Das Ergebnis wird direkt gesendet
 function getAllePruffragen(req, res) {

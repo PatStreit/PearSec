@@ -73,6 +73,11 @@ app.post('/post', postDaten);
 //post einer json datei mit vielen PID´s 
 app.post('/postPIDToRemove', postPidToRemove);
 
+//////////////////////////
+// API - UPDATE Pfäde
+/////////////////////////
+app.put('/massnahmeErledigt',updateMaßnahmeErledigt);
+
 ////////////////////////
 //Funktionen der get API
 ////////////////////////
@@ -301,5 +306,32 @@ function postPidToRemove(req, res) {
   }
 };
 
+function updateMaßnahmeErledigt(req, res) {
+  /*
+  * wir bekommen hier eine JSON mit vielen unter Dateien zum einfügen in eine Tabelle
+  * das Einfügen ist in eienr adneren FUnktion realisiert und wir iterieren hier nur
+  */
+  var data = (req.body).Paket;
+  for(var i in data) {
+       var id = data[i].KAID;
+       var MID = data[i].MID;
+       console.log(id);
+       console.log(MID);
+      // KundenAssetTabelleBefüllen(id, name);
+       MaßnahmeAbhacken(id, MID);
+  }
+};
 
-
+function MaßnahmeAbhacken(KAID, MID, _callback){
+  var sql=("update Kunde1Verbindungen set Durchgeführt = 1 where KundenAssetId = \"" +KAID + "\", MID =  \"" + MID + "\";" );
+ var sql2=("UPDATE Kunde1Verbindungen SET Eintrittswahrscheinlichkeit =1 WHERE KundenAssetId = \"" +KAID + "\" AND GID = ( SELECT a.GID FROM Gefährdungen_haben a, AssetsZuGefährdungen c, Kunde1Assets b WHERE b.KundenAssetID =\"" +KAID + "\" AND a.MID = \"" + MID + "\" AND b.AID = c.AID AND c.GID = a.GID);");
+  var sql3=sql+sql2;
+ con.query(sql3, (err, result, fields) => {
+   if (err) console.log("Sprung2");//throw err;
+  // NeueKundenAssetIDs=result;
+  //  KundenAssetTabelleBefüllenHilfsMethode(sql2,(ab)=>( _callback));
+ 
+   
+ });
+ 
+}

@@ -65,6 +65,7 @@ app.get('/allKategorien', getAlleKategorien);
 app.get('/allKundenAssets', getAlleKundenAssets);
 //alle GefahrenF Für ein Asset
 app.get('/allGefahrenFurAsset/:KundenAssetID', getGefahrenFurAsset);
+
 //////////////////////////
 // API-POST Pfäde
 /////////////////////////
@@ -134,22 +135,13 @@ function getRisikoFurEinAsset(KundenAssetID, _callback) {
   var sqlB = "SELECT MAX(c.Eintrittswahrscheinlichkeit*a.Schadenshöhe) as erg from Gefährdungen a, Assets b, Kunde1Verbindungen c, Kunde1Assets d where a.GID = c.GID and b.AID = d.AID  and d.KundenAssetID = \"" + KundenAssetID + " \";";
   con.query(sqlB, (err, result, fields) => {
     if (err) throw err;
-    //ist die Gefährdung größer gleich 15 wird der _callback aufgerufen, ansonsten wird der avg wert berechnet
-    // console.log(result[0].erg);
-    if (result[0] >= 15) {
-      console.log(result[0].erg);
-      _callback(15);
-    } else {
-      // avg wert berechnen
-      var sqlB = "SELECT AVG(c.Eintrittswahrscheinlichkeit*a.Schadenshöhe) as erg from Gefährdungen a, Assets b, Kunde1Verbindungen c, Kunde1Assets d where a.GID = c.GID and b.AID = d.AID and  d.KundenAssetID = \"" + KundenAssetID + " \";";
-      con.query(sqlB, (err, result, fields) => {
-        if (err) throw err;
+    
         console.log(result[0].erg);
         _callback(result[0]);
       });
     }
-  });
-}
+  ;
+
 function getAllKundenAssetsAndPruffragen(req,res){
 //senden alle Assets die in der normalen DB hinterlegt sind als Json Response
 
@@ -234,6 +226,9 @@ function getGefahrenFurAsset(req, res){
     res.send(result);
   });
 }
+
+
+
 /* Wird tendenziell nicht mehr gebraucht
 // ruft eine Funktion auf die das Risiko für eine Gefährdung zurück gibt. Das Ergebnis wird direkt gesendet
 function getAllePruffragen(req, res) {

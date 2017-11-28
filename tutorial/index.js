@@ -318,11 +318,11 @@ function updateMaßnahmeErledigt(req, res) {
        console.log(id);
        console.log(MID);
       // KundenAssetTabelleBefüllen(id, name);
-       MaßnahmeAbhacken(id, MID);
+       MaßnahmeAbhaken(id, MID);
   }
 };
 
-function MaßnahmeAbhacken(KAID, MID, _callback){
+function MaßnahmeAbhaken(KAID, MID, _callback){
   var sql=("update Kunde1Verbindungen set Durchgeführt = 1 where KundenAssetId = \"" +KAID + "\", MID =  \"" + MID + "\";" );
  var sql2=("UPDATE Kunde1Verbindungen SET Eintrittswahrscheinlichkeit =1 WHERE KundenAssetId = \"" +KAID + "\" AND GID = ( SELECT a.GID FROM Gefährdungen_haben a, AssetsZuGefährdungen c, Kunde1Assets b WHERE b.KundenAssetID =\"" +KAID + "\" AND a.MID = \"" + MID + "\" AND b.AID = c.AID AND c.GID = a.GID);");
   var sql3=sql+sql2;

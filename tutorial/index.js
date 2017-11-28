@@ -65,7 +65,8 @@ app.get('/allKategorien', getAlleKategorien);
 app.get('/allKundenAssets', getAlleKundenAssets);
 //alle GefahrenF Für ein Asset
 app.get('/allGefahrenFurAsset/:KundenAssetID', getGefahrenFurAsset);
-
+//Anzahl der grünen, gelben und roten Assets
+app.get('/verhaltnisAssets',getVerhältnis);
 //////////////////////////
 // API-POST Pfäde
 /////////////////////////
@@ -178,7 +179,38 @@ function getAssetsfurKategorie2(Kategorien,_callback){
     console.log(sqlResult);
   
   }
+function getVerhältnis(req, rest){
+  var sqlResult;
+  var red = 0;
+  var yellow = 0;
+  var green = 0;
+  con.query("SELECT KundenAssetID, MAX( a.Eintrittswahrscheinlichkeit * Schadenshöhe ) AS erg FROM Kunde1Verbindungen a, Gefährdungen b WHERE a.gid = b.gid GROUP BY KundenAssetID", function (err, result, fields) {
+    if (err) throw err;
+    console.log(result);
+    for(var i in result) {
+      
+             var KAID = result[i].KundenAssetID;
+             var erg = result[i].erg;
+             console.log(KAID);
+             console.log(erg);
+            /*Delete from Table
+            */
+            if (erg >= 15) red++;
+            else if(erg >=8) yellow++;
+            else green++; 
+        }
+    
+        var obj = {"rot" : red, "gelb" : yellow, "grün" : green};
+        sqlResult = JSON.stringify(obj);
+        
 
+    res.send(sqlResult);
+  });
+  console.log(sqlResult);
+
+   
+
+}
   /*
 //neu
 // ruft eine Funktion auf die das Risiko für eine Gefährdung zurück gibt. Das Ergebnis wird direkt gesendet

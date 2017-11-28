@@ -179,7 +179,7 @@ function getAssetsfurKategorie2(Kategorien,_callback){
     console.log(sqlResult);
   
   }
-function getVerhältnis(req, rest){
+function getVerhältnis(req, res){
   var sqlResult;
   var red = 0;
   var yellow = 0;
@@ -199,10 +199,12 @@ function getVerhältnis(req, rest){
             else if(erg >=8) yellow++;
             else green++; 
         }
-    
+    console.log(red);
+    console.log(yellow);
+    console.log(green);
         var obj = {"rot" : red, "gelb" : yellow, "grün" : green};
         sqlResult = JSON.stringify(obj);
-        
+        console.log(sqlResult);
 
     res.send(sqlResult);
   });

@@ -202,7 +202,7 @@ function getVerhältnis(req, res){
     console.log(red);
     console.log(yellow);
     console.log(green);
-        var obj = {"rot" : red, "gelb" : yellow, "grün" : green};
+        var obj = {"rot" : red, "gelb" : yellow, "grün" : green, "gesamt" : red+yellow+green};
         sqlResult = JSON.stringify(obj);
         console.log(sqlResult);
 

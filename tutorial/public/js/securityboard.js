@@ -3,6 +3,7 @@ $(document).ready(function () {
 
     'use strict';
 
+window.onload = init;
 
     // ------------------------------------------------------- //
     // Anzahl der grünen, gelben und roten Assets LADEN

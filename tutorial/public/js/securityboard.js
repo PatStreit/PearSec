@@ -5,6 +5,59 @@ $(document).ready(function () {
 
 
     // ------------------------------------------------------- //
+    // Anzahl der grünen, gelben und roten Assets LADEN
+    // ------------------------------------------------------ //
+
+
+    function init1() {
+
+    var xhttp = new XMLHttpRequest();
+
+    xhttp.onreadystatechange = function() {
+
+      if (xhttp.readyState == 4 && xhttp.status == 200) {
+
+        var obj = JSON.parse(xhttp.responseText);
+
+        for(var item in obj){
+
+          console.log(obj[item]);
+        }
+      }
+    };
+
+    xhttp.open('GET', '/getVerhältnis', true);
+    xhttp.send();
+
+
+    // ------------------------------------------------------- //
+    // 5 Top Maßnahmen für Unternehmensrisiko lADEN
+    // ------------------------------------------------------ //
+
+
+    function init2() {
+
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+
+      if (xhttp.readyState == 4 && xhttp.status == 200) {
+
+        var obj = JSON.parse(xhttp.responseText);
+
+        for(var item in obj){
+
+          console.log(obj[item]);
+        }
+      }
+    };
+
+    }
+
+    xhttp.open('GET', '/get5TopMaßnahmen', true);
+
+
+
+    // ------------------------------------------------------- //
     // Charts Gradients
     // ------------------------------------------------------ //
     var ctx1 = $("canvas").get(0).getContext("2d");

@@ -3,7 +3,7 @@ $(document).ready(function () {
 
     'use strict';
 
-window.onload = init;
+
 
     // ------------------------------------------------------- //
     // Anzahl der grünen, gelben und roten Assets LADEN
@@ -43,6 +43,7 @@ window.onload = init;
     function init2() {
 
     var xhttp = new XMLHttpRequest();
+
     xhttp.onreadystatechange = function() {
 
       if (xhttp.readyState == 4 && xhttp.status == 200) {
@@ -57,6 +58,7 @@ window.onload = init;
     };
 
     xhttp.open('GET', '/get5TopMaßnahmen', true);
+    xhttp.send();
 
     }
 

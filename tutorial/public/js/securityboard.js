@@ -30,6 +30,10 @@ window.onload = init;
     xhttp.open('GET', '/getVerhältnis', true);
     xhttp.send();
 
+    }
+
+
+
 
     // ------------------------------------------------------- //
     // 5 Top Maßnahmen für Unternehmensrisiko lADEN
@@ -52,10 +56,9 @@ window.onload = init;
       }
     };
 
-    }
-
     xhttp.open('GET', '/get5TopMaßnahmen', true);
 
+    }
 
 
     // ------------------------------------------------------- //

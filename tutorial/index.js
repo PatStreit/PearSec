@@ -72,7 +72,7 @@ app.get('/verhaltnisAssets',getVerhältnis);
 /////////////////////////
 app.post('/post', postDaten);
 //post einer json datei mit vielen PID´s 
-app.post('/postPIDToRemove', postPidToRemove);
+app.delete('/deleteAsset', assetloschen);
 
 //////////////////////////
 // API - UPDATE Pfäde
@@ -317,7 +317,7 @@ console.log("Erste: " + counterErste);
 
 }
 // neu
-function postPidToRemove(req, res) {
+function assetloschen(req, res) {
   /*
   * wir bekommen hier eine JSON mit vielen unter Dateien zum einfügen in eine Tabelle
   * das Einfügen ist in eienr adneren FUnktion realisiert und wir iterieren hier nur
@@ -325,15 +325,11 @@ function postPidToRemove(req, res) {
   var data = (req.body).Paket;
   for(var i in data) {
 
-       var aiD = data[i].AID;
-       var giD = data[i].GID;
-       var piD = data[i].Name;
-       console.log(id);
-       console.log(name);
-       console.log(GID);
+       var kaiD = data[i].KAID;
+       console.log(kaid);
       /*Delete from Table
       */
-      con.query("delete from Kunde1Verbindungen where KundenAssetID=\"" + AID + "\" and GID=\" " + GID+ "\";" , (err, result, fields) => {
+      con.query("delete from Kunde1Assets where KundenAssetID=\"" + kaiD + "\"; delete from Kunde1Verbindungen where KundenAssetID=\"" + kaiD + "\";" , (err, result, fields) => {
         if (err) console.log("...");
         _callback("done");
       });

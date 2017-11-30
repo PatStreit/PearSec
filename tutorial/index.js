@@ -303,7 +303,7 @@ function postDaten(req, res) {
 };
  function KundenAssetTabelleBefüllen(aiD, name, _callback){
  var sql=("INSERT INTO Kunde1Assets (KundenAssetId, AID, Name) VALUES (NULL,\"" +aiD + "\", \"" + name + "\");" );
-var sql2=("INSERT INTO Kunde1Verbindungen( KundenAssetID, GID, Eintrittswahrscheinlichkeit, MID, Durchgeführt ) SELECT a.KundenAssetID, b.Gid, c.Eintrittswahrscheinlichkeit, d.Mid, NULL FROM Kunde1Assets a, AssetsZuGefährdungen b, Gefährdungen c, Gefährdungen_haben d WHERE a.KundenAssetID = (SELECT MAX( KundenAssetID ) FROM Kunde1Assets ) AND a.aid = b.aid AND b.gid = c.gid AND c.gid = d.gid;");
+var sql2=("INSERT INTO Kunde1Verbindungen( KundenAssetID, GID, Eintrittswahrscheinlichkeit, MID, Durchgeführt ) SELECT a.KundenAssetID, b.Gid, c.Eintrittswahrscheinlichkeit, d.Mid, NULL FROM Kunde1Assets a, AssetsZuGefährdungen b, Gefährdungen c, Gefährdungen_haben d WHERE a.KundenAssetID = (SELECT MAX( KundenAssetID ) FROM Kunde1Assets ) AND a.aid = b.aid AND b.gid = c.gid AND b.agid = d.agid;");
 var sql3 = sql+sql2;
 counterErste++;
 console.log("Erste: " + counterErste);

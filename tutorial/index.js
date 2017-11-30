@@ -358,7 +358,7 @@ function updateMaßnahmeErledigt(req, res) {
 
 function MaßnahmeAbhaken(KAID, MID, _callback){
   var sql=("update Kunde1Verbindungen set Durchgeführt = 1 where KundenAssetId = \"" +KAID + "\", MID =  \"" + MID + "\";" );
- var sql2=("UPDATE Kunde1Verbindungen SET Eintrittswahrscheinlichkeit =1 WHERE KundenAssetId = \"" +KAID + "\" AND GID IN ( SELECT d.GID FROM Gefährdungen_haben a, AssetsZuGefährdungen c, Kunde1Assets b, Gefährdungen d WHERE b.KundenAssetID =\"" +KAID + "\" AND a.MID = \"" + MID + "\" AND b.AID = c.AID AND c.agid = a.agid);");
+ var sql2=("UPDATE Kunde1Verbindungen SET Eintrittswahrscheinlichkeit =1 WHERE KundenAssetId = \"" +KAID + "\" AND GID IN ( SELECT d.GID FROM Gefährdungen_haben a, AssetsZuGefährdungen c, Kunde1Assets b, Gefährdungen d WHERE b.KundenAssetID =\"" +KAID + "\" AND a.MID = \"" + MID + "\" AND b.AID = c.AID AND c.agid = a.agid and d.gid = c.gid;");
   var sql3=sql+sql2;
  con.query(sql3, (err, result, fields) => {
    if (err) console.log("Sprung2");//throw err;

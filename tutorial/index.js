@@ -235,9 +235,9 @@ function getAllMassnahmenFurGefahrdung(req, res) {
   getAllMassnahmenFurGefahrdung2(req.params.param, (xy) => { res.send((xy)); });
 }
 //wird von der Funktion risikoFurGefahrdung aufgerufen
-function getAllMassnahmenFurGefahrdung2(gID, _callback) {
+function getAllMassnahmenFurGefahrdung2(aid, gID, _callback) {
   
-  var sqlB = "select MID, Beschreibung from Gefährdungen_haben g natural join Maßnahmen where g.GID = \""+gID+"\";"
+  var sqlB = "select MID, Beschreibung from Gefährdungen_haben g, Maßnahmen, AssetsZugefährdungen a where a.GID = \""+gID+"\" AND a.AID = \""+aid+"\" and a.agid = g.agid;"
   con.query(sqlB, (err, result, fields) => {
     if (err) throw err;
     _callback(result);

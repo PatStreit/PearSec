@@ -45,7 +45,7 @@ app.get('/allePruffragen/:param', getAllePruffragen);
 app.get('/getAllMassnahmenFurAsset/:param', getAllMaßnahmenFurAsset); 
 */
 //Alle Maßnahmen je Gefährdung schicken
-app.get('/getAllMassnahmenFurGefahrdung/:param', getAllMassnahmenFurGefahrdung); 
+app.get('/getAllMassnahmenFurGefahrdung/:aid/:gID', getAllMassnahmenFurGefahrdung); 
 
 //Alle Kundenassets schicken
 app.get('/getAllKundenAssetsAndPruffragen', getAllKundenAssetsAndPruffragen); 
@@ -232,13 +232,13 @@ function getAllMaßnahmenFurAsset2(aiD, _callback) {
 // ruft eine Funktion auf die das Risiko für eine Gefährdung zurück gibt. Das Ergebnis wird direkt gesendet
 function getAllMassnahmenFurGefahrdung(req, res) {
   console.log("pouh");
-  getAllMassnahmenFurGefahrdung2(req.params.param, (xy) => { res.send((xy)); });
+  getAllMassnahmenFurGefahrdung2(req.params.aid,req.params.gID, (xy) => { res.send((xy)); });
 }
 //wird von der Funktion risikoFurGefahrdung aufgerufen
 function getAllMassnahmenFurGefahrdung2(aid, gID, _callback) {
-  
-  var sqlB = "select MID, Beschreibung from Gefährdungen_haben g, Maßnahmen, AssetsZugefährdungen a where a.GID = \""+gID+"\" AND a.AID = \""+aid+"\" and a.agid = g.agid;"
-  con.query(sqlB, (err, result, fields) => {
+ var sqlA ="select Maßnahmen.MID, Beschreibung from Gefährdungen_haben g natural join Maßnahmen natural join AssetsZuGefährdungen a where a.GID = \""+gID+"\" AND a.AID = \""+aid+"\" and a.agid = g.agid";
+  var sqlB = " SELECT Maßnahmen.MID, Maßnahmen.Beschreibung FROM Gefährdungen_haben g, Maßnahmen, AssetsZuGefährdungen a where a.GID = \""+gID+"\" AND a.AID = \""+aid+"\" and a.agid = g.agid;"
+  con.query(sqlA, (err, result, fields) => {
     if (err) throw err;
     _callback(result);
   });
@@ -259,7 +259,7 @@ function getAlleKundenAssets(req, res){
 }
 function getGefahrenFurAsset(req, res){
   var Kaid = req.params.KundenAssetID;
-  var sql = "SELECT DISTINCT b.GID, b.Name, c.Name AS Asset  FROM Kunde1Verbindungen a, Gefährdungen b, Kunde1Assets c  WHERE a.KundenAssetID =  \"" + Kaid + " \"AND a.GID = b.GID  AND c.KundenAssetID = a.KundenAssetID";
+  var sql = "SELECT DISTINCT c.AID, b.GID, b.Name, c.Name AS Asset  FROM Kunde1Verbindungen a, Gefährdungen b, Kunde1Assets c  WHERE a.KundenAssetID =  \"" + Kaid + " \"AND a.GID = b.GID  AND c.KundenAssetID = a.KundenAssetID";
   con.query(sql, function (err, result, fields) {
     if (err) console.log("Error bei den Kategorien");
     res.send(result);

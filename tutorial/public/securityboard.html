@@ -1,306 +1,169 @@
 <!DOCTYPE html>
 <html>
-
-
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>PearSec.</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="robots" content="all,follow">
+    <head>
+      <meta charset="utf-8" />
+      <title>Securityboard</title>
+      <!-- Font Awesome -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+      <!-- Bootstrap core CSS -->
+      <link href="css/bootstrap.min.css" rel="stylesheet">
+      <!-- Material Design Bootstrap -->
+      <link href="css/mdb.min.css" rel="stylesheet">
+      <!-- Your custom styles (optional) -->
+      <link href="css/style.css" rel="stylesheet">
+      
 
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-
-    <link rel="stylesheet" href="css/fontastic.css">
-
-    <link rel="stylesheet" href="css/font-awesome.min.css">
-
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,700">
-
-    <link rel="stylesheet" href="css/style.default.css" id="theme-stylesheet">
-
-    <link rel="stylesheet" href="css/custom.css">
-
-    <link rel="shortcut icon" href="favicon.png">
-
-    <link rel="stylesheet" href="css/securityboard.css">
-
-    <link rel="stylesheet" href="icons-reference/styles.css">
-
+    </head>
   </head>
 
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
-<body>
+  <body>
 
 
 
+    <div class="container-fluid">                            <!--Container Header-->
+    <div class="row">                                              <!--Row Header-->
 
-        <!-- Dashboard Counts Section-->
+      <nav class="col-md-12 navbar fixed-top navbar-expand-lg navbar-dark grey lighten-2">
 
-   <section class="dashboard-counts no-padding-bottom">
-          <div class="container-fluid">
-            <div class="row bg-white has-shadow">
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01"
+              aria-expanded="false" aria-label="Toggle navigation">
 
-              <div class="col-xl-4 col-sm-8">
-                <div class="item d-flex align-items-center">
-                  <div><img src="img/RED.png" style="height: 35px"></div>
-                  <div class="title"><span>kritisch</span>
-                    <div class="progress">
-                      <div role="progressbar" style="width: 70%; height: 4px;" aria-valuenow="{#val.value}" aria-valuemin="0" aria-valuemax="500" class="progress-bar bg-red"></div>
-                    </div>
-                  </div>
-                  <div class="number"><strong>5</strong></div>
-                </div>
-              </div>
+              <span class="navbar-toggler-icon"></span>
 
-              <div class="col-xl-4 col-sm-8">
-                <div class="item d-flex align-items-center">
-                  <div><img src="img/YELLOW.png" style="height: 35px"></div>
-                  <div class="title"><span>bedenklich</span>
-                    <div class="progress">
-                      <div role="progressbar" style="width: 70%; height: 4px;" aria-valuenow="{#val.value}" aria-valuemin="0" aria-valuemax="500" class="progress-bar bg-orange"></div>
-                    </div>
-                  </div>
-                  <div class="number"><strong>50</strong></div>
-                </div>
-              </div>
+          </button>
 
-              <div class="col-xl-4 col-sm-8">
-                <div class="item d-flex align-items-center">
-                  <div><img src="img/GREEN.png" style="height: 35px"></div>
-                  <div class="title"><span>unbedenklich</span>
-                    <div class="progress">
-                      <div role="progressbar" style="width: 70%; height: 4px;" aria-valuenow="{#val.value}" aria-valuemin="0" aria-valuemax="500" class="progress-bar bg-green2"></div>
-                    </div>
-                  </div>
-                  <div class="number"><strong>100</strong></div>
-                </div>
-              </div>
-            </div>
+          <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+              <a class="navbar-brand black-text" href="dashboard.html"><img src="img/PEAR_LOGO_OHNE.png" height="30">Dashboard</a>
+
+              <ul class="navbar-nav mr-auto mt-lg-0">
+                  <li class="nav-item"><a class="nav-link black-text" href="formular1.html"> Vermögenswerte<span class="sr-only">(current)</span></a></li>
+                  <li class="nav-item"><a class="nav-link black-text" href="risiken.html">Risiken</a></li>
+                  <li class="nav-item"><a class="nav-link black-text" href="#">Bericht</a></li>
+                  <li class="nav-item"><a class="nav-link black-text" href="securityboard.html">Securityboard</a></li>
+              </ul>
+
           </div>
-        </section>
-        <!-- Dashboard Header Section    -->
+      </nav>
+
+    </div>                                               <!--End Container Header-->
+    </div>                                                     <!--End Row Header-->
 
 
 
-        <!-- Charts Section-->
-        <section class="charts">
-          <div class="container-fluid">
-            <div class="row">
 
-              <!-- Pie Chart -->
-              <div class="col-lg-6">
-                <div class="pie-chart-example card">
-                  <div class="card-close">
-                    <div class="dropdown">
-                      <button type="button" id="closeCard8" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-ellipsis-v"></i></button>
-                      <div aria-labelledby="closeCard8" class="dropdown-menu dropdown-menu-right has-shadow"><a href="#" class="dropdown-item remove"> <i class="fa fa-times"></i>Schließen</a></div>
-                    </div>
-                  </div>
-                  <div class="card-header d-flex align-items-center">
-                    <h3 class="h4">Gesamtrisiko im Unternehmen</h3>
-                  </div>
-                  <div class="card-body">
-                    <canvas id="pieChartGesamtrisiko"></canvas>
-                  </div>
-                </div>
-              </div>
+<div class="row">
 
-
-
-                <div class="col-lg-6">
-                  <div class="checklist card">
-                    <div class="card-close">
-                      <div class="dropdown">
-                        <button type="button" id="closeCard5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-ellipsis-v"></i></button>
-                        <div aria-labelledby="closeCard5" class="dropdown-menu dropdown-menu-right has-shadow"><a href="#" class="dropdown-item remove"> <i class="fa fa-times"></i>Schließen</a></div>
-                      </div>
-                    </div>
-                    <div class="card-header d-flex align-items-center">
-                      <h2 class="h3">Wichtigste Maßnahmen </h2>
-                    </div>
-                    <div class="card-body no-padding">
-                      <div class="item d-flex">
-                        <input type="checkbox" id="input-1" name="input-1" class="checkbox-template">
-                        <label for="input-1">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</label>
-                      </div>
-                      <div class="item d-flex">
-                        <input type="checkbox" id="input-2" name="input-2" class="checkbox-template">
-                        <label for="input-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</label>
-                      </div>
-                      <div class="item d-flex">
-                        <input type="checkbox" id="input-3" name="input-3" class="checkbox-template">
-                        <label for="input-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</label>
-                      </div>
-                      <div class="item d-flex">
-                        <input type="checkbox" id="input-4" name="input-4" class="checkbox-template">
-                        <label for="input-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</label>
-                      </div>
-                      <div class="item d-flex">
-                        <input type="checkbox" id="input-5" name="input-5" class="checkbox-template">
-                        <label for="input-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</label>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-              </div>
+    <div class="col-md-4" id="#users">
+      
+   <div class = "col-md-6">
+    <div class="card">
+        <div class="card-block">
+          <h4 class="card-title">Card title</h4>
+          <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+         
+          <h2>Risikoeinstufung aller Assets : </h2>             
+    <canvas id="pieChart"></canvas>
+        </div>
+      </div>
+      </div>
+    
+    
+<!-- maßnahmen -->
+<div class = "col-md-6">
+      <div class="card">
+          <div class="card-block">
+            <h4 class="card-title">Top Maßnahmen</h4>
+          
+            <ul>
+              <li>Lorem ipsum </li>
+              <li>Lorem ipsum </li>
+              <li>Lorem ipsum </li>
+              <li>Lorem ipsum </li>
+            </ul>
+           
+          
           </div>
-        </section>
+        </div>
+        </div>
+     
+<!-- wichtigste gefährdungen -->
+<div class="card">
+    <div class="card-block">
+      <h4 class="card-title">Top Gefährdungen</h4>
+    
+      <ul>
+        <li>Lorem ipsum </li>
+        <li>Lorem ipsum </li>
+        <li>Lorem ipsum </li>
+        <li>Lorem ipsum </li>
+      </ul>
+     
+    
+    </div>
+  </div>
+  </div>
 
 
-        <!-- Feeds Section-->
-      <!--  <section class="feeds no-padding-top">
-          <div class="container-fluid">
-            <div class="row">
+</div>
 
-              <div class="col-lg-12">
-                <div class="articles card">
-                  <div class="card-close">
-                    <div class="dropdown">
-                      <button type="button" id="closeCard4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-ellipsis-v"></i></button>
-                      <div aria-labelledby="closeCard4" class="dropdown-menu dropdown-menu-right has-shadow"><a href="#" class="dropdown-item remove"> <i class="fa fa-times"></i>Schließen</a></div>
-                    </div>
-                  </div>
-                  <div class="card-header d-flex align-items-center">
-                    <h2 class="h3">Mitteilungen von Lunar   </h2>
-                    <div class="badge badge-rounded bg-blue">5 neue Mitteilungen       </div>
-                  </div>
-                  <div class="card-body no-padding">
-                    <div class="item d-flex align-items-center">
-                      <div class="image"><img src="img/LUNAR_FINAL.png" alt="..." class="img-fluid rounded-circle"></div>
-                      <div class="text"><a href="risiken.html">
-                          <h3 class="h5">Bitte führen Sie die empfohlenen Maßnahmen zu Laptops durch. Dieser Vermögenswert befindet sich bereits
-                            seit 30 Tagen auf einem kritischen Sicherheitsniveau.</h3></a><small>Am 19.12.2017 von Lunar.   </small></div>
-                    </div>
-                    <div class="item d-flex align-items-center">
-                      <div class="image"><img src="img/LUNAR_FINAL.png" alt="..." class="img-fluid rounded-circle"></div>
-                      <div class="text"><a href="risiken.html">
-                          <h3 class="h5">Bitte führen Sie die empfohlenen Maßnahmen zu Mobilgeräten durch. Dieser Vermögenswert befindet sich bereits
-                            seit 30 Tagen auf einem kritischen Sicherheitsniveau.</h3></a><small>Am 16.12.2017 von Lunar.   </small></div>
-                    </div>
-                    <div class="item d-flex align-items-center">
-                      <div class="image"><img src="img/LUNAR_FINAL.png" alt="..." class="img-fluid rounded-circle"></div>
-                      <div class="text"><a href="risiken.html">
-                          <h3 class="h5">Bitte führen Sie die empfohlenen Maßnahmen zu Produktionsmaschinen durch. Dieser Vermögenswert befindet sich bereits
-                            seit 30 Tagen auf einem kritischen Sicherheitsniveau.</h3></a><small>Am 16.12.2017 von Lunar.   </small></div>
-                    </div>
-                    <div class="item d-flex align-items-center">
-                      <div class="image"><img src="img/LUNAR_FINAL.png" alt="..." class="img-fluid rounded-circle"></div>
-                      <div class="text"><a href="formukar1.html">
-                          <h3 class="h5">Bitte bedenken Sie, dass Sie bereits seit über 6 Monaten keine neue Vermögenswerten mehr in Ihrem Unternehmen
-                            identifiziert haben. Ich empfehle eine Überprüfung, ob neue Vermögenswerte vorliegen. Dies können Sie unter dem Menüpunkt
-                            "Vermögenswerte" tun.</h3></a><small>Am 12.12.2017 von Lunar.   </small></div>
-                    </div>
-                    <div class="item d-flex align-items-center">
-                      <div class="image"><img src="img/LUNAR_FINAL.png" alt="..." class="img-fluid rounded-circle"></div>
-                      <div class="text"><a href="risiken.html">
-                          <h3 class="h5">Bitte führen Sie die empfohlenen Maßnahmen zu SPS durch. Dieser Vermögenswert befindet sich bereits
-                            seit 30 Tagen auf einem kritischen Sicherheitsniveau.</h3></a><small>Am 11.12.2017 von Lunar.   </small></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-          </div>
-        </section> -->
+</div>
+<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+<!-- Bootstrap tooltips -->
+<script type="text/javascript" src="js/popper.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<!-- MDB core JavaScript -->
+<script type="text/javascript" src="js/mdb.min.js"></script>
 
 
+<script defer src="securityboard.js"></script>
 
-        <!-- Feeds Section-->
-      <!--  <section class="feeds no-padding-top">
-          <div class="container-fluid">
-            <div class="row">
-
-              <div class="col-lg-6">
-                <div class="articles card">
-                  <div class="card-close">
-                    <div class="dropdown">
-                      <button type="button" id="closeCard4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-ellipsis-v"></i></button>
-                      <div aria-labelledby="closeCard4" class="dropdown-menu dropdown-menu-right has-shadow"><a href="#" class="dropdown-item remove"> <i class="fa fa-times"></i>Schließen</a></div>
-                    </div>
-                  </div>
-                  <div class="card-header d-flex align-items-center">
-                    <h2 class="h3">Tipps   </h2>
-                    <div class="badge badge-rounded bg-blue">5 neue Mitteilungen       </div>
-                  </div>
-                  <div class="card-body no-padding">
-                    <div class="item d-flex align-items-center">
-                      <div class="image"><img src="img/icon_tipp.png" alt="..." class="img-fluid rounded-circle"></div>
-                      <div class="text">
-                          <h3 class="h5">Wussten Sie, dass in den meisten Fällen der Mensch die größte Sicherheitslücke
-                          in einem System darstellt? - Sperren Sie immer ihren Computer, wenn Sie ihren Arbeitsplatz verlassen</h3><small>Am 19.12.2017 von Lunar.   </small></div>
-                    </div>
-                    <div class="item d-flex align-items-center">
-                      <div class="image"><img src="img/icon_tipp.png" alt="..." class="img-fluid rounded-circle"></div>
-                      <div class="text">
-                          <h3 class="h5">Bitte ändern Sie Ihr Passwort alle 90 Tage.</h3><small>Am 16.12.2017 von Lunar.   </small></div>
-                    </div>
-                    <div class="item d-flex align-items-center">
-                      <div class="image"><img src="img/icon_tipp.png" alt="..." class="img-fluid rounded-circle"></div>
-                      <div class="text">
-                          <h3 class="h5">Bitte achten Sie darauf, dass ihr Passwort aus Groß-/Kleinbuchsteben, Ziffern und Sonderzeichen besteht.
-                          Nur so können Sie ihr Benutzerkonto ausreichend schützen.</h3><small>Am 16.12.2017 von Lunar.   </small></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-lg-6">
-                <div class="articles card">
-                  <div class="card-close">
-                    <div class="dropdown">
-                      <button type="button" id="closeCard4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-ellipsis-v"></i></button>
-                      <div aria-labelledby="closeCard4" class="dropdown-menu dropdown-menu-right has-shadow"><a href="#" class="dropdown-item remove"> <i class="fa fa-times"></i>Schließen</a></div>
-                    </div>
-                  </div>
-                  <div class="card-header d-flex align-items-center">
-                    <h2 class="h3">News   </h2>
-                    <div class="badge badge-rounded bg-blue">5 neue Mitteilungen       </div>
-                  </div>
-                  <div class="card-body no-padding">
-                    <div class="item d-flex align-items-center">
-                      <div class="image"><img src="img/icon_news.png" alt="..." class="img-fluid rounded-circle"></div>
-                      <div class="text"><a href="#">
-                          <h3 class="h5">Lorem Ipsum Dolor</h3></a><small>Am 19.12.2017 von Lunar.   </small></div>
-                    </div>
-                    <div class="item d-flex align-items-center">
-                      <div class="image"><img src="img/icon_news.png" alt="..." class="img-fluid rounded-circle"></div>
-                      <div class="text"><a href="#">
-                          <h3 class="h5">Lorem Ipsum Dolor</h3></a><small>Am 16.12.2017 von Lunar.   </small></div>
-                    </div>
-                    <div class="item d-flex align-items-center">
-                      <div class="image"><img src="img/icon_news.png" alt="..." class="img-fluid rounded-circle"></div>
-                      <div class="text"><a href="#">
-                          <h3 class="h5">Lorem Ipsum Dolor</h3></a><small>Am 16.12.2017 von Lunar.   </small></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </section>  -->
-
-
-
-
-
-
-
-
-
-
-
-<!-- Javascript files-->
-<script src="js/jquery-3.2.1.min.js"></script>
-<script src="js/popper.min.js"> </script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/jquery.cookie.js"> </script>
-<script src="js/jquery.validate.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
-<script src="js/charts-home.js"></script>
-<script src="js/front.js"></script>
-<script src="js/securityboard.js"></script>
+<script>
+        /*
+        
+        var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+              if (xhttp.readyState == 4 && xhttp.status == 200) {
+                var obj = JSON.parse(xhttp.responseText);
+                console.log(obj.erg);
+        
+                if (obj.erg<5){
+                    illuminateGreen( );
+                } else if (obj.erg<12){
+                    illuminateYellow();
+                }else{
+                    illuminateRed();
+                }
+              }
+            };
+            xhttp.open("GET", "/getRisikoFurEinAsset/144", true);
+            xhttp.send();
+          
+        */
+        
+        function illuminateRed() {
+          clearLights();
+          document.getElementById('stopLight').style.backgroundColor = "red";
+        }
+        
+        function illuminateYellow() {
+          clearLights();
+          document.getElementById('slowLight').style.backgroundColor = "yellow";
+        }
+        function illuminateGreen() {
+          clearLights();
+          document.getElementById('goLight').style.backgroundColor = "green";
+        }
+        
+        function clearLights() {
+          document.getElementById('stopLight').style.backgroundColor = "black";
+          document.getElementById('slowLight').style.backgroundColor = "black";
+          document.getElementById('goLight').style.backgroundColor = "black";
+        }
+         </script>
 
 </body>
 </html>

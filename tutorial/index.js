@@ -345,7 +345,7 @@ function assetloschen(req, res) {
   assetloschen2(req.params.kaid, (xy) => { res.send((xy)); });
 }
 //wird von der Funktion risikoFurGefahrdung aufgerufen
-function getAllMassnahmenFurGefahrdung2(kaid, _callback) {
+function assetloschen2(kaid, _callback) {
   var sql = "delete from Kunde1Assets where KundenAssetID=\"" + kaiD + "\"; delete from Kunde1Verbindungen where KundenAssetID=\"" + kaiD + "\";" ;
   con.query(sql, (err, result, fields) => {
     if (err) throw err;

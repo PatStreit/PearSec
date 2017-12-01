@@ -80,7 +80,7 @@ app.delete('/deleteAsset/:kaid', assetloschen);
 //////////////////////////
 // API - UPDATE Pfäde
 /////////////////////////
-app.put('/massnahmeErledigt',updateMaßnahmeErledigt);
+app.put('/massnahmeErledigt/:KAID/:MID',updateMaßnahmeErledigt);
 
 ////////////////////////
 //Funktionen der get API
@@ -360,15 +360,7 @@ function updateMaßnahmeErledigt(req, res) {
   * wir bekommen hier eine JSON mit vielen unter Dateien zum einfügen in eine Tabelle
   * das Einfügen ist in eienr adneren FUnktion realisiert und wir iterieren hier nur
   */
-  var data = (req.body).Paket;
-  for(var i in data) {
-       var id = data[i].KAID;
-       var MID = data[i].MID;
-       console.log(id);
-       console.log(MID);
-      // KundenAssetTabelleBefüllen(id, name);
-       MaßnahmeAbhaken(id, MID);
-  }
+  assetloschen2(req.params.KAID, req.params.MID,(xy) => { res.send((xy)); });
 };
 
 function MaßnahmeAbhaken(KAID, MID, _callback){

@@ -60,7 +60,7 @@ app.get('/gesamtRisiko', getGesamtRisiko);
 app.get('/getRisikoFurEinAsset/:param',getRisikoFurEinAsset2);
 //alle Kategorien
 app.get('/allKategorien', getAlleKategorien);
-
+app.get('/topmassnahmen', gettopmassnahmen);
 //alle KundenAssets
 app.get('/allKundenAssets', getAlleKundenAssets);
 //alle GefahrenF Für ein Asset
@@ -87,6 +87,17 @@ app.put('/massnahmeErledigt',updateMaßnahmeErledigt);
 function getAllAssets(req, res) {
   var sqlResult;
   con.query("SELECT * FROM Assets", function (err, result, fields) {
+    if (err) throw err;
+    console.log(result);
+    sqlResult = result;
+    res.send(result);
+  });
+  console.log(sqlResult);
+}
+
+function gettopmassnahmen(req, res) {
+  var sqlResult;
+  con.query("SELECT a.mid, SUM( Schadenshöhe * a.Eintrittswahrscheinlichkeit ) AS erg FROM Kunde1Verbindungen a, Gefährdungen b, Maßnahmen c WHERE GLOBAL =1 AND c.mid = a.mid AND a.gid = b.gid AND ( Schadenshöhe * a.Eintrittswahrscheinlichkeit ) >6 GROUP BY a.mid ORDER BY erg DESC LIMIT 0 , 10", function (err, result, fields) {
     if (err) throw err;
     console.log(result);
     sqlResult = result;

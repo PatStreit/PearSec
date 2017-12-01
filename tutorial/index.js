@@ -360,7 +360,7 @@ function updateMaßnahmeErledigt(req, res) {
   * wir bekommen hier eine JSON mit vielen unter Dateien zum einfügen in eine Tabelle
   * das Einfügen ist in eienr adneren FUnktion realisiert und wir iterieren hier nur
   */
-  assetloschen2(req.params.KAID, req.params.MID,(xy) => { res.send((xy)); });
+  MaßnahmeAbhaken(req.params.KAID, req.params.MID,(xy) => { res.send((xy)); });
 };
 
 function MaßnahmeAbhaken(KAID, MID, _callback){

@@ -145,7 +145,6 @@ function getGesamtRisiko2(_callback) {
         gesamtRisiko = gesamtRisiko + xy
       });
     });
-    console.log(gesamtRisiko);
     _callback((gesamtRisiko / counter));
   });
 }
@@ -329,7 +328,7 @@ function assetloschen2(kaid, _callback) {
   var sql = "delete from Kunde1Assets where KundenAssetID=\"" + kaid + "\"; delete from Kunde1Verbindungen where KundenAssetID=\"" + kaid + "\";" ;
   con.query(sql, (err, result, fields) => {
     if (err) throw err;
-    _callback("done");
+    _callback(200);
   });
 }
 

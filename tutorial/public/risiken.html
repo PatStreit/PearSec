@@ -13,11 +13,11 @@
       <!-- Your custom styles (optional) -->
       <link href="css/style.css" rel="stylesheet">
       <style>
-
-
-
-
-
+    
+     
+      
+   
+      
       .bulb {
         height: 15px;
         width: 15px;
@@ -80,7 +80,7 @@
 
     <div class="container">
 
-
+           
 
     <div class="row">
       <div class="col-md-12 mt-5"></div>
@@ -88,7 +88,7 @@
 
     <div class="row">
       <h1 class="col-md-12 text-center mt-4 mb-3">Risiken</h1>
-
+     
       <div class="dropdown">
         <button id="buttonKat" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
          Kategorien
@@ -120,9 +120,9 @@
 
     <tbody id="tbody">
         <tr >
-
+         
         </tr>
-
+      
 
     </tbody>
 
@@ -134,21 +134,21 @@
       </div>
       <div class="row">
             <div class="col-md-12 mb-5  grey"></div>
-
+            
           </div>
         <div id ="GefahrenHeadline">
             <div class="col" class ="ml-5"><a data-toggle="collapse" data-target="#Maßnahme" id ="GefahrenHeadline" > + G.01 BlaBla</a></div>
             <div class="container"></div>
             <div id="Maßnahme" class="collapse"  class="container" > <h6>M1.02</h6> <p class="xyz123" > Lorem ipsum dolor sit amet,
-                 consetetur sadipscing elitr, sed diam nonumy eirmod tempor
-                 invidunt ut labore et dolore magna aliquyam erat, sed diam
+                 consetetur sadipscing elitr, sed diam nonumy eirmod tempor 
+                 invidunt ut labore et dolore magna aliquyam erat, sed diam 
                  voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
                   Stet clita kasd gubergren, no sea takimata sanctus est Lor</p></div>
                  </div>
       </div><!--
             <div class="col">
 
-
+           
 
 </div>
     <div class="row">
@@ -203,17 +203,17 @@
 <script type="text/javascript" src="js/mdb.min.js"></script>
 
 
-<script defer src="js/risiken.js"></script>
+<script defer src="risiken.js"></script>
 
 <script>
         /*
-
+        
         var xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function() {
               if (xhttp.readyState == 4 && xhttp.status == 200) {
                 var obj = JSON.parse(xhttp.responseText);
                 console.log(obj.erg);
-
+        
                 if (obj.erg<5){
                     illuminateGreen( );
                 } else if (obj.erg<12){
@@ -225,14 +225,14 @@
             };
             xhttp.open("GET", "/getRisikoFurEinAsset/144", true);
             xhttp.send();
-
+          
         */
-
+        
         function illuminateRed() {
           clearLights();
           document.getElementById('stopLight').style.backgroundColor = "red";
         }
-
+        
         function illuminateYellow() {
           clearLights();
           document.getElementById('slowLight').style.backgroundColor = "yellow";
@@ -241,7 +241,7 @@
           clearLights();
           document.getElementById('goLight').style.backgroundColor = "green";
         }
-
+        
         function clearLights() {
           document.getElementById('stopLight').style.backgroundColor = "black";
           document.getElementById('slowLight').style.backgroundColor = "black";

@@ -104,7 +104,6 @@ function gettopmassnahmen(req, res) {
     sqlResult = result;
     res.send(result);
   });
-  console.log(sqlResult);
 }
 
 function gettopgefahrdungen(req, res) {
@@ -142,7 +141,6 @@ function getGesamtRisiko2(_callback) {
     Object.keys(result).forEach(function (key) {
       //hier durch die json iterieren und jeweils patricks sql befehl aufrufen und dnn alles zusammen addieren
       getRisikoFurEinAsset(result[key].KundenAssetID, (xy) => {
-        console.log("done : " + xy);
         counter++;
         gesamtRisiko = gesamtRisiko + xy
       });
@@ -206,8 +204,6 @@ function getVerhältnis(req, res){
       
              var KAID = result[i].KundenAssetID;
              var erg = result[i].erg;
-             console.log(KAID);
-             console.log(erg);
             /*Delete from Table
             */
             if (erg >= 15) red++;

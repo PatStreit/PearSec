@@ -45,7 +45,7 @@ app.get('/allePruffragen/:param', getAllePruffragen);
 app.get('/getAllMassnahmenFurAsset/:param', getAllMaßnahmenFurAsset); 
 */
 //Alle Maßnahmen je Gefährdung schicken
-app.get('/getAllMassnahmenFurGefahrdung/:aid/:gID', getAllMassnahmenFurGefahrdung); 
+app.get('/getAllMassnahmenFurGefahrdung/:kaid/:gID', getAllMassnahmenFurGefahrdung); 
 
 //Alle Kundenassets schicken
 app.get('/getAllKundenAssetsAndPruffragen', getAllKundenAssetsAndPruffragen); 
@@ -259,8 +259,8 @@ function getAllMassnahmenFurGefahrdung(req, res) {
   getAllMassnahmenFurGefahrdung2(req.params.aid,req.params.gID, (xy) => { res.send((xy)); });
 }
 //wird von der Funktion risikoFurGefahrdung aufgerufen
-function getAllMassnahmenFurGefahrdung2(aid, gID, _callback) {
- var sql = "SELECT a.gid, b.mid, Beschreibung, Durchgeführt FROM Kunde1Verbindungen a, Maßnahmen b WHERE a.KundenAssetId =\""+aid+"\" AND a.gid = \""+gID+"\"  AND a.mid = b.mid;" ;
+function getAllMassnahmenFurGefahrdung2(kaid, gID, _callback) {
+ var sql = "SELECT a.gid, b.mid, Beschreibung, Durchgeführt FROM Kunde1Verbindungen a, Maßnahmen b WHERE a.KundenAssetId =\""+kaid+"\" AND a.gid = \""+gID+"\"  AND a.mid = b.mid;" ;
   con.query(sql, (err, result, fields) => {
     if (err) throw err;
     _callback(result);

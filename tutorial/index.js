@@ -256,7 +256,7 @@ function getAllMaßnahmenFurAsset2(aiD, _callback) {
 // ruft eine Funktion auf die das Risiko für eine Gefährdung zurück gibt. Das Ergebnis wird direkt gesendet
 function getAllMassnahmenFurGefahrdung(req, res) {
   console.log("pouh");
-  getAllMassnahmenFurGefahrdung2(req.params.aid,req.params.gID, (xy) => { res.send((xy)); });
+  getAllMassnahmenFurGefahrdung2(req.params.kaid,req.params.gID, (xy) => { res.send((xy)); });
 }
 //wird von der Funktion risikoFurGefahrdung aufgerufen
 function getAllMassnahmenFurGefahrdung2(kaid, gID, _callback) {

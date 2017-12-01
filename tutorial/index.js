@@ -60,7 +60,10 @@ app.get('/gesamtRisiko', getGesamtRisiko);
 app.get('/getRisikoFurEinAsset/:param',getRisikoFurEinAsset2);
 //alle Kategorien
 app.get('/allKategorien', getAlleKategorien);
+
 app.get('/topmassnahmen', gettopmassnahmen);
+
+app.get('/topgefahrdungen', gettopgefahrdungen);
 //alle KundenAssets
 app.get('/allKundenAssets', getAlleKundenAssets);
 //alle GefahrenF Für ein Asset
@@ -97,7 +100,7 @@ function getAllAssets(req, res) {
 
 function gettopmassnahmen(req, res) {
   var sqlResult;
-  con.query("SELECT a.mid, SUM( Schadenshöhe * a.Eintrittswahrscheinlichkeit ) AS erg FROM Kunde1Verbindungen a, Gefährdungen b, Maßnahmen c WHERE GLOBAL =1 AND c.mid = a.mid AND a.gid = b.gid AND ( Schadenshöhe * a.Eintrittswahrscheinlichkeit ) >6 GROUP BY a.mid ORDER BY erg DESC LIMIT 0 , 10", function (err, result, fields) {
+  con.query("SELECT a.mid, SUM( Schadenshöhe * a.Eintrittswahrscheinlichkeit ) AS erg FROM Kunde1Verbindungen a, Gefährdungen b, Maßnahmen c WHERE GLOBAL =1 AND c.mid = a.mid AND a.gid = b.gid AND ( Schadenshöhe * a.Eintrittswahrscheinlichkeit ) >6 GROUP BY a.mid ORDER BY erg DESC LIMIT 0 , 10;", function (err, result, fields) {
     if (err) throw err;
     console.log(result);
     sqlResult = result;
@@ -106,6 +109,16 @@ function gettopmassnahmen(req, res) {
   console.log(sqlResult);
 }
 
+function gettopgefahrdungen(req, res) {
+  var sqlResult;
+  con.query("SELECT KundenAssetID, a.gid, (Schadenshöhe * a.Eintrittswahrscheinlichkeit) AS erg FROM Kunde1Verbindungen a, Gefährdungen b WHERE a.gid = b.gid ORDER BY erg DESC LIMIT 0 , 5", function (err, result, fields) {
+    if (err) throw err;
+    console.log(result);
+    sqlResult = result;
+    res.send(result);
+  });
+  console.log(sqlResult);
+}
 
 // ruft eine Funktion auf die das Risiko für eine Gefährdung zurück gibt. Das Ergebnis wird direkt gesendet
 function risikoFurGefahrdung(req, res) {

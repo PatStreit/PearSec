@@ -72,7 +72,7 @@ app.get('/verhaltnisAssets',getVerhältnis);
 /////////////////////////
 app.post('/post', postDaten);
 //post einer json datei mit vielen PID´s 
-app.delete('/deleteAsset', assetloschen);
+app.delete('/deleteAsset/:kaid', assetloschen);
 
 //////////////////////////
 // API - UPDATE Pfäde
@@ -318,23 +318,19 @@ console.log("Erste: " + counterErste);
 }
 // neu
 function assetloschen(req, res) {
-  /*
-  * wir bekommen hier eine JSON mit vielen unter Dateien zum einfügen in eine Tabelle
-  * das Einfügen ist in eienr adneren FUnktion realisiert und wir iterieren hier nur
-  */
-  var data = (req.body).Paket;
-  for(var i in data) {
+  console.log("pouh");
+  assetloschen2(req.params.kaid, (xy) => { res.send((xy)); });
+}
+//wird von der Funktion risikoFurGefahrdung aufgerufen
+function getAllMassnahmenFurGefahrdung2(kaid, _callback) {
+  var sql = "delete from Kunde1Assets where KundenAssetID=\"" + kaiD + "\"; delete from Kunde1Verbindungen where KundenAssetID=\"" + kaiD + "\";" ;
+  con.query(sql, (err, result, fields) => {
+    if (err) throw err;
+    _callback("done");
+  });
+}
 
-       var kaiD = data[i].KAID;
-       console.log(kaid);
-      /*Delete from Table
-      */
-      con.query("delete from Kunde1Assets where KundenAssetID=\"" + kaiD + "\"; delete from Kunde1Verbindungen where KundenAssetID=\"" + kaiD + "\";" , (err, result, fields) => {
-        if (err) console.log("...");
-        _callback("done");
-      });
-  }
-};
+
 
 function updateMaßnahmeErledigt(req, res) {
   /*

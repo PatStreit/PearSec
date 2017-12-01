@@ -91,18 +91,16 @@ function getAllAssets(req, res) {
   var sqlResult;
   con.query("SELECT * FROM Assets", function (err, result, fields) {
     if (err) throw err;
-    console.log(result);
     sqlResult = result;
     res.send(result);
   });
-  console.log(sqlResult);
+  
 }
 
 function gettopmassnahmen(req, res) {
   var sqlResult;
   con.query("SELECT a.mid, SUM( Schadenshöhe * a.Eintrittswahrscheinlichkeit ) AS erg FROM Kunde1Verbindungen a, Gefährdungen b, Maßnahmen c WHERE GLOBAL =1 AND c.mid = a.mid AND a.gid = b.gid AND ( Schadenshöhe * a.Eintrittswahrscheinlichkeit ) >6 GROUP BY a.mid ORDER BY erg DESC LIMIT 0 , 10;", function (err, result, fields) {
     if (err) throw err;
-    console.log(result);
     sqlResult = result;
     res.send(result);
   });
@@ -113,11 +111,9 @@ function gettopgefahrdungen(req, res) {
   var sqlResult;
   con.query("SELECT KundenAssetID, a.gid, (Schadenshöhe * a.Eintrittswahrscheinlichkeit) AS erg FROM Kunde1Verbindungen a, Gefährdungen b WHERE a.gid = b.gid ORDER BY erg DESC LIMIT 0 , 5", function (err, result, fields) {
     if (err) throw err;
-    console.log(result);
     sqlResult = result;
     res.send(result);
   });
-  console.log(sqlResult);
 }
 
 // ruft eine Funktion auf die das Risiko für eine Gefährdung zurück gibt. Das Ergebnis wird direkt gesendet
@@ -166,7 +162,6 @@ function getRisikoFurEinAsset(KundenAssetID, _callback) {
   con.query(sqlB, (err, result, fields) => {
     if (err) throw err;
     
-        console.log(result[0].erg);
         _callback(result[0]);
       });
     }
@@ -179,11 +174,9 @@ function getAllKundenAssetsAndPruffragen(req,res){
   //var sqlBef ="SELECT a.KundenAssetID, a.AiD, a.Name, b.Kategorien FROM Kunde1Assets a, Assets b where a.AID = b.AID";
   con.query("SELECT DISTINCT a.KundenAssetID, a.AiD, a.Name, b.Kategorien, d.Prüffragen FROM Kunde1Assets a, Assets b, AssetsZuGefährdungen c, Maßnahmen d, Kunde1Verbindungen e WHERE a.AID = b.AID AND a.Aid = c.AID AND a.KundenAssetID = e.KundenAssetID  AND d.MID = e.MID AND c.GID = e.GID;", function (err, result, fields) {
     if (err) throw err;
-    console.log(result);
     sqlResult = result;
     res.send(result);
   });
-  console.log(sqlResult);
 
 }
 function getAssetsfurKategorie(req, res) {
@@ -200,7 +193,6 @@ function getAssetsfurKategorie2(Kategorien,_callback){
         if (err) throw err;
         _callback(result);
     });
-    console.log(sqlResult);
   
   }
 function getVerhältnis(req, res){
@@ -210,7 +202,6 @@ function getVerhältnis(req, res){
   var green = 0;
   con.query("SELECT KundenAssetID, MAX( a.Eintrittswahrscheinlichkeit * Schadenshöhe ) AS erg FROM Kunde1Verbindungen a, Gefährdungen b WHERE a.gid = b.gid GROUP BY KundenAssetID", function (err, result, fields) {
     if (err) throw err;
-    console.log(result);
     for(var i in result) {
       
              var KAID = result[i].KundenAssetID;
@@ -223,16 +214,11 @@ function getVerhältnis(req, res){
             else if(erg >=8) yellow++;
             else green++; 
         }
-    console.log(red);
-    console.log(yellow);
-    console.log(green);
         var obj = {"rot" : red, "gelb" : yellow, "grün" : green, "gesamt" : red+yellow+green};
         sqlResult = JSON.stringify(obj);
-        console.log(sqlResult);
 
     res.send(sqlResult);
   });
-  console.log(sqlResult);
 
    
 
@@ -318,8 +304,6 @@ function postDaten(req, res) {
   for(var i in data) {
        var id = data[i].AID;
        var name = data[i].Name;
-       console.log(id);
-       console.log(name);
       // KundenAssetTabelleBefüllen(id, name);
        KundenAssetTabelleBefüllen(id, name);
   }
@@ -346,7 +330,7 @@ function assetloschen(req, res) {
 }
 //wird von der Funktion risikoFurGefahrdung aufgerufen
 function assetloschen2(kaid, _callback) {
-  var sql = "delete from Kunde1Assets where KundenAssetID=\"" + kaiD + "\"; delete from Kunde1Verbindungen where KundenAssetID=\"" + kaiD + "\";" ;
+  var sql = "delete from Kunde1Assets where KundenAssetID=\"" + kaid + "\"; delete from Kunde1Verbindungen where KundenAssetID=\"" + kaid + "\";" ;
   con.query(sql, (err, result, fields) => {
     if (err) throw err;
     _callback("done");
@@ -364,8 +348,8 @@ function updateMaßnahmeErledigt(req, res) {
 };
 
 function MaßnahmeAbhaken(KAID, MID, _callback){
-  var sql=("update Kunde1Verbindungen set Durchgeführt = 1 where KundenAssetId = \"" +KAID + "\", MID =  \"" + MID + "\";" );
- var sql2=("UPDATE Kunde1Verbindungen SET Eintrittswahrscheinlichkeit =1 WHERE KundenAssetId = \"" +KAID + "\" AND GID IN ( SELECT d.GID FROM Gefährdungen_haben a, AssetsZuGefährdungen c, Kunde1Assets b, Gefährdungen d WHERE b.KundenAssetID =\"" +KAID + "\" AND a.MID = \"" + MID + "\" AND b.AID = c.AID AND c.agid = a.agid and d.gid = c.gid;");
+  var sql=("update Kunde1Verbindungen set Durchgeführt = 1 where KundenAssetId = \"" +KAID + "\" and MID =  \"" + MID + "\";" );
+ var sql2=("UPDATE Kunde1Verbindungen SET Eintrittswahrscheinlichkeit =1 WHERE KundenAssetId = \"" +KAID + "\" AND GID IN ( SELECT d.GID FROM Gefährdungen_haben a, AssetsZuGefährdungen c, Kunde1Assets b, Gefährdungen d WHERE b.KundenAssetID =\"" +KAID + "\" AND a.MID = \"" + MID + "\" AND b.AID = c.AID AND c.agid = a.agid and d.gid = c.gid);");
   var sql3=sql+sql2;
  con.query(sql3, (err, result, fields) => {
    if (err) console.log("Sprung2");//throw err;

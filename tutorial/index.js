@@ -70,6 +70,8 @@ app.get('/allKundenAssets', getAlleKundenAssets);
 app.get('/allGefahrenFurAsset/:KundenAssetID', getGefahrenFurAsset);
 //Anzahl der grünen, gelben und roten Assets
 app.get('/verhaltnisAssets',getVerhältnis);
+
+app.get('/getscore',getscore);
 //////////////////////////
 // API-POST Pfäde
 /////////////////////////
@@ -214,10 +216,55 @@ function getVerhältnis(req, res){
 
     res.send(sqlResult);
   });
-
-   
-
 }
+
+function getscore(req, res){
+  var sqlResult;
+  var summe = 0;
+  var farbe;
+  var grenze1 = 0;
+  var grenze2 = 0;
+  getGrenzwerte((xy) => { console.log(xy); grenze1 = xy[0].rotgelb; grenze2 = xy[0].gelbgrün});
+  console.log(grenze1);
+  con.query("SELECT distinct a.KundenAssetID, a.GID, ( a.Eintrittswahrscheinlichkeit * Schadenshöhe ) AS erg, c.Wichtig FROM Kunde1Verbindungen a, Gefährdungen b, Assets c, Kunde1Assets d WHERE a.gid = b.gid and c.aid =d.aid and a.KundenAssetID = d.KundenAssetID", function (err, result, fields) {
+    if (err) throw err;
+    for(var i in result) {
+      if(result[i].wichtig =1)
+      summe = summe + (result[i].erg*0.1); 
+      else    summe = summe + (result[i].erg*0.01); 
+    }
+        
+    if (summe >= 36)
+      farbe = "red";
+      else if(summe >=15)
+      farbe = "yellow";
+      else farbe = "green";
+      summe = Math.round(summe);
+      var obj = {"summe" : summe, "farbe" : farbe};
+      sqlResult = JSON.stringify(obj);
+    res.send(sqlResult);
+  });
+}
+
+function getGrenzwerte(_callback){
+  //senden alle Assets die in der normalen DB hinterlegt sind als Json Response
+    var wichtig;
+    var unwichtig;
+    var sqlResult;
+    //var sqlBef ="SELECT a.KundenAssetID, a.AiD, a.Name, b.Kategorien FROM Kunde1Assets a, Assets b where a.AID = b.AID";
+    console.log("test des callback");
+    con.query("SELECT Wichtig, COUNT( Wichtig ) as anzahl FROM Kunde1Assets a, Assets b, Kunde1Verbindungen c WHERE a.aid = b.aid and a.KundenAssetID = c.KundenAssetID GROUP BY Wichtig", function (err, result, fields) {
+      if (err) throw err;
+      unwichtig = result[0].anzahl;
+      wichtig = result[1].anzahl;
+      var grenzerotgelb = 14*wichtig*0.1 + 14*unwichtig*0.01;
+      var grenzegelbgrün = 6*wichtig*0.1 + 6*unwichtig*0.01;
+      var obj = {"rotgelb": grenzerotgelb, "gelbgrün": grenzegelbgrün}
+      sqlResult = JSON.stringify(obj);
+      _callback(sqlResult);
+    });
+  
+  }
   /*
 //neu
 // ruft eine Funktion auf die das Risiko für eine Gefährdung zurück gibt. Das Ergebnis wird direkt gesendet

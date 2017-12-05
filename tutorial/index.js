@@ -88,6 +88,7 @@ app.put('/massnahmeErledigtNegativ/:KAID/:MID',updateMaßnahmeErledigtnegativ);
 //Funktionen der get API
 ////////////////////////
 
+
 //senden alle Assets die in der normalen DB hinterlegt sind als Json Response
 function getAllAssets(req, res) {
   var sqlResult;
@@ -171,7 +172,7 @@ function getAllKundenAssetsAndPruffragen(req,res){
 
   var sqlResult;
   //var sqlBef ="SELECT a.KundenAssetID, a.AiD, a.Name, b.Kategorien FROM Kunde1Assets a, Assets b where a.AID = b.AID";
-  con.query("SELECT DISTINCT a.KundenAssetID, a.AiD, a.Name, b.Kategorien, d.mid, d.Beschreibung, d.Prüffragen e.Durchgeführt FROM Kunde1Assets a, Assets b, AssetsZuGefährdungen c, Maßnahmen d, Kunde1Verbindungen e WHERE a.AID = b.AID AND a.Aid = c.AID AND a.KundenAssetID = e.KundenAssetID  AND d.MID = e.MID AND c.GID = e.GID;", function (err, result, fields) {
+  con.query("SELECT DISTINCT a.KundenAssetID, a.AiD, a.Name, b.Kategorien, d.mid, d.Beschreibung, d.Prüffragen, e.Durchgeführt FROM Kunde1Assets a, Assets b, AssetsZuGefährdungen c, Maßnahmen d, Kunde1Verbindungen e WHERE a.AID = b.AID AND a.Aid = c.AID AND a.KundenAssetID = e.KundenAssetID  AND d.MID = e.MID AND c.GID = e.GID;", function (err, result, fields) {
     if (err) throw err;
     sqlResult = result;
     res.send(result);
@@ -199,7 +200,7 @@ function getVerhältnis(req, res){
   var red = 0;
   var yellow = 0;
   var green = 0;
-  con.query("SELECT KundenAssetID, MAX( a.Eintrittswahrscheinlichkeit * Schadenshöhe ) AS erg FROM Kunde1Verbindungen a, Gefährdungen b WHERE a.gid = b.gid GROUP BY KundenAssetID", function (err, result, fields) {
+  con.query("SELECT distinct KundenAssetID, a.GID, ( a.Eintrittswahrscheinlichkeit * Schadenshöhe ) AS erg FROM Kunde1Verbindungen a, Gefährdungen b WHERE a.gid = b.gid", function (err, result, fields) {
     if (err) throw err;
     for(var i in result) {
       
@@ -353,7 +354,9 @@ function postDaten(req, res) {
  function KundenAssetTabelleBefüllen(aiD, name, _callback){
  var sql=("INSERT INTO Kunde1Assets (KundenAssetId, AID, Name) VALUES (NULL,\"" +aiD + "\", \"" + name + "\");" );
 var sql2=("INSERT INTO Kunde1Verbindungen( KundenAssetID, GID, Eintrittswahrscheinlichkeit, MID, Durchgeführt ) SELECT a.KundenAssetID, b.Gid, c.Eintrittswahrscheinlichkeit, d.Mid, NULL FROM Kunde1Assets a, AssetsZuGefährdungen b, Gefährdungen c, Gefährdungen_haben d WHERE a.KundenAssetID = (SELECT MAX( KundenAssetID ) FROM Kunde1Assets ) AND a.aid = b.aid AND b.gid = c.gid AND b.agid = d.agid;");
-var sql3 = sql+sql2;
+var sql4=("UPDATE Kunde1Verbindungen z, (SELECT a.mid, GLOBAL , durchgeführt FROM Kunde1Verbindungen a, Maßnahmen b WHERE a.mid = b.mid AND GLOBAL =1 AND durchgeführt =1) AS cnt SET z.durchgeführt = cnt.durchgeführt WHERE cnt.mid = z.mid;");
+var sql5=("UPDATE Kunde1Verbindungen SET Eintrittswahrscheinlichkeit =1 WHERE KundenAssetId = \"" +KAID + "\" AND GID IN ( SELECT d.GID FROM Gefährdungen_haben a, AssetsZuGefährdungen c, Kunde1Assets b, Gefährdungen d WHERE b.KundenAssetID =\"" +KAID + "\" AND a.MID = \"" + MID + "\" AND b.AID = c.AID AND c.agid = a.agid and d.gid = c.gid);");
+var sql3 = sql+sql2+sql4+sql5;
 counterErste++;
 console.log("Erste: " + counterErste);
  con.query(sql3, (err, result, fields) => {

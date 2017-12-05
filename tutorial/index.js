@@ -102,7 +102,7 @@ function getAllAssets(req, res) {
 
 function gettopmassnahmen(req, res) {
   var sqlResult;
-  con.query("SELECT a.mid, SUM( Schadenshöhe * a.Eintrittswahrscheinlichkeit ) AS erg FROM Kunde1Verbindungen a, Gefährdungen b, Maßnahmen c WHERE GLOBAL =1 AND c.mid = a.mid AND a.gid = b.gid AND ( Schadenshöhe * a.Eintrittswahrscheinlichkeit ) >6 GROUP BY a.mid ORDER BY erg DESC LIMIT 0 , 10;", function (err, result, fields) {
+  con.query("SELECT a.KundenAssetID, c.Beschreibung, a.mid, SUM( Schadenshöhe * a.Eintrittswahrscheinlichkeit ) AS erg FROM Kunde1Verbindungen a, Gefährdungen b, Maßnahmen c WHERE GLOBAL =1 AND c.mid = a.mid AND a.gid = b.gid AND ( Schadenshöhe * a.Eintrittswahrscheinlichkeit ) >6 GROUP BY a.mid ORDER BY erg DESC LIMIT 0 , 10;", function (err, result, fields) {
     if (err) throw err;
     sqlResult = result;
     res.send(result);
@@ -111,7 +111,7 @@ function gettopmassnahmen(req, res) {
 
 function gettopgefahrdungen(req, res) {
   var sqlResult;
-  con.query("SELECT KundenAssetID, a.gid, (Schadenshöhe * a.Eintrittswahrscheinlichkeit) AS erg FROM Kunde1Verbindungen a, Gefährdungen b WHERE a.gid = b.gid ORDER BY erg DESC LIMIT 0 , 5", function (err, result, fields) {
+  con.query("SELECT KundenAssetID, b.Name, a.gid, (Schadenshöhe * a.Eintrittswahrscheinlichkeit) AS erg FROM Kunde1Verbindungen a, Gefährdungen b WHERE a.gid = b.gid ORDER BY erg DESC LIMIT 0 , 5", function (err, result, fields) {
     if (err) throw err;
     sqlResult = result;
     res.send(result);

@@ -285,7 +285,7 @@ function getAllMaßnahmenFurAsset2(aiD, _callback) {
 // ruft eine Funktion auf die das Risiko für eine Gefährdung zurück gibt. Das Ergebnis wird direkt gesendet
 function getAllMassnahmenFurGefahrdung(req, res) {
   console.log("pouh");
-  getAllMassnahmenFurGefahrdung2(req.params.kaid,req.params.gID, (xy) => { res.send((xy)); });
+  getAllMassnahmenFurGefahrdung2(req.params.kaid,req.params.gID, (xy) => { res.send((xy));});
 }
 //wird von der Funktion risikoFurGefahrdung aufgerufen
 function getAllMassnahmenFurGefahrdung2(kaid, gID, _callback) {
@@ -353,7 +353,7 @@ function postDaten(req, res) {
 };
  function KundenAssetTabelleBefüllen(aiD, name, _callback){
  var sql=("INSERT INTO Kunde1Assets (KundenAssetId, AID, Name) VALUES (NULL,\"" +aiD + "\", \"" + name + "\");" );
-var sql2=("INSERT INTO Kunde1Verbindungen( KundenAssetID, GID, Eintrittswahrscheinlichkeit, MID, Durchgeführt ) SELECT a.KundenAssetID, b.Gid, c.Eintrittswahrscheinlichkeit, d.Mid, NULL FROM Kunde1Assets a, AssetsZuGefährdungen b, Gefährdungen c, Gefährdungen_haben d WHERE a.KundenAssetID = (SELECT MAX( KundenAssetID ) FROM Kunde1Assets ) AND a.aid = b.aid AND b.gid = c.gid AND b.agid = d.agid;");
+var sql2=("INSERT INTO Kunde1Verbindungen( KundenAssetID, GID, Eintrittswahrscheinlichkeit, MID, Durchgeführt, Zeitpunkt ) SELECT a.KundenAssetID, b.Gid, c.Eintrittswahrscheinlichkeit, d.Mid, NULL, curdate() FROM Kunde1Assets a, AssetsZuGefährdungen b, Gefährdungen c, Gefährdungen_haben d WHERE a.KundenAssetID = (SELECT MAX( KundenAssetID ) FROM Kunde1Assets ) AND a.aid = b.aid AND b.gid = c.gid AND b.agid = d.agid;");
 var sql4=("UPDATE Kunde1Verbindungen z, (SELECT a.mid, GLOBAL , durchgeführt FROM Kunde1Verbindungen a, Maßnahmen b WHERE a.mid = b.mid AND GLOBAL =1 AND durchgeführt =1) AS cnt SET z.durchgeführt = cnt.durchgeführt WHERE cnt.mid = z.mid;");
 var sql5=("UPDATE Kunde1Verbindungen a SET Eintrittswahrscheinlichkeit =1 WHERE gid IN (SELECT b.gid FROM AssetsZuGefährdungen b, Gefährdungen_haben c, Maßnahmen d, Kunde1Assets e WHERE e.aid = b.aid AND b.agid = c.agid AND c.mid = d.mid AND d.global =1 AND a.KundenAssetID = e.KundenAssetID AND a.durchgeführt =1);");
 var sql3 = sql+sql2+sql4+sql5;
@@ -391,15 +391,14 @@ function updateMaßnahmeErledigt(req, res) {
   */
    
  istglobal(req.params.MID, (yx) => {
-   var glob = yx;
   
-  
+   MaßnahmeAbhaken(req.params.KAID, req.params.MID, yx, (xy) => { res.send((xy)); });
   console.log("!!")})
- MaßnahmeAbhaken(req.params.KAID, req.params.MID, glob, (xy) => { res.send((xy)); });
+ 
 };
 
 function MaßnahmeAbhaken(KAID, MID, ding, _callback){
-  
+  console.log("ist inder methode maßnahmeabhaken")
   console.log(ding);
   if (ding == 0){
   var sql=("update Kunde1Verbindungen set Durchgeführt = 1 where KundenAssetId = \"" +KAID + "\" and MID =  \"" + MID + "\";" );
@@ -422,14 +421,11 @@ function MaßnahmeAbhaken(KAID, MID, ding, _callback){
 }
 
 function updateMaßnahmeErledigtnegativ(req, res) {
- var ding;
-  var sql = "select mid, global from Maßnahmen where mid =\"" +req.params.MID + "\";"
- con.query(sql, (err, result, fields) => {
-   if (err) console.log("Sprung2");
-   ding = result[0].global;
- }) 
+ 
   
-  MaßnahmeAbhakennegativ(req.params.KAID, req.params.MID, ding,(xy) => { res.send((xy)); });
+  istglobal(req.params.MID, (yx) => { 
+  MaßnahmeAbhakennegativ(req.params.KAID, req.params.MID, yx,(xy) => { res.send((xy)); });
+  console.log("!!")})
 };
 
 function MaßnahmeAbhakennegativ(KAID, MID, ding, _callback){

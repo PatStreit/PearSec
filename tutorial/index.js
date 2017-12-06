@@ -355,7 +355,7 @@ function postDaten(req, res) {
  var sql=("INSERT INTO Kunde1Assets (KundenAssetId, AID, Name) VALUES (NULL,\"" +aiD + "\", \"" + name + "\");" );
 var sql2=("INSERT INTO Kunde1Verbindungen( KundenAssetID, GID, Eintrittswahrscheinlichkeit, MID, Durchgeführt ) SELECT a.KundenAssetID, b.Gid, c.Eintrittswahrscheinlichkeit, d.Mid, NULL FROM Kunde1Assets a, AssetsZuGefährdungen b, Gefährdungen c, Gefährdungen_haben d WHERE a.KundenAssetID = (SELECT MAX( KundenAssetID ) FROM Kunde1Assets ) AND a.aid = b.aid AND b.gid = c.gid AND b.agid = d.agid;");
 var sql4=("UPDATE Kunde1Verbindungen z, (SELECT a.mid, GLOBAL , durchgeführt FROM Kunde1Verbindungen a, Maßnahmen b WHERE a.mid = b.mid AND GLOBAL =1 AND durchgeführt =1) AS cnt SET z.durchgeführt = cnt.durchgeführt WHERE cnt.mid = z.mid;");
-var sql5=("UPDATE Kunde1Verbindungen SET Eintrittswahrscheinlichkeit =1 WHERE KundenAssetId = \"" +KAID + "\" AND GID IN ( SELECT d.GID FROM Gefährdungen_haben a, AssetsZuGefährdungen c, Kunde1Assets b, Gefährdungen d WHERE b.KundenAssetID =\"" +KAID + "\" AND a.MID = \"" + MID + "\" AND b.AID = c.AID AND c.agid = a.agid and d.gid = c.gid);");
+var sql5=("UPDATE Kunde1Verbindungen a SET Eintrittswahrscheinlichkeit =1 WHERE gid IN (SELECT b.gid FROM AssetsZuGefährdungen b, Gefährdungen_haben c, Maßnahmen d, Kunde1Assets e WHERE e.aid = b.aid AND b.agid = c.agid AND c.mid = d.mid AND d.global =1 AND a.KundenAssetID = e.KundenAssetID AND a.durchgeführt =1);");
 var sql3 = sql+sql2+sql4+sql5;
 counterErste++;
 console.log("Erste: " + counterErste);
@@ -389,17 +389,18 @@ function updateMaßnahmeErledigt(req, res) {
   * wir bekommen hier eine JSON mit vielen unter Dateien zum einfügen in eine Tabelle
   * das Einfügen ist in eienr adneren FUnktion realisiert und wir iterieren hier nur
   */
-  var ding;
-  var sql = "select mid, global from Maßnahmen where mid =\"" +req.params.MID + "\";"
- con.query(sql, (err, result, fields) => {
-   if (err) console.log("Sprung2");
-   ding = result[0].global;
-   console.log(ding);
- }) 
-  MaßnahmeAbhaken(req.params.KAID, req.params.MID, ding, (xy) => { res.send((xy)); });
+   
+ istglobal(req.params.MID, (yx) => {
+   var glob = yx;
+  
+  
+  console.log("!!")})
+ MaßnahmeAbhaken(req.params.KAID, req.params.MID, glob, (xy) => { res.send((xy)); });
 };
 
 function MaßnahmeAbhaken(KAID, MID, ding, _callback){
+  
+  console.log(ding);
   if (ding == 0){
   var sql=("update Kunde1Verbindungen set Durchgeführt = 1 where KundenAssetId = \"" +KAID + "\" and MID =  \"" + MID + "\";" );
  var sql2=("UPDATE Kunde1Verbindungen SET Eintrittswahrscheinlichkeit =1 WHERE KundenAssetId = \"" +KAID + "\" AND GID IN ( SELECT d.GID FROM Gefährdungen_haben a, AssetsZuGefährdungen c, Kunde1Assets b, Gefährdungen d WHERE b.KundenAssetID =\"" +KAID + "\" AND a.MID = \"" + MID + "\" AND b.AID = c.AID AND c.agid = a.agid and d.gid = c.gid);");
@@ -450,4 +451,15 @@ function MaßnahmeAbhakennegativ(KAID, MID, ding, _callback){
    
  });
  
+}
+
+function istglobal(MID, _callback){
+  var ding;
+  var sql = "select mid, global from Maßnahmen where mid =\"" +MID + "\";"
+ con.query(sql, (err, result, fields) => {
+   if (err) console.log("Sprung2");
+   ding = result[0].global;
+   console.log(typeof ding)
+   _callback(ding);
+ }) 
 }

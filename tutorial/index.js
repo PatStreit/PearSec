@@ -111,7 +111,7 @@ function gettopmassnahmen(req, res) {
 
 function gettopgefahrdungen(req, res) {
   var sqlResult;
-  con.query("SELECT KundenAssetID, b.Name, a.gid, (Schadenshöhe * a.Eintrittswahrscheinlichkeit) AS erg FROM Kunde1Verbindungen a, Gefährdungen b WHERE a.gid = b.gid ORDER BY erg DESC LIMIT 0 , 5", function (err, result, fields) {
+  con.query("SELECT KundenAssetID, b.Name, b.Beschreibung, a.gid, (Schadenshöhe * a.Eintrittswahrscheinlichkeit) AS erg FROM Kunde1Verbindungen a, Gefährdungen b WHERE a.gid = b.gid ORDER BY erg DESC LIMIT 0 , 5", function (err, result, fields) {
     if (err) throw err;
     sqlResult = result;
     res.send(result);

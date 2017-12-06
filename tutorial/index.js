@@ -394,6 +394,7 @@ function updateMaßnahmeErledigt(req, res) {
  con.query(sql, (err, result, fields) => {
    if (err) console.log("Sprung2");
    ding = result[0].global;
+   console.log(ding);
  }) 
   MaßnahmeAbhaken(req.params.KAID, req.params.MID, ding, (xy) => { res.send((xy)); });
 };

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>PearSec.</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="css/mdb.min.css" rel="stylesheet">
+    <!-- Your custom styles (optional) -->
+    <link href="css/style.css" rel="stylesheet">
+</head>
+<style>
+    body{
+        background-color: #e2e2e2;
+    }
+</style>
+<body>
+
+    <!-- Start your project here-->
+    <div class="container-fluid">                            <!--Container Header-->
+    <div class="row">                                              <!--Row Header-->
+
+      <nav class="col-md-12 navbar navbar-expand-lg navbar-dark white">
+
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01"
+              aria-expanded="false" aria-label="Toggle navigation">
+
+              <span class="navbar-toggler-icon"></span>
+
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+              <a class="navbar-brand black-text" href="securityboard.html"><img src="img/PEAR_LOGO_OHNE.png" height="30">Securityboard</a>
+
+              <ul class="navbar-nav mr-auto mt-lg-0">
+                  <li class="nav-item"><a class="nav-link black-text" href="identify.html"> Vermögenswerte<span class="sr-only">(current)</span></a></li>
+                  <li class="nav-item"><a class="nav-link black-text" href="risiken2.html">Risiken</a></li>
+              </ul>
+
+          </div>
+      </nav>
+
+    </div>                                               <!--End Row Header-->
+    </div>                                               <!--End Container Header-->
+
+    <div class="container">
+      <div class="row">
+        <h2 class="mx-auto mt-3 h2-responsive animated fadeIn">Vermögenswerte verwalten</h2>
+      </div>
+      <hr />
+
+
+      <ul class="nav nav-tabs nav-justified white rounded">
+          <li class="nav-item">
+              <a id="it" onclick="init(this)" class="nav-link active black-text" data-toggle="tab" href="#panel11" role="tab">IT-Systeme</a>
+          </li>
+          <li class="nav-item">
+              <a id="maschinen" onclick="init(this)" class="nav-link black-text" data-toggle="tab" href="#panel11" role="tab">Maschinen / Anlagen</a>
+          </li>
+          <li class="nav-item">
+              <a id="netze" onclick="init(this)" class="nav-link black-text" data-toggle="tab" href="#panel11" role="tab">Netze</a>
+          </li>
+          <li class="nav-item">
+              <a id="infrastruktur" onclick="init(this)" class="nav-link black-text" data-toggle="tab" href="#panel11" role="tab">Infrastruktur</a>
+          </li>
+          <li class="nav-item">
+              <a id="daten" onclick="init(this)" class="nav-link black-text" data-toggle="tab" href="#panel11" role="tab">Daten</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link black-text" data-toggle="tab" href="#" role="tab">
+                <i class="fa fa-plus-square-o" aria-hidden="true"></i>&nbsp; Kategorie hinzufügen
+              </a>
+          </li>
+      </ul>
+
+      <!-- Tab panels -->
+      <div class="tab-content">
+
+          <!--Panel 1-->
+          <div class="tab-pane fade in show active" id="panel11" role="tabpanel">
+              <br>
+
+              <div class="animated fadeIn">
+                <div class="card white z-depth-2">
+                  <div class="card-body" style="overflow:auto">
+                    <div class="row mx-auto">
+
+                      <div class="white col-md-3 mr-5">
+                          <div id="vorschläge" class="card-body white-text" style="overflow:auto; width: 250px">
+
+                          </div>
+                      </div>
+
+                      <div class="white col-md-8">
+                          <div id="assetListe" class="card-body white-text" style="overflow:auto">
+
+                          </div>
+
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+          </div>
+
+      </div>
+
+
+    </div>
+
+
+    <div class="container-fluid">                            <!--Container Footer-->
+      <div class="row">                                              <!--Row Footer-->
+
+        <footer class="col-md-12 mt-5 text-center white z-depth-1">
+          <p class="black-text pt-3">© 2017 Copyright | <a href="#"> PEAR </a></p>
+        </footer>
+
+      </div>                                                     <!--End Row Footer-->
+    </div>
+
+
+    <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+        <a class="btn-floating btn-lg" style="background-color:#2b6ca3">
+            <i class="fa fa-android"></i>
+        </a>
+
+<!--        <ul>
+            <li><a class="btn-floating red"><i class="fa fa-star"></i></a></li>
+        </ul>-->
+    </div>
+
+    <!-- SCRIPTS -->
+    <!-- JQuery -->
+    <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="js/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="js/mdb.min.js"></script>
+
+    <script type="text/javascript" src="js/identify.js"></script>
+</body>
+
+</html>

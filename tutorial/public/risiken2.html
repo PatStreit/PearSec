@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <head>
+      <meta charset="utf-8" />
+      <title>Risiken</title>
+      <!-- Font Awesome -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+      <!-- Bootstrap core CSS -->
+      <link href="css/bootstrap.min.css" rel="stylesheet">
+      <!-- Material Design Bootstrap -->
+      <link href="css/mdb.min.css" rel="stylesheet">
+      <!-- Your custom styles (optional) -->
+      <link href="css/style.css" rel="stylesheet">
+
+    </head>
+    <style>
+        body{
+            background-color: #e2e2e2;
+        }
+        .bulb {
+              height: 15px;
+              width: 15px;
+              background-color: rgba(22, 190, 44, 0.836);
+              border-radius: 50%;
+              margin: 4px 0;
+              transition: background 500ms;
+            }
+
+        .success-text {
+              color: #00C851;
+            }
+
+        .checkbox-success-filled [type="checkbox"][class*='filled-in']:checked+label:after {
+              border-color: #00C851;
+              background-color: #00C851;
+            }
+
+    </style>
+
+  <body>
+
+
+
+    <!-- Start your project here-->
+    <div class="container-fluid">                            <!--Container Header-->
+      <div class="row">                                              <!--Row Header-->
+
+        <nav class="col-md-12 navbar navbar-expand-lg navbar-dark white">
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01"
+                aria-expanded="false" aria-label="Toggle navigation">
+
+                <span class="navbar-toggler-icon"></span>
+
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+                <a class="navbar-brand black-text" href="securityboard.html"><img src="img/PEAR_LOGO_OHNE.png" height="30">Securityboard</a>
+
+                <ul class="navbar-nav mr-auto mt-lg-0">
+                    <li class="nav-item"><a class="nav-link black-text" href="identify.html"> Vermögenswerte<span class="sr-only">(current)</span></a></li>
+                    <li class="nav-item"><a class="nav-link black-text" href="risiken2.html">Risiken</a></li>
+                </ul>
+
+            </div>
+        </nav>
+
+      </div>                                               <!--End Row Header-->
+      </div>                                               <!--End Container Header-->
+
+
+      <div class="container">
+          <div class="row">
+            <h2 class="mx-auto mt-3 h2-responsive animated fadeIn">Risiken</h2>
+          </div>
+          <hr />
+
+          <ul class="nav nav-tabs nav-justified white rounded">
+              <li class="nav-item">
+                  <a id="it" onclick="toggleKategorie(this)" class="nav-link active black-text" data-toggle="tab" href="#panel11" role="tab">IT-Systeme</a>
+              </li>
+              <li class="nav-item">
+                  <a id="maschinen" onclick="toggleKategorie(this)" class="nav-link black-text" data-toggle="tab" href="#panel11" role="tab">Maschinen / Anlagen</a>
+              </li>
+              <li class="nav-item">
+                  <a id="netze" onclick="toggleKategorie(this)" class="nav-link black-text" data-toggle="tab" href="#panel11" role="tab">Netze</a>
+              </li>
+              <li class="nav-item">
+                  <a id="infrastruktur" onclick="toggleKategorie(this)" class="nav-link black-text" data-toggle="tab" href="#panel11" role="tab">Infrastruktur</a>
+              </li>
+              <li class="nav-item">
+                  <a id="daten" onclick="toggleKategorie(this)" class="nav-link black-text" data-toggle="tab" href="#panel11" role="tab">Daten</a>
+              </li>
+          </ul>
+
+
+
+          <!-- Tab panels -->
+      <div class="tab-content">
+
+          <!--Panel 1-->
+          <div class="tab-pane fade in show active" id="panel11" role="tabpanel">
+              <br>
+
+              <div class="animated fadeIn">
+                <div class="card white z-depth-2">
+                  <div id="cardbody" class="card-body" style="overflow:auto">
+
+                    <div class="row indigo darken-2 white-text pl-5 pt-3 rounded">
+                      <div class="col-md-3">
+                        <p>Vermögenswerte</p>
+                      </div>
+
+                      <div class="col-md-3">
+                        <p>Bewertung</p>
+                      </div>
+
+                      <div class="col-md-3">
+                        <p>Gefährdungen</p>
+                      </div>
+
+                      <div class="col-md-3">
+                        <p>Top 3 Maßnahmen</p>
+                      </div>
+
+                    </div>
+
+                    <hr><!--End of Header -->
+
+                    <div class="row ml-4">
+                      <div class="col-md-3">
+                        Laptop
+                      </div>
+
+                      <div class="col-md-3">
+                        <div class="row ml-2">
+                          <div id="traffic-light">
+                            <div id="stopLight" class="bulb">
+                            </div>
+                          </div>
+                          <p class="success-text">&nbsp;Sicher</p>
+                        </div>
+                      </div>
+
+                      <div class="col-md-3">
+                            <button class="btn btn-flat p-1 m-0" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                                <i class="fa fa-angle-down rotate-icon"></i>&nbsp;Gefährdungen <span class="badge badge-primary badge-pill ml-3">14</span>
+                            </button>
+                      </div>
+                      <div class="col-md-3">
+                          <button class="btn btn-flat p-1 m-0" type="button" data-toggle="collapse" data-target="#collapseExample1" aria-expanded="false" aria-controls="collapseExample1">
+                              <i class="fa fa-angle-down rotate-icon"></i>&nbsp;Maßnahmen
+                          </button>
+                      </div>
+                    </div>
+
+                    <div class="collapse ml-5 mr-5" id="collapseExample">
+
+                        <!--Accordion wrapper-->
+                        <div class="accordion" id="accordionEx" role="tablist" aria-multiselectable="true">
+
+                                <!-- Accordion card -->
+                                <div class="card">
+                                  <hr>
+
+                                  <h3 class="ml-2 font-weight-bold">Gefährdungen</h3>
+
+                                    <!-- Card header -->
+                                    <div class="card-header" role="tab" id="headingOne">
+                                        <a data-toggle="collapse" data-parent="#accordionEx" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                            <h5 class="mb-0">
+                                                Stromausfall <i class="fa fa-angle-down rotate-icon"></i>
+                                            </h5>
+                                        </a>
+                                    </div>
+
+                                    <!-- Card body -->
+                                    <div id="collapseOne" class="collapse" role="tabpanel" aria-labelledby="headingOne">
+                                        <div class="card-body">
+                                            <ul class="list-group">
+                                                <li class="list-group-item">
+
+                                                  <div class="row">
+                                                      <div class="col-md-11">
+                                                          <p class="font-weight-bold">
+                                                              Sicherheitsrichtlinien und Regelungen für die mobile IT-Nutzung
+                                                          </p>
+
+                                                            IT-Systeme, die außerhalb der eigenen Institution eingesetzt werden,
+                                                            sind mehr Risiken ausgesetzt, als solche, die sich innerhalb geschützter
+                                                            Räumlichkeiten befinden. Trotzdem gibt es eine Vielzahl von Möglichkeiten,
+                                                            mobile IT-Systeme unterwegs zu schützen. Damit diese Möglichkeiten auch genutzt
+                                                            werden, sollte eine Sicherheitsrichtlinie erstellt werden, in der alle
+                                                            umzusetzenden Sicherheitsmechanismen beschrieben sind. Zusätzlich sollte für die
+                                                            Benutzer ein kurzes und übersichtliches Merkblatt für die sichere Nutzung von
+                                                            mobilen IT-Systemen erstellt werden.
+                                                      </div>
+
+                                                      <div class="form-group checkbox-success-filled">
+                                                          <input type="checkbox" class="filled-in" id="checkbox101">
+                                                          <label for="checkbox101"></label>
+                                                      </div>
+                                                  </div>
+
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Accordion card -->
+
+                            </div>
+                            <!--/.Accordion wrapper-->
+
+                    </div>
+
+                    <div class="collapse ml-5 mr-5" id="collapseExample1">
+
+                      <!--Accordion wrapper-->
+                      <div class="accordion" id="accordionEx" role="tablist" aria-multiselectable="true">
+
+                              <!-- Accordion card -->
+                              <div class="card">
+                                  <hr>
+                                  <h3 class="ml-2 font-weight-bold">Top Maßnahmen</h3>
+
+                                  <!-- Card header -->
+                                  <div class="card-header" role="tab" id="headingOne">
+                                      <a data-toggle="collapse" data-parent="#accordionEx" href="#collapseOne1" aria-expanded="true" aria-controls="collapseOne1">
+                                          <h5 class="mb-0">
+                                              Maßnahme #1 <i class="fa fa-angle-down rotate-icon"></i>
+                                          </h5>
+                                      </a>
+                                  </div>
+
+                                  <!-- Card body -->
+                                  <div id="collapseOne1" class="collapse" role="tabpanel" aria-labelledby="headingOne">
+                                      <div class="card-body">
+
+                                          <ul class="list-group">
+                                              <li class="list-group-item">
+
+                                                <div class="row">
+                                                    <div class="col-md-11">
+                                                        <p class="font-weight-bold">
+                                                            Sicherheitsrichtlinien und Regelungen für die mobile IT-Nutzung
+                                                        </p>
+
+                                                          IT-Systeme, die außerhalb der eigenen Institution eingesetzt werden,
+                                                          sind mehr Risiken ausgesetzt, als solche, die sich innerhalb geschützter
+                                                          Räumlichkeiten befinden. Trotzdem gibt es eine Vielzahl von Möglichkeiten,
+                                                          mobile IT-Systeme unterwegs zu schützen. Damit diese Möglichkeiten auch genutzt
+                                                          werden, sollte eine Sicherheitsrichtlinie erstellt werden, in der alle
+                                                          umzusetzenden Sicherheitsmechanismen beschrieben sind. Zusätzlich sollte für die
+                                                          Benutzer ein kurzes und übersichtliches Merkblatt für die sichere Nutzung von
+                                                          mobilen IT-Systemen erstellt werden.
+                                                    </div>
+
+                                                    <div class="form-group checkbox-success-filled">
+                                                        <input type="checkbox" class="filled-in" id="checkbox101">
+                                                        <label for="checkbox101"></label>
+                                                    </div>
+                                                </div>
+
+                                              </li>
+                                          </ul>
+
+                                      </div>
+                                  </div>
+                              </div>
+                              <!-- Accordion card -->
+
+                          </div>
+                          <!--/.Accordion wrapper-->
+
+                    </div>
+
+                  </div>
+
+                </div>
+              </div>
+
+        </div>
+      </div>
+
+
+
+    </div>
+<div class="container-fluid">                            <!--Container Footer-->
+<div class="row">                                              <!--Row Footer-->
+  <div class="col-md-12" style="margin-top: 100px">
+  <footer class="fixed-bottom text-center indigo white">
+    <p class="black-text pt-3">&copy; Pear | <a class="black-text" href="#">Impressum</a></p>
+  </footer>
+</div>
+
+</div>                                                     <!--End Row Footer-->
+</div>                                               <!--End Container Footer-->
+
+
+
+<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+<!-- Bootstrap tooltips -->
+<script type="text/javascript" src="js/popper.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<!-- MDB core JavaScript -->
+<script type="text/javascript" src="js/mdb.min.js"></script>
+
+
+<script defer src="risiken2.js"></script>
+
+</body>
+</html>

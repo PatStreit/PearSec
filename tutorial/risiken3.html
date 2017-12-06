@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <head>
+      <meta charset="utf-8" />
+      <title>Risiken</title>
+      <!-- Font Awesome -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+      <!-- Bootstrap core CSS -->
+      <link href="css/bootstrap.min.css" rel="stylesheet">
+      <!-- Material Design Bootstrap -->
+      <link href="css/mdb.min.css" rel="stylesheet">
+      <!-- Your custom styles (optional) -->
+      <link href="css/style.css" rel="stylesheet">
+      <style>
+          
+           
+            
+         
+            
+            .bulb {
+              height: 15px;
+              width: 15px;
+              background-color: rgba(22, 190, 44, 0.836);
+              border-radius: 50%;
+              margin: 4px 0;
+              transition: background 500ms;
+            } 
+            .xyz123Nice{
+              background-color:rgb(14, 185, 66);
+            }
+            .xyz123{
+              background-color:#F3F3F3;
+            }
+            .xyz123:hover{
+              background-color:#E5E5E5;
+            }
+           
+      
+              </style>
+      
+    </head>
+  </head>
+
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+  <body>
+
+
+
+    <div class="container-fluid">                            <!--Container Header-->
+    <div class="row">                                              <!--Row Header-->
+
+      <nav class="col-md-12 navbar navbar-expand-lg navbar-dark grey lighten-2">
+
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01"
+              aria-expanded="false" aria-label="Toggle navigation">
+
+              <span class="navbar-toggler-icon"></span>
+
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+              <a class="navbar-brand black-text" href="securityboard.html"><img src="img/PEAR_LOGO_OHNE.png" height="30">Securityboard</a>
+
+              <ul class="navbar-nav mr-auto mt-lg-0">
+                  <li class="nav-item"><a class="nav-link black-text" href="identify.html"> Vermögenswerte<span class="sr-only">(current)</span></a></li>
+                  <li class="nav-item"><a class="nav-link black-text" href="risiken2.html">Risiken</a></li>
+              </ul>
+
+          </div>
+      </nav>
+
+    </div>                                               <!--End Container Header-->
+    </div>                                                     <!--End Row Header-->
+
+
+<div class="container">
+
+  <div class="row">
+    <h2 class="mx-auto h2-responsive">Risiken</h2>
+  </div>
+
+  <hr>
+
+  <ul class="nav nav-tabs nav-justified grey lighten-2 rounded">
+      <li class="nav-item">
+        <a id="it" class="nav-link-active black-text" data-toggle="tab" href="#panel11" role="tab">IT-Systeme</a>
+      </li>
+      <li class="nav-item">
+        <a id="maschinen" class="nav-link-active black-text" data-toggle="tab" href="#panel11" role="tab">Maschinen / Anlagen</a>
+      </li>
+      <li class="nav-item">
+          <a id="netze" class="nav-link-active black-text" data-toggle="tab" href="#panel11" role="tab">Netze</a>
+      </li>
+      <li class="nav-item">
+          <a id="infrastruktur" class="nav-link-active black-text" data-toggle="tab" href="#panel11" role="tab">Infrastruktur</a>
+      </li>
+      <li class="nav-item">
+          <a id="daten" class="nav-link-active black-text" data-toggle="tab" href="#panel11" role="tab">Daten</a>
+      </li>   
+    </ul>
+
+    <div class ="tab-content">
+      <div class="tab-pane fade in show active" id="panel11" role="tabpanel">
+        <br>
+        <div class="animated fadeIn">
+          <div class="card grey lighten-2 z-depth-2">
+
+            <div class="card-body">
+
+                <table class="table" id="mainTable">
+                    
+                        <thead class="table" style="background-color: #2b6ca3">
+                            <tr style="color: white">
+                                <th>Vermögenswerte</th>
+                                <th>Bewertung</th>
+                                <th>Gefährdungen</th>
+                                <th>Top-Maßnahmen</th>
+                                </tr>
+                        </thead>
+                    
+                        <tbody id="tbody">
+                            <tr >
+                             
+                            </tr>
+                          
+                    
+                        </tbody>
+                    
+                        </table>
+<!--
+              <table class="table ml-2" >
+                  <thead style="background-color: #2b6ca3; color: white">
+                    <tr>
+                      <th>Vermögenswert</th>
+                      <th>Risikoeinstufung</th>
+                      <th>Gefährdungen</th>
+                      <th>Top-Maßnahmen</th>
+                    </tr>
+                  </thead>
+                  <tbody >
+                    <tr>
+                      <th scope="row">1</th>
+                      <td>Mark</td>
+                      <td>
+                        <p>
+                          <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                              Gefährdungen
+                          </button>
+                        </p>
+                      </td>
+
+                      <td>@mdo</td>
+                    </tr>
+                    <tr style="display:none">
+                      <td colSpan="4">
+                          <div class="collapse" id="collapseExample">
+                              <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.</p>
+                          </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row">2</th>
+                      <td>Jacob</td>
+                      <td>Thornton</td>
+                      <td>@fat</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">3</th>
+                      <td>Larry</td>
+                      <td>the Bird</td>
+                      <td>@twitter</td>
+                    </tr>
+                  </tbody>
+                </table>
+              -->
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+</div>
+
+
+
+
+
+
+<div class="container-fluid">                            <!--Container Footer-->
+<div class="row">                                              <!--Row Footer-->
+  <div class="col-md-12" style="margin-top: 100px">
+  <footer class="fixed-bottom text-center indigo grey lighten-2">
+    <p class="black-text pt-3">&copy; Pear | <a class="black-text" href="#">Impressum</a></p>
+  </footer>
+</div>
+
+</div>                                                     <!--End Row Footer-->
+</div>                                               <!--End Container Footer-->
+
+
+
+<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+<!-- Bootstrap tooltips -->
+<script type="text/javascript" src="js/popper.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<!-- MDB core JavaScript -->
+<script type="text/javascript" src="js/mdb.min.js"></script>
+
+
+<script defer src="risiken.js"></script>
+
+<script>
+        /*
+        
+        var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+              if (xhttp.readyState == 4 && xhttp.status == 200) {
+                var obj = JSON.parse(xhttp.responseText);
+                console.log(obj.erg);
+        
+                if (obj.erg<5){
+                    illuminateGreen( );
+                } else if (obj.erg<12){
+                    illuminateYellow();
+                }else{
+                    illuminateRed();
+                }
+              }
+            };
+            xhttp.open("GET", "/getRisikoFurEinAsset/144", true);
+            xhttp.send();
+          
+        */
+        
+        function illuminateRed(id,callback) {       
+          document.getElementById(id).style.backgroundColor = "red";
+          //document.getElementById(id).innerHTML+='&nbsp;'+'&nbsp;'+'&nbsp;'+'&nbsp;'+'&nbsp;';
+          //document.getElementById(id).innerHTML+="Rot";
+          callback();
+        }
+        
+        function illuminateYellow(id,callback) {         
+          document.getElementById(id).style.backgroundColor = "yellow";
+         // document.getElementById(id).innerHTML+='&nbsp;'+'&nbsp;'+'&nbsp;'+'&nbsp;'+'&nbsp;';
+         // document.getElementById(id).innerHTML+="Gelb";
+          callback();
+        }
+        function illuminateGreen(id,callback) {         
+          document.getElementById(id).style.backgroundColor = "green";
+       //   document.getElementById(id).innerHTML+='&nbsp;'+'&nbsp;'+'&nbsp;'+'&nbsp;'+'&nbsp;';
+        //  document.getElementById(id).innerHTML+="Grün";
+          callback();
+        }
+        
+        
+         </script>
+
+</body>
+</html>

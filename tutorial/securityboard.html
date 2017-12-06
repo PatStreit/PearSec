@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <head>
+      <meta charset="utf-8" />
+      <title>Securityboard</title>
+      <!-- Font Awesome -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+      <!-- Bootstrap core CSS -->
+      <link href="css/bootstrap.min.css" rel="stylesheet">
+      <!-- Material Design Bootstrap -->
+      <link href="css/mdb.min.css" rel="stylesheet">
+      <!-- Your custom styles (optional) -->
+      <link href="css/style.css" rel="stylesheet">
+      
+
+    </head>
+    <style>
+        body{
+            background-color: #e2e2e2;
+        }
+    </style>
+  </head>
+
+  <body>
+
+
+
+    <div class="container-fluid">                            <!--Container Header-->
+    <div class="row">                                              <!--Row Header-->
+
+      <nav class="col-md-12 navbar navbar-expand-lg navbar-dark white">
+
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01"
+              aria-expanded="false" aria-label="Toggle navigation">
+
+              <span class="navbar-toggler-icon"></span>
+
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+              <a class="navbar-brand black-text" href="securityboard.html"><img src="img/PEAR_LOGO_OHNE.png" height="30">Securityboard</a>
+
+              <ul class="navbar-nav mr-auto mt-lg-0">
+                  <li class="nav-item"><a class="nav-link black-text" href="identify.html"> Vermögenswerte<span class="sr-only">(current)</span></a></li>
+                  <li class="nav-item"><a class="nav-link black-text" href="risiken2.html">Risiken</a></li>
+              </ul>
+
+          </div>
+      </nav>
+
+    </div>                                               <!--End Container Header-->
+    </div>                                                     <!--End Row Header-->
+
+
+    <div class="container">
+
+        <div class="row">
+            <h1 class="mx-auto mt-3 h1-responsive animated fadeIn">Securityboard</h1>
+        </div>
+
+        <hr>
+
+        <div class="row">
+            <!--Card-->
+            <div class="card col-md-4 mt-3 mr-5">
+            
+                <!--Card content-->
+                <div class="card-body">
+                    <!--Title-->
+                    <h4 class="card-title font-weight-bold animated fadeIn">Risikoübersicht der Vermögenswerte</h4>
+                    <canvas id="pieChart"></canvas>
+                </div>
+            
+            </div>
+            <!--/.Card-->
+
+            <div class="col-md-7 mt-3">
+
+                <div class="row">
+
+                    <!--Card-->
+                    <div class="card" style="width: 120%">
+                    
+                        <!--Card content-->
+                        <div class="card-body" style="height: 424px; overflow: auto; width: 100%">
+                            <!--Title-->
+                            <h4 class="card-title"><span id="gHeader" class="font-weight-bold animated fadeInRight" style="display: inline">Top Gefährdungen</span>
+                                <span class="font-weight-bold animated fadeInRight" id="mHeader" style="display: none">Top Maßnahmen</span>
+
+                                    <nav class="float-right">
+                                            <ul class="pagination">
+        
+                                              <li class="page-item">
+                                                <a class="page-link" aria-label="Next"onclick="toggleTabellen()">
+                                                    <i class="fa fa-chevron-right" aria-hidden="true" ></i>
+                                                </a>
+                                              </li>
+                                            </ul>
+                                    </nav>
+                            </h4>
+                            <!--Table-->
+                            <table id="gefährdungenTabelle" class="table animated fadeInRight">
+                                    
+                                        <!--Table head-->
+                                        <thead class="blue-grey lighten-4">
+                                            <tr>
+                                                <th class="font-weight-bold">#</th>
+                                                <th colspan="3" class="font-weight-bold">Gefährdung</th>
+                                                <th></th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <!--Table head-->
+                                    
+                                        <!--Table body-->
+                                        <tbody>
+                                            <tr>
+                                                <th scope="row">1</th>
+                                                <td colspan="3"><div class="row"><p class="col-md-10">
+                                                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Beatae commodi asperiores quas impedit placeat sunt. In libero reiciendis iure facere doloremque deserunt similique nisi facilis, tempore, architecto dignissimos aliquid labore!
+                                                        </p>
+                                                       
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">2</th>
+                                                <td colspan="3"><div class="row"><p class="col-md-10">
+                                                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Beatae commodi asperiores quas impedit placeat sunt. In libero reiciendis iure facere doloremque deserunt similique nisi facilis, tempore, architecto dignissimos aliquid labore!
+                                                        </p>
+                                                        
+                                                    </div>
+                                                </td>                                         
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">3</th>
+                                                <td colspan="3"><div class="row"><p class="col-md-10">
+                                                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Beatae commodi asperiores quas impedit placeat sunt. In libero reiciendis iure facere doloremque deserunt similique nisi facilis, tempore, architecto dignissimos aliquid labore!
+                                                        </p>
+                                                    
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">4</th>
+                                                <td colspan="3"><div class="row"><p class="col-md-10">
+                                                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Beatae commodi asperiores quas impedit placeat sunt. In libero reiciendis iure facere doloremque deserunt similique nisi facilis, tempore, architecto dignissimos aliquid labore!
+                                                        </p>
+                                                  
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">5</th>
+                                                <td colspan="3"><div class="row"><p class="col-md-10">
+                                                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Beatae commodi asperiores quas impedit placeat sunt. In libero reiciendis iure facere doloremque deserunt similique nisi facilis, tempore, architecto dignissimos aliquid labore!
+                                                        </p>
+                                                   
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                        <!--Table body-->
+
+                                        
+                            </table>
+                            <!--Table-->
+
+                            <!--Table-->
+                            <table id="maßnahmenTabelle" class="table animated fadeInRight" style="display: none">
+                                    
+                                        <!--Table head-->
+                                        <thead class="blue-grey lighten-4">
+                                            <tr>
+                                                <th class="font-weight-bold">#</th>
+                                                <th class="font-weight-bold">Maßnahmen</th>
+                                                <th></th>
+                                                <th class="float-right mr-4 font-weight-bold">Erledigt</th>
+                                            </tr>
+                                        </thead>
+                                        <!--Table head-->
+                                    
+                                        <!--Table body-->
+                                        <tbody>
+                                            <tr>
+                                                <th scope="row">1</th>
+                                                <td colspan="4"><div class="row"><p class="col-md-10">
+                                                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Beatae commodi asperiores quas impedit placeat sunt. In libero reiciendis iure facere doloremque deserunt similique nisi facilis, tempore, architecto dignissimos aliquid labore!
+                                                        </p>
+                                                        <div class="form-group float-right ml-4">
+                                                                <input  onclick="maßnahmeErledigt(this)" type="checkbox" id="checkbox100">
+                                                                <label for="checkbox100"></label>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">2</th>
+                                                <td colspan="4"><div class="row"><p class="col-md-10">
+                                                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Beatae commodi asperiores quas impedit placeat sunt. In libero reiciendis iure facere doloremque deserunt similique nisi facilis, tempore, architecto dignissimos aliquid labore!
+                                                        </p>
+                                                        <div class="form-group float-right ml-4">
+                                                                <input onclick="maßnahmeErledigt(this)" type="checkbox" id="checkbox101">
+                                                                <label for="checkbox101"></label>
+                                                        </div>
+                                                    </div>
+                                                </td>                                         
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">3</th>
+                                                <td colspan="4"><div class="row"><p class="col-md-10">
+                                                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Beatae commodi asperiores quas impedit placeat sunt. In libero reiciendis iure facere doloremque deserunt similique nisi facilis, tempore, architecto dignissimos aliquid labore!
+                                                        </p>
+                                                        <div class="form-group float-right ml-4">
+                                                                <input onclick="maßnahmeErledigt(this)" type="checkbox" id="checkbox102">
+                                                                <label for="checkbox102"></label>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">4</th>
+                                                <td colspan="4"><div class="row"><p class="col-md-10">
+                                                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Beatae commodi asperiores quas impedit placeat sunt. In libero reiciendis iure facere doloremque deserunt similique nisi facilis, tempore, architecto dignissimos aliquid labore!
+                                                        </p>
+                                                        <div class="form-group float-right ml-4">
+                                                                <input onclick="maßnahmeErledigt(this)" type="checkbox" id="checkbox103">
+                                                                <label for="checkbox103"></label>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">5</th>
+                                                <td colspan="4"><div class="row"><p class="col-md-10">
+                                                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Beatae commodi asperiores quas impedit placeat sunt. In libero reiciendis iure facere doloremque deserunt similique nisi facilis, tempore, architecto dignissimos aliquid labore!
+                                                        </p>
+                                                        <div class="form-group float-right ml-4">
+                                                                <input  onclick="maßnahmeErledigt(this)" type="checkbox" id="checkbox104">
+                                                                <label for="checkbox104"></label>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                        <!--Table body-->
+
+                                        
+                            </table>
+                            <!--Table-->
+                            
+
+                        </div>
+                    
+                    </div>
+                    <!--/.Card-->
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row mt-4">
+                <!--Card-->
+                <div class="card col-md-4 mr-5 animated fadeIn">
+            
+                
+                    <!--Card content-->
+                    <div class="card-body">
+                        <div class="row">
+                            <!--Title-->
+                            <h4 class="card-title mx-auto font-weight-bold">Risikoscore</h4>
+                        </div>
+                        
+                        <!--Text-->
+                        <div class="row">
+                            <h1 class="mx-auto font-weight-bold">69/100</h1>
+                        </div>
+
+                        <p class="card-text font-italic mt-4" style="font-size: 70%">0-20: Kritische Gefährdung, 20-60: Befriedigende Sicherheit, 60-100 Sichere Einstufung</p>
+                    </div>
+                
+                </div>
+                <!--/.Card-->
+
+                <!--Card-->
+                <div class="card col-md-7 animated fadeIn">
+            
+                
+                    <!--Card content-->
+                    <div class="card-body">
+                        <!--Title-->
+                        <h4 class="card-title font-weight-bold">Tipps</h4>
+                        <!--Text-->
+                        <p class="card-text my-auto">Lorem ipsum dolor sit amet, 
+                            consectetur adipisicing elit. Consequatur suscipit quibusdam earum 
+                            velit ipsum beatae consequuntur ad eius ducimus eum, optio fugiat cumque 
+                            consectetur veritatis, sequi dolorum praesentium. Illum, magnam?</p>
+                    </div>
+                
+                </div>
+                <!--/.Card-->
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+
+
+
+    <div class="container-fluid">                            <!--Container Footer-->
+        <div class="row">                                              <!--Row Footer-->
+          <div class="col-md-12" style="margin-top: 100px">
+          <footer class="fixed-bottom text-center indigo white">
+            <p class="black-text pt-3">&copy; Pear | <a class="black-text" href="#">Impressum</a></p>
+          </footer>
+        </div>
+        
+        </div>                                                     <!--End Row Footer-->
+        </div> 
+<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+<!-- Bootstrap tooltips -->
+<script type="text/javascript" src="js/popper.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<!-- MDB core JavaScript -->
+<script type="text/javascript" src="js/mdb.min.js"></script>
+
+
+<script defer src="securityboard.js"></script>
+
+</body>
+</html>

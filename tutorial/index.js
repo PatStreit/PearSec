@@ -76,6 +76,9 @@ app.get('/allGefahrenFurAsset/:KundenAssetID', getGefahrenFurAsset);
 app.get('/verhaltnisAssets',getVerhältnis);
 
 app.get('/getscore',getscore);
+
+app.get('/getErinnerung',getErinnerung);
+
 //////////////////////////
 // API-POST Pfäde
 /////////////////////////
@@ -108,7 +111,7 @@ function getMaßnahmenAsset(req, res) {
 }
 //wird von der Funktion risikoFurGefahrdung aufgerufen
 function getMaßnahmeAsset2(KaiD, _callback) {
-  var sqlB = "SELECT b.mid, b.Beschreibung, d.aid, d.Name FROM Kunde1Verbindungen a, Maßnahmen b, Kunde1Assets c, Assets d WHERE a.KundenAssetID =\"" + KaiD + " \" AND a.mid = b.mid AND a.KundenAssetID = c.KundenAssetID AND c.aid = d.aid;";
+  var sqlB = "SELECT b.mid,b.Titel, b.Beschreibung, d.aid, d.Name FROM Kunde1Verbindungen a, Maßnahmen b, Kunde1Assets c, Assets d WHERE a.KundenAssetID =\"" + KaiD + " \" AND a.mid = b.mid AND a.KundenAssetID = c.KundenAssetID AND c.aid = d.aid;";
   con.query(sqlB, (err, result, fields) => {
     if (err) throw err;
     _callback(result);
@@ -490,4 +493,15 @@ function istglobal(MID, _callback){
    console.log(typeof ding)
    _callback(ding);
  }) 
+}
+
+
+function getErinnerung(req, res) {
+  console.log("erinnern");
+  var sqlResult;
+  con.query("SELECT a.Name as Bezeichnung, c.gid, c.Name, b.Zeitpunkt FROM Kunde1Assets a, Kunde1Verbindungen b, Gefährdungen c WHERE ( CURDATE( ) - b.Zeitpunkt ) >=100 AND ( c.Schadenshöhe * b.Eintrittswahrscheinlichkeit) >=15 AND a.KundenAssetID = b.KundenAssetID AND b.gid = c.gid", function (err, result, fields) {
+    if (err) throw err;
+    sqlResult = result;
+    res.send(result);
+  });
 }

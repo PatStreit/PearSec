@@ -49,12 +49,13 @@ app.get('/getAllMassnahmenFurGefahrdung/:kaid/:gID', getAllMassnahmenFurGefahrdu
 
 //Alle Kundenassets schicken
 app.get('/getAllKundenAssetsAndPruffragen', getAllKundenAssetsAndPruffragen); 
-//get alle Assets die im Unternehmen vorkommen können
+//get alle Assets die zur im param bestimmten Kategorie gehören
 app.get('/getAssetsfurKategorien/:param', getAssetsfurKategorie);
+//get alle Assets 
 app.get('/allAssets', getAllAssets);
-//get RisikoJeGefährdung
+//get das Risiko für die Gefährdung, die im param angegeben ist
 app.get('/risikoFurGefahrdung/:param', risikoFurGefahrdung);
-//get RisikoJeGefährdung
+//veraltete
 app.get('/gesamtRisiko', getGesamtRisiko);
 //berechne Risiko für ein Asset
 app.get('/getRisikoFurEinAsset/:param',getRisikoFurEinAsset2);
@@ -254,11 +255,12 @@ function getscore(req, res){
   var sqlResult;
   var summe = 0;
   var farbe;
+  var grenzegesamt = 0;
   var grenze1 = 0;
   var grenze2 = 0;
   var test;
 
-  getGrenzwerte((xy) => {grenze1 = xy.rotgelb; grenze2 = xy.gelbgrün; 
+  getGrenzwerte((xy) => {grenzegesamt = xy.maxrot; grenze1 = xy.rotgelb; grenze2 = xy.gelbgrün; 
   console.log("teste grenze1"+grenze1);
   con.query("SELECT distinct a.KundenAssetID, a.GID, ( a.Eintrittswahrscheinlichkeit * Schadenshöhe ) AS erg, c.Wichtig FROM Kunde1Verbindungen a, Gefährdungen b, Assets c, Kunde1Assets d WHERE a.gid = b.gid and c.aid =d.aid and a.KundenAssetID = d.KundenAssetID", function (err, result, fields) {
     if (err) throw err;
@@ -274,7 +276,10 @@ function getscore(req, res){
       farbe = "yellow";
       else farbe = "green";
       summe = Math.round(summe);
-      var obj = {"summe" : summe, "farbe" : farbe};
+      grenzegesamt = Math.round(grenzegesamt);
+      grenze1 = Math.round(grenze1);
+      grenze2 = Math.round(grenze2);
+      var obj = {"summe" : summe, "farbe" : farbe,"obergrenze" : grenzegesamt, "grenzerotgelb" : grenze1, "grenzegelbgrün" : grenze2};
       sqlResult = JSON.stringify(obj);
     res.send(sqlResult);
   });});
@@ -282,18 +287,44 @@ function getscore(req, res){
 
 function getGrenzwerte(_callback){
   //senden alle Assets die in der normalen DB hinterlegt sind als Json Response
-    var wichtig;
-    var unwichtig;
+    var wichtig = 0;
+    var unwichtig = 0;
     var sqlResult;
     //var sqlBef ="SELECT a.KundenAssetID, a.AiD, a.Name, b.Kategorien FROM Kunde1Assets a, Assets b where a.AID = b.AID";
     console.log("test des callback");
-    con.query("SELECT Wichtig, COUNT( Wichtig ) as anzahl FROM Kunde1Assets a, Assets b, Kunde1Verbindungen c WHERE a.aid = b.aid and a.KundenAssetID = c.KundenAssetID GROUP BY Wichtig", function (err, result, fields) {
+    con.query("SELECT Wichtig, COUNT( Wichtig ) as anzahl FROM Kunde1Assets a, Assets b, Kunde1Verbindungen c WHERE a.aid = b.aid and a.KundenAssetID = c.KundenAssetID GROUP BY Wichtig order by Wichtig asc", function (err, result, fields) {
       if (err) throw err;
-      unwichtig = result[0].anzahl;
-      wichtig = result[1].anzahl;
+      console.log(result);
+      
+      console.log(Object.keys(result).length);
+      if (Object.keys(result).length == 0){
+        unwichtig = 0;
+        wichtig = 0;
+      }else if(Object.keys(result).length == 1){
+        if(result[0].Wichtig = 0){
+          unwichtig = result[0].anzahl;
+          wichtig = 0;
+        }else{
+          wichtig = result[0].anzahl;
+          unwichtig = 0;
+        }
+      }else{
+        unwichtig = result[0].anzahl;
+        wichtig = result[1].anzahl;
+      }
+     
+      // if (typeof result.anzahl == number){
+     //   unwichtig = result;
+     //   wichtig = 0;
+     // }else {
+     //   unwichtig = result[0].anzahl;
+     //   wichtig = result[1].anzahl;}
+     
+
+      var maxrot = 36*wichtig*0.1 + 36*unwichtig*0.01;
       var grenzerotgelb = 14*wichtig*0.1 + 14*unwichtig*0.01;
       var grenzegelbgrün = 6*wichtig*0.1 + 6*unwichtig*0.01;
-      var obj = {"rotgelb": grenzerotgelb, "gelbgrün": grenzegelbgrün}
+      var obj = {"maxrot" : maxrot, "rotgelb": grenzerotgelb, "gelbgrün": grenzegelbgrün}
       sqlResult = obj;
       _callback(sqlResult);
     });

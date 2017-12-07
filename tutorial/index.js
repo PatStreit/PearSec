@@ -58,6 +58,8 @@ app.get('/risikoFurGefahrdung/:param', risikoFurGefahrdung);
 app.get('/gesamtRisiko', getGesamtRisiko);
 //berechne Risiko für ein Asset
 app.get('/getRisikoFurEinAsset/:param',getRisikoFurEinAsset2);
+//berechne Risiko für ein Asset
+app.get('/allMassnahmenFurAsset/:param',getMaßnahmenAsset);
 //alle Kategorien
 app.get('/allKategorien', getAlleKategorien);
 //wichtigste Maßnahmen
@@ -99,6 +101,18 @@ function getAllAssets(req, res) {
   });
   
 }
+function getMaßnahmenAsset(req, res) {
+  getMaßnahmeAsset2(req.params.param, (xy) => { res.send((xy)); });
+}
+//wird von der Funktion risikoFurGefahrdung aufgerufen
+function getMaßnahmeAsset2(KaiD, _callback) {
+  var sqlB = "SELECT b.mid, b.Beschreibung, d.aid, d.Name FROM Kunde1Verbindungen a, Maßnahmen b, Kunde1Assets c, Assets d WHERE a.KundenAssetID =\"" + KaiD + " \" AND a.mid = b.mid AND a.KundenAssetID = c.KundenAssetID AND c.aid = d.aid;";
+  con.query(sqlB, (err, result, fields) => {
+    if (err) throw err;
+    _callback(result);
+  });
+}
+
 
 function gettopmassnahmen(req, res) {
   var sqlResult;

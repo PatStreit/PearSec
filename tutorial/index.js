@@ -60,6 +60,8 @@ app.get('/gesamtRisiko', getGesamtRisiko);
 app.get('/getRisikoFurEinAsset/:param',getRisikoFurEinAsset2);
 //berechne Risiko für ein Asset
 app.get('/allMassnahmenFurAsset/:param',getMaßnahmenAsset);
+//Alle Maßnahmen je Gefährdung schicken
+app.get('/getAllGefahrdungenfurMassnahme/:KaiD/:MiD',getGefahrdungfurMaßnahme ); 
 //alle Kategorien
 app.get('/allKategorien', getAlleKategorien);
 //wichtigste Maßnahmen
@@ -107,6 +109,20 @@ function getMaßnahmenAsset(req, res) {
 //wird von der Funktion risikoFurGefahrdung aufgerufen
 function getMaßnahmeAsset2(KaiD, _callback) {
   var sqlB = "SELECT b.mid, b.Beschreibung, d.aid, d.Name FROM Kunde1Verbindungen a, Maßnahmen b, Kunde1Assets c, Assets d WHERE a.KundenAssetID =\"" + KaiD + " \" AND a.mid = b.mid AND a.KundenAssetID = c.KundenAssetID AND c.aid = d.aid;";
+  con.query(sqlB, (err, result, fields) => {
+    if (err) throw err;
+    _callback(result);
+  });
+}
+
+function getGefahrdungfurMaßnahme(req, res) {
+  getGefahrdungfurMaßnahme2(req.params.KaiD, req.params.MiD, (xy) => { res.send((xy)); });
+}
+//wird von der Funktion risikoFurGefahrdung aufgerufen
+function getGefahrdungfurMaßnahme2(KaiD, MiD, _callback) {
+  console.log(KaiD+ "ist Kaid");
+  console.log(MiD+ "ist Mid");
+  var sqlB = "SELECT a.gid, a.mid, b.Name, b.Beschreibung FROM Kunde1Verbindungen a, Gefährdungen b WHERE a.mid = \"" + MiD + " \"  AND a.gid = b.gid AND a.KundenAssetID =\"" + KaiD + " \";";
   con.query(sqlB, (err, result, fields) => {
     if (err) throw err;
     _callback(result);

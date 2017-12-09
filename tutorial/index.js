@@ -46,7 +46,7 @@ app.get('/getAllMassnahmenFurAsset/:param', getAllMaßnahmenFurAsset);
 */
 //Alle Maßnahmen je Gefährdung schicken
 app.get('/getAllMassnahmenFurGefahrdung/:kaid/:gID', getAllMassnahmenFurGefahrdung); 
-
+app.get("/getalleGefahrdungen", getalleGefährdungen);
 //Alle Kundenassets schicken
 app.get('/getAllKundenAssetsAndPruffragen', getAllKundenAssetsAndPruffragen); 
 //get alle Assets die zur im param bestimmten Kategorie gehören
@@ -79,7 +79,7 @@ app.get('/verhaltnisAssets',getVerhältnis);
 app.get('/getscore',getscore);
 
 app.get('/getErinnerung',getErinnerung);
-
+app.get("/gettest", gettest);
 //////////////////////////
 // API-POST Pfäde
 /////////////////////////
@@ -183,6 +183,37 @@ function getGesamtRisiko2(_callback) {
       });
     });
     _callback((gesamtRisiko / counter));
+  });
+}
+
+function getalleGefährdungen(req, res) {
+  getalleGefährdungen2((xy) => {  res.send(xy)});
+}
+//wird von der Methode getGEsamtRisiko aufgerufen und 
+function getalleGefährdungen2(_callback) {
+  var sqlB = "SELECT distinct a.gid, b.Beschreibung, KundenAssetID, (a.Eintrittswahrscheinlichkeit * b.Schadenshöhe) AS erg FROM Kunde1Verbindungen a, Gefährdungen b WHERE a.gid = b.gid ORDER BY  `a`.`gid` ASC;  ";
+  con.query(sqlB, (err, result, fields) => {
+    var ergebnis =[];
+    console.log(result);
+    var obj = {"gid": "", "beschreibung": "", "kaid": "", "erg": "", "farbe": ""};
+    for(var i in result) {
+      obj.gid = result[i].gid;
+      obj.beschreibung = result[i].Beschreibung;
+      obj.kaid = result[i].KundenAssetID;
+      obj.erg = result[i].erg;
+      if(result[i].erg > 14){
+        obj.farbe = "rot";
+      }else if(result[i].erg > 5){
+        obj.farbe = "gelb";
+      }else{
+        obj.farbe = "grün";
+    ergebnis[i] = obj;  
+    }
+    }
+    sqlResult = JSON.stringify(ergebnis);
+  
+        _callback(sqlResult);
+  
   });
 }
 // ruft eine Funktion auf die das Risiko für eine Asset zurück gibt. Das Ergebnis wird direkt gesendet
@@ -366,6 +397,14 @@ function getAlleKategorien(req, res){
     res.send(result);
   });
 }
+function gettest(req, res){
+  
+    
+    res.send("test");
+  
+}
+
+
 
 function getAlleKundenAssets(req, res){
   con.query("Select a.KundenAssetID, a.AiD, a.Name, b.Kategorien from Kunde1Assets a, Assets b where a.AID=b.AID;", function (err, result, fields) {
@@ -466,14 +505,14 @@ function MaßnahmeAbhaken(KAID, MID, ding, _callback){
   console.log(ding);
   if (ding == 0){
     console.log("kein globales");
-  var sql=("update Kunde1Verbindungen set Durchgeführt = 1 where KundenAssetId = \"" +KAID + "\" and MID =  \"" + MID + "\";" );
- var sql2=("UPDATE Kunde1Verbindungen SET Eintrittswahrscheinlichkeit =1 WHERE KundenAssetId = \"" +KAID + "\" AND GID IN ( SELECT d.GID FROM Gefährdungen_haben a, AssetsZuGefährdungen c, Kunde1Assets b, Gefährdungen d WHERE b.KundenAssetID =\"" +KAID + "\" AND a.MID = \"" + MID + "\" AND b.AID = c.AID AND c.agid = a.agid and d.gid = c.gid);");
+  var sql=("begin; update Kunde1Verbindungen set Durchgeführt = 1 where KundenAssetId = \"" +KAID + "\" and MID =  \"" + MID + "\";" );
+ var sql2=("UPDATE Kunde1Verbindungen SET Eintrittswahrscheinlichkeit =1 WHERE KundenAssetId = \"" +KAID + "\" AND GID IN ( SELECT d.GID FROM Gefährdungen_haben a, AssetsZuGefährdungen c, Kunde1Assets b, Gefährdungen d WHERE b.KundenAssetID =\"" +KAID + "\" AND a.MID = \"" + MID + "\" AND b.AID = c.AID AND c.agid = a.agid and d.gid = c.gid); commit;");
   var sql3=sql+sql2;}
   
   else if (ding == 1){
     console.log("ist globales");
-    var sql=("update Kunde1Verbindungen set Durchgeführt = 1 where MID =  \"" + MID + "\";" );
-   var sql2=("UPDATE Kunde1Verbindungen SET Eintrittswahrscheinlichkeit =1 WHERE GID IN(SELECT c.gid FROM AssetsZuGefährdungen c, Gefährdungen_haben d WHERE mid = \"" +MID + "\"  AND c.agid = d.agid);");
+    var sql=("Begin; update Kunde1Verbindungen set Durchgeführt = 1 where MID =  \"" + MID + "\";" );
+   var sql2=("UPDATE Kunde1Verbindungen SET Eintrittswahrscheinlichkeit =1 WHERE GID IN(SELECT c.gid FROM AssetsZuGefährdungen c, Gefährdungen_haben d WHERE mid = \"" +MID + "\"  AND c.agid = d.agid); commit;");
     var sql3=sql+sql2;}
 
  con.query(sql3, (err, result, fields) => {
@@ -496,12 +535,12 @@ function updateMaßnahmeErledigtnegativ(req, res) {
 
 function MaßnahmeAbhakennegativ(KAID, MID, ding, _callback){
   if(ding ==0){
-  var sql=("update Kunde1Verbindungen set Durchgeführt = 0 where KundenAssetId = \"" +KAID + "\" and MID =  \"" + MID + "\";" );
- var sql2=("UPDATE Kunde1Verbindungen e, Gefährdungen f SET e.Eintrittswahrscheinlichkeit = f.Eintrittswahrscheinlichkeit WHERE f.gid = e.gid AND KundenAssetId =\"" +KAID + "\" AND e.GID IN (SELECT d.GID FROM Gefährdungen_haben a, AssetsZuGefährdungen c, Kunde1Assets b, Gefährdungen d WHERE b.KundenAssetID =\"" +KAID + "\" AND a.MID = \"" +MID + "\"  AND b.AID = c.AID AND c.agid = a.agid AND d.gid = c.gid);");
+  var sql=("begin; update Kunde1Verbindungen set Durchgeführt = 0 where KundenAssetId = \"" +KAID + "\" and MID =  \"" + MID + "\";" );
+ var sql2=("UPDATE Kunde1Verbindungen e, Gefährdungen f SET e.Eintrittswahrscheinlichkeit = f.Eintrittswahrscheinlichkeit WHERE f.gid = e.gid AND KundenAssetId =\"" +KAID + "\" AND e.GID IN (SELECT d.GID FROM Gefährdungen_haben a, AssetsZuGefährdungen c, Kunde1Assets b, Gefährdungen d WHERE b.KundenAssetID =\"" +KAID + "\" AND a.MID = \"" +MID + "\"  AND b.AID = c.AID AND c.agid = a.agid AND d.gid = c.gid); commit;");
   var sql3=sql+sql2;}
   else if(ding ==1){
-    var sql=("update Kunde1Verbindungen set Durchgeführt = 0 where MID =  \"" + MID + "\";" );
-    var sql2=("UPDATE Kunde1Verbindungen a, Gefährdungen b SET a.Eintrittswahrscheinlichkeit = b.Eintrittswahrscheinlichkeit WHERE a.gid = b.gid AND b.gid IN ( SELECT c.gid FROM AssetsZuGefährdungen c, Gefährdungen_haben d WHERE mid = \"" +MID + "\"  AND c.agid = d.agid);");
+    var sql=("begin; update Kunde1Verbindungen set Durchgeführt = 0 where MID =  \"" + MID + "\";" );
+    var sql2=("UPDATE Kunde1Verbindungen a, Gefährdungen b SET a.Eintrittswahrscheinlichkeit = b.Eintrittswahrscheinlichkeit WHERE a.gid = b.gid AND b.gid IN ( SELECT c.gid FROM AssetsZuGefährdungen c, Gefährdungen_haben d WHERE mid = \"" +MID + "\"  AND c.agid = d.agid); commit;");
      var sql3=sql+sql2;
 
   };

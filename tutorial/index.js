@@ -393,7 +393,7 @@ function getAllMassnahmenFurGefahrdung(req, res) {
 }
 //wird von der Funktion risikoFurGefahrdung aufgerufen
 function getAllMassnahmenFurGefahrdung2(kaid, gID, _callback) {
- var sql = "SELECT a.gid, b.mid, Beschreibung, Durchgeführt FROM Kunde1Verbindungen a, Maßnahmen b WHERE a.KundenAssetId =\""+kaid+"\" AND a.gid = \""+gID+"\"  AND a.mid = b.mid;" ;
+ var sql = "SELECT a.gid, b.mid, Beschreibung, , Titel, Durchgeführt FROM Kunde1Verbindungen a, Maßnahmen b WHERE a.KundenAssetId =\""+kaid+"\" AND a.gid = \""+gID+"\"  AND a.mid = b.mid;" ;
   con.query(sql, (err, result, fields) => {
     if (err) throw err;
     _callback(result);

@@ -415,16 +415,16 @@ function gettest(req, res){
 
 function getlokalmaßnahmen(req, res){
   var Kaid = req.Kaid;
-  con.query("SELECT KundenAssetID, a.Mid FROM Kunde1Verbindungen a, Maßnahmen b WHERE a.mid = b.mid AND KundenAssetID =\"" + Kaid + " \" AND GLOBAL =0", function (err, result, fields) {
-    if (err) console.log("Error bei den Kategorien");
+  con.query("SELECT DISTINCT a.mid, a.kundenassetid, b.titel, b.beschreibung, a.gid, b.umsetzbarkeit, (c.Schadenshöhe * a.Eintrittswahrscheinlichkeit) AS erg, a.erledigt FROM Kunde1Verbindungen a, Maßnahmen b, Gefährdungen c WHERE b.global =0 AND a.gid = c.gid AND a.mid = b.mid AND kundenassetid =\"" + Kaid + " \";", function (err, result, fields) {
+    if (err) console.log("Error bei den Maßnahmen lokal");
     res.send(result);
   });
 }
 
 function getglobalmaßnahmen(req, res){
   var Kaid = req.Kaid;
-  con.query("SELECT KundenAssetID, a.Mid FROM Kunde1Verbindungen a, Maßnahmen b WHERE a.mid = b.mid AND KundenAssetID =\"" + Kaid + " \" AND GLOBAL =1", function (err, result, fields) {
-    if (err) console.log("Error bei den Kategorien");
+  con.query("SELECT DISTINCT a.mid, a.kundenassetid, b.titel, b.beschreibung, a.gid, b.umsetzbarkeit, (c.Schadenshöhe * a.Eintrittswahrscheinlichkeit) AS erg, a.erledigt FROM Kunde1Verbindungen a, Maßnahmen b, Gefährdungen c WHERE b.global =1 AND a.gid = c.gid AND a.mid = b.mid AND kundenassetid =\"" + Kaid + " \";", function (err, result, fields) {
+    if (err) console.log("Error bei den Maßnahmen global");
     res.send(result);
   });
 }
@@ -439,7 +439,7 @@ function getGefahrenFurAsset(req, res){
   var Kaid = req.params.KundenAssetID;
   var sql = "SELECT DISTINCT c.AID, b.GID, b.Name, c.Name AS Asset  FROM Kunde1Verbindungen a, Gefährdungen b, Kunde1Assets c  WHERE a.KundenAssetID =  \"" + Kaid + " \"AND a.GID = b.GID  AND c.KundenAssetID = a.KundenAssetID order by (a.Eintrittswahrscheinlickeit*Schadenshöhen) desc;";
   con.query(sql, function (err, result, fields) {
-    if (err) console.log("Error bei den Kategorien");
+    if (err) console.log("Error bei den Gefahren Assets");
     res.send(result);
   });
 }

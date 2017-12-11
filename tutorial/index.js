@@ -414,7 +414,7 @@ function gettest(req, res){
 }
 
 function getlokalmaßnahmen(req, res){
-  var Kaid = req.Kaid;
+  var Kaid = req.params.Kaid;
   con.query("SELECT DISTINCT a.mid, a.kundenassetid, b.titel, b.beschreibung, a.gid, b.umsetzbarkeit, (c.Schadenshöhe * a.Eintrittswahrscheinlichkeit) AS erg, a.durchgeführt FROM Kunde1Verbindungen a, Maßnahmen b, Gefährdungen c WHERE b.global =0 AND a.gid = c.gid AND a.mid = b.mid AND kundenassetid =\"" + Kaid + " \";", function (err, result, fields) {
     if (err) console.log("Error bei den Maßnahmen lokal");
     res.send(result);
@@ -422,7 +422,7 @@ function getlokalmaßnahmen(req, res){
 }
 
 function getglobalmaßnahmen(req, res){
-  var Kaid = req.Kaid;
+  var Kaid = req.params.Kaid;
   con.query("SELECT DISTINCT a.mid, a.kundenassetid, b.titel, b.beschreibung, a.gid, b.umsetzbarkeit, (c.Schadenshöhe * a.Eintrittswahrscheinlichkeit) AS erg, a.durchgeführt FROM Kunde1Verbindungen a, Maßnahmen b, Gefährdungen c WHERE b.global =1 AND a.gid = c.gid AND a.mid = b.mid AND kundenassetid =\"" + Kaid + " \";", function (err, result, fields) {
     if (err) console.log("Error bei den Maßnahmen global");
     res.send(result);

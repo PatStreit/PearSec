@@ -8,7 +8,7 @@ var headerRow = document.createElement('div');
 headerRow.setAttribute('class', 'row');
 var headerSize = document.createElement('h4');
 headerSize.setAttribute('class', 'black-text');
-headerSize.innerText = 'Vorschläge';
+headerSize.innerText = 'Neue hinzufügen';
 headerRow.appendChild(headerSize);
 
 var headerRow1 = document.createElement('div');
@@ -23,6 +23,16 @@ headerRow1.appendChild(headerSize1);
 window.onload = init(document.getElementById('it'));
 
 function init(kategorie){
+  //aktuelle Farben zurücksetzen und aktuelle Kategorie färben
+  document.getElementById('it').style.backgroundColor="#FFFFFF";
+  document.getElementById('maschinen').style.backgroundColor="#FFFFFF";
+  document.getElementById('netze').style.backgroundColor="#FFFFFF";
+  document.getElementById('infrastruktur').style.backgroundColor="#FFFFFF";
+  document.getElementById('daten').style.backgroundColor="#FFFFFF";
+
+  document.getElementById(kategorie.id).style.backgroundColor="#E2E2E2";
+
+
   var xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function(){
     if(xhr.readyState == 4 && xhr.status == 200){
@@ -188,35 +198,40 @@ function callAsset(asset, kID){
   row.setAttribute('class', 'row');
 
   var addButton = document.createElement('a');
-  addButton.setAttribute('class', 'btn-floating btn-sm red mr-4 mt-3');
+  addButton.setAttribute('class', 'mt-4 mr-3');
   addButton.setAttribute('id', asset.KundenAssetID);
   addButton.setAttribute('name', kID);
   var icon = document.createElement('i');
-  icon.setAttribute('class', 'fa fa-minus-square-o');
+  icon.setAttribute('class', 'fa fa-trash fa-2x');
   addButton.appendChild(icon);
 
   addButton.addEventListener('click', delAsset);
 
   var assetDIV = document.createElement('div');
-  assetDIV.setAttribute('class', 'btn btn-indigo darken 2 btn-block mt-2 mr-4 animated fadeIn');
+  assetDIV.setAttribute('class', 'btn btn-indigo darken 2 btn-block ml-5 mt-2 mb-3 mr-4 animated fadeIn');
   assetDIV.setAttribute('id', asset.AID);
   assetDIV.style.height = '55px';
   assetDIV.style.width = '60%';
   assetDIV.innerText = asset.Name;
 
-  row.appendChild(addButton);
   row.appendChild(assetDIV);
 
-  var bewerten = document.createElement('button');
-  bewerten.setAttribute('class', 'btn btn-indigo darken 2 mt-2');
-  bewerten.style.height = '55px';
+  var bewerten = document.createElement('a');
+  bewerten.setAttribute('class', 'mt-4 mr-3');
   bewerten.setAttribute('data-toggle', 'collapse');
   bewerten.setAttribute('data-target', '#collapseExample' + collapseCounter);
   bewerten.setAttribute('aria-expended', 'false');
   bewerten.setAttribute('aria-controls', 'collapseExample' + collapseCounter);
-  bewerten.innerHTML = '<i class="fa fa-edit" aria-hidden="true"></i>&nbsp;Bewerten';
+  bewerten.innerHTML = '<i class="fa fa-gears fa-2x" aria-hidden="true"></i>';
 
   row.appendChild(bewerten);
+  row.appendChild(addButton);
+
+  var weiterleiten = document.createElement('a');
+  weiterleiten.setAttribute('class', 'mt-4 mr-2');
+  weiterleiten.innerHTML = '<i class="fa fa-share fa-2x" aria-hidden="true"></i>';
+  row.appendChild(weiterleiten);
+
   assetListe.appendChild(row);
 
   var collapse = document.createElement('div');
@@ -341,14 +356,13 @@ function loadAssets(obj, kID){
   button.style.height = '55px';
   button.style.width = '200px';
 //  alert(obj.KundenAssetID);
-  var icon = document.createElement('i');
-  icon.setAttribute('class', 'fa fa-plus-square-o');
-  icon.setAttribute('aria-idden', 'true');
 
-  button.appendChild(icon);
-  button.innerText = obj.Name;
+  button.innerHTML = '<div class="float-left"><i class="fa fa-plus mr-1" aria-hidden="true"></i></div>' + obj.Name;
+  button.setAttribute('data-target','#exampleModal');
+  button.setAttribute('data-toggle', 'modal');
 
   button.addEventListener('click', addAsset);
+
 
   row.appendChild(button);
   vorschläge.appendChild(row);

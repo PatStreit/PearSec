@@ -194,9 +194,9 @@ function getalleGefährdungen2(_callback) {
   var sqlB = "SELECT distinct a.gid, b.name, b.Beschreibung, a.KundenAssetID, c.Name as NameA, (a.Eintrittswahrscheinlichkeit * b.Schadenshöhe) AS erg FROM Kunde1Verbindungen a, Gefährdungen b , Kunde1Assets c WHERE a.KundenAssetID = c.KundenAssetID and a.gid = b.gid ORDER BY  `a`.`gid` ASC;  ";
   con.query(sqlB, (err, result, fields) => {
     var ergebnis =[];
-    console.log(result);
-    var obj = {"gid": "", "name" : "", "beschreibung": "", "kaid": "", "NameAsset" : "", "erg": "", "farbe": ""};
     for(var i in result) {
+    var obj = {"gid": "", "name" : "", "beschreibung": "", "kaid": "", "NameAsset" : "", "erg": "", "farbe": ""};
+    
       obj.gid = result[i].gid;
       obj.name = result[i].name;
       obj.beschreibung = result[i].Beschreibung;
@@ -209,12 +209,11 @@ function getalleGefährdungen2(_callback) {
         obj.farbe = "gelb";
       }else{
         obj.farbe = "grün";
-      }
-        ergebnis[i] = obj;  
+      };  
+      ergebnis[i] = obj;  
     
     }
     sqlResult = JSON.stringify(ergebnis);
-  
         _callback(sqlResult);
   
   });

@@ -61,6 +61,8 @@ app.get('/gesamtRisiko', getGesamtRisiko);
 app.get('/getRisikoFurEinAsset/:param',getRisikoFurEinAsset2);
 //berechne Risiko für ein Asset
 app.get('/allMassnahmenFurAsset/:param',getMaßnahmenAsset);
+app.get('/lokalemassnahmen/:Kaid',getlokalmaßnahmen);
+app.get('/globalemassnahmen/:Kaid',getglobalmaßnahmen);
 //Alle Maßnahmen je Gefährdung schicken
 app.get('/getAllGefahrdungenfurMassnahme/:KaiD/:MiD',getGefahrdungfurMaßnahme ); 
 //alle Kategorien
@@ -411,7 +413,21 @@ function gettest(req, res){
   
 }
 
+function getlokalmaßnahmen(req, res){
+  var Kaid = req.Kaid;
+  con.query("SELECT KundenAssetID, a.Mid FROM Kunde1Verbindungen a, Maßnahmen b WHERE a.mid = b.mid AND KundenAssetID =\"" + Kaid + " \" AND GLOBAL =0", function (err, result, fields) {
+    if (err) console.log("Error bei den Kategorien");
+    res.send(result);
+  });
+}
 
+function getglobalmaßnahmen(req, res){
+  var Kaid = req.Kaid;
+  con.query("SELECT KundenAssetID, a.Mid FROM Kunde1Verbindungen a, Maßnahmen b WHERE a.mid = b.mid AND KundenAssetID =\"" + Kaid + " \" AND GLOBAL =1", function (err, result, fields) {
+    if (err) console.log("Error bei den Kategorien");
+    res.send(result);
+  });
+}
 
 function getAlleKundenAssets(req, res){
   con.query("Select a.KundenAssetID, a.AiD, a.Name, b.Kategorien from Kunde1Assets a, Assets b where a.AID=b.AID;", function (err, result, fields) {
@@ -421,7 +437,7 @@ function getAlleKundenAssets(req, res){
 }
 function getGefahrenFurAsset(req, res){
   var Kaid = req.params.KundenAssetID;
-  var sql = "SELECT DISTINCT c.AID, b.GID, b.Name, c.Name AS Asset  FROM Kunde1Verbindungen a, Gefährdungen b, Kunde1Assets c  WHERE a.KundenAssetID =  \"" + Kaid + " \"AND a.GID = b.GID  AND c.KundenAssetID = a.KundenAssetID";
+  var sql = "SELECT DISTINCT c.AID, b.GID, b.Name, c.Name AS Asset  FROM Kunde1Verbindungen a, Gefährdungen b, Kunde1Assets c  WHERE a.KundenAssetID =  \"" + Kaid + " \"AND a.GID = b.GID  AND c.KundenAssetID = a.KundenAssetID order by (a.Eintrittswahrscheinlickeit*Schadenshöhen) desc;";
   con.query(sql, function (err, result, fields) {
     if (err) console.log("Error bei den Kategorien");
     res.send(result);
@@ -430,23 +446,9 @@ function getGefahrenFurAsset(req, res){
 
 
 
-/* Wird tendenziell nicht mehr gebraucht
-// ruft eine Funktion auf die das Risiko für eine Gefährdung zurück gibt. Das Ergebnis wird direkt gesendet
-function getAllePruffragen(req, res) {
-  getAllePruffragen2(req.params.param, (xy) => { res.send((xy)); });
-}
-//wird von der Funktion risikoFurGefahrdung aufgerufen
-function getAllePruffragen2(aiD, _callback) {
-  var sqlB = "SELECT a.AID, a.GID, c.Kategorien, c.Name ,b.PID ,b.Prüffrage  FROM AssetsZuGefährdungen a, Prüffragen b, Assets c where a.AID= \"" + aiD + " \" and a.PID=b.PID and a.aid=c.aid;";
-  con.query(sqlB, (err, result, fields) => {
-    if (err) throw err;
-    _callback(result);
-  });
-}
-*/
 
 ///////////////////////////
-//Funktionen der get API Ramazan///
+//Funktionen der get API///
 ///////////////////////////
 function postDaten(req, res) {
   /*

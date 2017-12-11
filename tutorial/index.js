@@ -393,7 +393,7 @@ function getAllMassnahmenFurGefahrdung(req, res) {
 }
 //wird von der Funktion risikoFurGefahrdung aufgerufen
 function getAllMassnahmenFurGefahrdung2(kaid, gID, _callback) {
- var sql = "SELECT a.gid, b.mid, Beschreibung, , Titel, Durchgeführt FROM Kunde1Verbindungen a, Maßnahmen b WHERE a.KundenAssetId =\""+kaid+"\" AND a.gid = \""+gID+"\"  AND a.mid = b.mid;" ;
+ var sql = "SELECT a.gid, b.mid, Beschreibung,  Titel, Durchgeführt FROM Kunde1Verbindungen a, Maßnahmen b WHERE a.KundenAssetId =\""+kaid+"\" AND a.gid = \""+gID+"\"  AND a.mid = b.mid;" ;
   con.query(sql, (err, result, fields) => {
     if (err) throw err;
     _callback(result);
@@ -437,7 +437,7 @@ function getAlleKundenAssets(req, res){
 }
 function getGefahrenFurAsset(req, res){
   var Kaid = req.params.KundenAssetID;
-  var sql = "SELECT DISTINCT c.AID, b.GID, b.Name, c.Name AS Asset  FROM Kunde1Verbindungen a, Gefährdungen b, Kunde1Assets c  WHERE a.KundenAssetID =  \"" + Kaid + " \"AND a.GID = b.GID  AND c.KundenAssetID = a.KundenAssetID order by (a.Eintrittswahrscheinlickeit*Schadenshöhen) desc;";
+  var sql = "SELECT DISTINCT c.AID, b.GID, b.Name, c.Name AS Asset, ( a.Eintrittswahrscheinlichkeit * Schadenshöhe) FROM Kunde1Verbindungen a, Gefährdungen b, Kunde1Assets c WHERE a.KundenAssetID =\""+Kaid+"\" AND a.GID = b.GID AND c.KundenAssetID = a.KundenAssetID ORDER BY ( a.Eintrittswahrscheinlichkeit * Schadenshöhe) DESC;" ;
   con.query(sql, function (err, result, fields) {
     if (err) console.log("Error bei den Gefahren Assets");
     res.send(result);

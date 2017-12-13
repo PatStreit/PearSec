@@ -232,7 +232,7 @@ function getRisikoFurEinAsset2(req, res) {
 // berechnet das Risiko für ein Asset
 function getRisikoFurEinAsset(KundenAssetID, _callback) {
   //größte Gefährdung für ein Asset suchen:
-  var sqlB = "SELECT MAX(c.Eintrittswahrscheinlichkeit*a.Schadenshöhe) as erg from Gefährdungen a, Assets b, Kunde1Verbindungen c, Kunde1Assets d where a.GID = c.GID and b.AID = d.AID  and d.KundenAssetID = \"" + KundenAssetID + " \";";
+  var sqlB = "SELECT MAX( a.eintrittswahrscheinlichkeit * schadenshöhe ) AS erg FROM Kunde1Verbindungen a, Gefährdungen b WHERE a.gid = b.gid AND kundenassetid = \"" + KundenAssetID + " \";";
   con.query(sqlB, (err, result, fields) => {
     if (err) throw err;
     

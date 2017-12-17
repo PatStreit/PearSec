@@ -95,8 +95,8 @@ app.delete('/deleteAsset/:kaid', assetloschen);
 app.put('/massnahmeErledigt/:KAID/:MID',updateMaßnahmeErledigt);
 app.put('/massnahmeErledigtNegativ/:KAID/:MID',updateMaßnahmeErledigtnegativ);
 app.put('/resettest',resettest);
-app.put('/testabhaken',updateMaßnahmeErledigt);
-app.put('/testabhakennegativ', updateMaßnahmeErledigtnegativ);
+app.put('/testabhaken/:KAID/:MID',updateMaßnahmeErledigt);
+app.put('/testabhakennegativ/:KAID/:MID', updateMaßnahmeErledigtnegativ);
 ////////////////////////
 //Funktionen der get API
 ////////////////////////

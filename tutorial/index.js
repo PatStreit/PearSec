@@ -277,7 +277,7 @@ function getVerhältnis(req, res){
   var red = 0;
   var yellow = 0;
   var green = 0;
-  con.query("SELECT distinct KundenAssetID, a.GID, ( a.Eintrittswahrscheinlichkeit * Schadenshöhe ) AS erg FROM Kunde1Verbindungen a, Gefährdungen b WHERE a.gid = b.gid", function (err, result, fields) {
+  con.query("SELECT distinct KundenAssetID, a.GID, ( a.Eintrittswahrscheinlichkeit * Schadenshöhe ) AS erg FROM Kunde1test a, Gefährdungen b WHERE a.gid = b.gid", function (err, result, fields) {
     if (err) throw err;
     for(var i in result) {
       

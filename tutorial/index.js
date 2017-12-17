@@ -317,8 +317,11 @@ function getscore(req, res){
       else farbe = "green";
       summe = Math.round(summe);
       grenzegesamt = Math.round(grenzegesamt);
+      summe = Math.round(summe/grenzegesamt*100);
       grenze1 = Math.round(grenze1);
+      grenze1 = Math.round(grenze1/grenzegesamt*100);
       grenze2 = Math.round(grenze2);
+      grenze2 = Math.round(grenze2/grenzegesamt*100);
       var obj = {"summe" : summe, "farbe" : farbe,"obergrenze" : grenzegesamt, "grenzerotgelb" : grenze1, "grenzegelbgrün" : grenze2};
       sqlResult = JSON.stringify(obj);
     res.send(sqlResult);
@@ -504,7 +507,7 @@ function updateMaßnahmeErledigt(req, res) {
    
  istglobal(req.params.MID, (yx) => {
   
-   MaßnahmeAbhaken(req.params.KAID, req.params.MID, yx, (xy) => { res.send((xy)); });
+   MaßnahmeAbhaken(req.params.KAID, req.params.MID, yx, (xy) => { res.send(("gesendet")); });
   console.log("!!")})
  
 };
@@ -531,14 +534,14 @@ function MaßnahmeAbhaken(KAID, MID, ding, _callback){
  
    
  });
- 
+ _callback("abhaken");
 }
 
 function updateMaßnahmeErledigtnegativ(req, res) {
  
   
   istglobal(req.params.MID, (yx) => { 
-  MaßnahmeAbhakennegativ(req.params.KAID, req.params.MID, yx,(xy) => { res.send((xy)); });
+  MaßnahmeAbhakennegativ(req.params.KAID, req.params.MID, yx,(xy) => { res.send(("gesendet")); });
   console.log("!!")})
 };
 
@@ -560,7 +563,7 @@ function MaßnahmeAbhakennegativ(KAID, MID, ding, _callback){
  
    
  });
- 
+ _callback("abhaken");
 }
 
 function istglobal(MID, _callback){

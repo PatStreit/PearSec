@@ -94,6 +94,7 @@ app.delete('/deleteAsset/:kaid', assetloschen);
 /////////////////////////
 app.put('/massnahmeErledigt/:KAID/:MID',updateMaßnahmeErledigt);
 app.put('/massnahmeErledigtNegativ/:KAID/:MID',updateMaßnahmeErledigtnegativ);
+app.put('/resettest',resettest);
 ////////////////////////
 //Funktionen der get API
 ////////////////////////
@@ -576,6 +577,83 @@ function istglobal(MID, _callback){
    _callback(ding);
  }) 
 }
+
+function resettest(req, res){
+  var sql = "DELETE FROM Kunde1test; INSERT INTO Kunde1test SELECT *  FROM Kunde1Verbindungen;" ;
+  con.query(sql, function (err, result, fields) {
+    if (err) console.log("Error bei den Gefahren Assets");
+    res.send(result);
+  });
+}
+
+function updatetestErledigt(req, res) {
+  /*
+  * wir bekommen hier eine JSON mit vielen unter Dateien zum einfügen in eine Tabelle
+  * das Einfügen ist in eienr adneren FUnktion realisiert und wir iterieren hier nur
+  */
+   
+ istglobal(req.params.MID, (yx) => {
+  
+   testAbhaken(req.params.KAID, req.params.MID, yx, (xy) => { res.send(("gesendet")); });
+  console.log("!!")})
+ 
+};
+
+function testAbhaken(KAID, MID, ding, _callback){
+  console.log("ist inder methode maßnahmeabhaken")
+  console.log(ding);
+  if (ding == 0){
+    console.log("kein globales");
+  var sql=("begin; update Kunde1test set Durchgeführt = 1 where KundenAssetId = \"" +KAID + "\" and MID =  \"" + MID + "\";" );
+ var sql2=("UPDATE Kunde1test SET Eintrittswahrscheinlichkeit =1 WHERE KundenAssetId = \"" +KAID + "\" AND GID IN ( SELECT d.GID FROM Gefährdungen_haben a, AssetsZuGefährdungen c, Kunde1Assets b, Gefährdungen d WHERE b.KundenAssetID =\"" +KAID + "\" AND a.MID = \"" + MID + "\" AND b.AID = c.AID AND c.agid = a.agid and d.gid = c.gid); commit;");
+  var sql3=sql+sql2;}
+  
+  else if (ding == 1){
+    console.log("ist globales");
+    var sql=("Begin; update Kunde1test set Durchgeführt = 1 where MID =  \"" + MID + "\";" );
+   var sql2=("UPDATE Kunde1test AS t INNER JOIN ( SELECT KundenAssetID, Gid, Durchgeführt FROM Kunde1test )t1 ON t.KundenAssetID = t1.KundenAssetID AND t.Gid = t1.Gid AND t1.durchgeführt =1 SET Eintrittswahrscheinlichkeit =1; commit;");
+    var sql3=sql+sql2;}
+
+ con.query(sql3, (err, result, fields) => {
+   if (err) console.log("Sprung2");//throw err;
+  // NeueKundenAssetIDs=result;
+  //  KundenAssetTabelleBefüllenHilfsMethode(sql2,(ab)=>( _callback));
+ 
+   
+ });
+ _callback("abhaken");
+}
+
+function updatetestErledigtnegativ(req, res) {
+  
+   
+   istglobal(req.params.MID, (yx) => { 
+   testAbhakennegativ(req.params.KAID, req.params.MID, yx,(xy) => { res.send(("gesendet")); });
+   console.log("!!")})
+ };
+ 
+ function testAbhakennegativ(KAID, MID, ding, _callback){
+   if(ding ==0){
+   var sql=("begin; update Kunde1test set Durchgeführt = 0 where KundenAssetId = \"" +KAID + "\" and MID =  \"" + MID + "\";" );
+  var sql2=("UPDATE Kunde1test e, Gefährdungen f SET e.Eintrittswahrscheinlichkeit = f.Eintrittswahrscheinlichkeit WHERE f.gid = e.gid AND KundenAssetId =\"" +KAID + "\" AND e.GID IN (SELECT d.GID FROM Gefährdungen_haben a, AssetsZuGefährdungen c, Kunde1Assets b, Gefährdungen d WHERE b.KundenAssetID =\"" +KAID + "\" AND a.MID = \"" +MID + "\"  AND b.AID = c.AID AND c.agid = a.agid AND d.gid = c.gid); commit;");
+   var sql3=sql+sql2;}
+   else if(ding ==1){
+     var sql=("begin; update Kunde1test set Durchgeführt = 0 where MID =  \"" + MID + "\";" );
+     var sql2=("UPDATE Kunde1test a, Gefährdungen b SET a.Eintrittswahrscheinlichkeit = b.Eintrittswahrscheinlichkeit WHERE a.gid = b.gid AND b.gid IN ( SELECT c.gid FROM AssetsZuGefährdungen c, Gefährdungen_haben d WHERE mid = \"" +MID + "\"  AND c.agid = d.agid); commit;");
+      var sql3=sql+sql2;
+ 
+   };
+  con.query(sql3, (err, result, fields) => {
+    if (err) console.log("Sprung2");//throw err;
+   // NeueKundenAssetIDs=result;
+   //  KundenAssetTabelleBefüllenHilfsMethode(sql2,(ab)=>( _callback));
+  
+    
+  });
+  _callback("abhaken");
+ }
+ 
+
 
 
 function getErinnerung(req, res) {

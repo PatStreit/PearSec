@@ -443,7 +443,7 @@ function getAlleKundenAssets(req, res){
 }
 function getGefahrenFurAsset(req, res){
   var Kaid = req.params.KundenAssetID;
-  var sql = "SELECT DISTINCT c.AID, b.GID, b.Name, c.Name AS Asset, ( a.Eintrittswahrscheinlichkeit * Schadenshöhe) FROM Kunde1Verbindungen a, Gefährdungen b, Kunde1Assets c WHERE a.KundenAssetID =\""+Kaid+"\" AND a.GID = b.GID AND c.KundenAssetID = a.KundenAssetID ORDER BY ( a.Eintrittswahrscheinlichkeit * Schadenshöhe) DESC;" ;
+  var sql = "SELECT DISTINCT c.AID, b.GID, b.Name, b.Beschreibung, c.Name AS Asset, ( a.Eintrittswahrscheinlichkeit * Schadenshöhe) FROM Kunde1Verbindungen a, Gefährdungen b, Kunde1Assets c WHERE a.KundenAssetID =\""+Kaid+"\" AND a.GID = b.GID AND c.KundenAssetID = a.KundenAssetID ORDER BY ( a.Eintrittswahrscheinlichkeit * Schadenshöhe) DESC;" ;
   con.query(sql, function (err, result, fields) {
     if (err) console.log("Error bei den Gefahren Assets");
     res.send(result);

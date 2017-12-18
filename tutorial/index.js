@@ -305,10 +305,10 @@ function getscore(req, res){
 
   getGrenzwerte((xy) => {grenzegesamt = xy.maxrot; grenze1 = xy.rotgelb; grenze2 = xy.gelbgrün; 
   console.log("teste grenze1"+grenze1);
-  con.query("SELECT distinct a.KundenAssetID, a.GID, ( a.Eintrittswahrscheinlichkeit * Schadenshöhe ) AS erg, c.Wichtig FROM Kunde1Verbindungen a, Gefährdungen b, Assets c, Kunde1Assets d WHERE a.gid = b.gid and c.aid =d.aid and a.KundenAssetID = d.KundenAssetID", function (err, result, fields) {
+  con.query("SELECT distinct a.KundenAssetID, a.GID, ( a.Eintrittswahrscheinlichkeit * Schadenshöhe ) AS erg, c.Wichtig FROM Kunde1test a, Gefährdungen b, Assets c, Kunde1Assets d WHERE a.gid = b.gid and c.aid =d.aid and a.KundenAssetID = d.KundenAssetID", function (err, result, fields) {
     if (err) throw err;
     for(var i in result) {
-      if(result[i].wichtig =1)
+      if(result[i].Wichtig ==1)
       summe = summe + (result[i].erg*0.1); 
       else    summe = summe + (result[i].erg*0.01); 
     }
@@ -338,7 +338,7 @@ function getGrenzwerte(_callback){
     var sqlResult;
     //var sqlBef ="SELECT a.KundenAssetID, a.AiD, a.Name, b.Kategorien FROM Kunde1Assets a, Assets b where a.AID = b.AID";
     console.log("test des callback");
-    con.query("SELECT Wichtig, COUNT( Wichtig ) as anzahl FROM Kunde1Assets a, Assets b, Kunde1Verbindungen c WHERE a.aid = b.aid and a.KundenAssetID = c.KundenAssetID GROUP BY Wichtig order by Wichtig asc", function (err, result, fields) {
+    con.query("SELECT Wichtig, COUNT( Wichtig ) as anzahl FROM Kunde1Assets a, Assets b, Kunde1test c WHERE a.aid = b.aid and a.KundenAssetID = c.KundenAssetID GROUP BY Wichtig order by Wichtig asc", function (err, result, fields) {
       if (err) throw err;
       console.log(result);
       
@@ -358,7 +358,8 @@ function getGrenzwerte(_callback){
         unwichtig = result[0].anzahl;
         wichtig = result[1].anzahl;
       }
-     
+     console.log("unwichtig:"+unwichtig);
+     console.log("wichtig:"+wichtig);
       // if (typeof result.anzahl == number){
      //   unwichtig = result;
      //   wichtig = 0;

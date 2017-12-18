@@ -462,12 +462,12 @@ function postDaten(req, res) {
   * das Einfügen ist in eienr adneren FUnktion realisiert und wir iterieren hier nur
   */
   var data = (req.body).Paket;
-  for(var i in data) {
-       var id = data[i].AID;
-       var name = data[i].Name;
-      // KundenAssetTabelleBefüllen(id, name);
-       KundenAssetTabelleBefüllen(id, name);
-  }
+  
+      var id = data[0].AID;
+      var name = data[0].Name;
+    // KundenAssetTabelleBefüllen(id, name);
+      KundenAssetTabelleBefüllen(id, name, (xy)=> {res.send("200")});
+  
 };
  function KundenAssetTabelleBefüllen(aiD, name, _callback){
  var sql=("INSERT INTO Kunde1Assets (KundenAssetId, AID, Name) VALUES (NULL,\"" +aiD + "\", \"" + name + "\");" );
@@ -481,7 +481,7 @@ console.log("Erste: " + counterErste);
   if (err) console.log("Sprung2");//throw err;
  // NeueKundenAssetIDs=result;
  //  KundenAssetTabelleBefüllenHilfsMethode(sql2,(ab)=>( _callback));
-
+_callback("200");
   
 });
 

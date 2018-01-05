@@ -321,10 +321,13 @@ function getscore(req, res){
       summe = Math.round(summe);
       grenzegesamt = Math.round(grenzegesamt);
       summe = Math.round(summe/grenzegesamt*100);
+      summe= 100- summe;
       grenze1 = Math.round(grenze1);
       grenze1 = Math.round(grenze1/grenzegesamt*100);
+      grenze1= 100 - grenze1;
       grenze2 = Math.round(grenze2);
       grenze2 = Math.round(grenze2/grenzegesamt*100);
+      grenze2= 100 - grenze2;
       var obj = {"summe" : summe, "farbe" : farbe,"obergrenze" : grenzegesamt, "grenzerotgelb" : grenze1, "grenzegelbgrün" : grenze2};
       sqlResult = JSON.stringify(obj);
     res.send(sqlResult);

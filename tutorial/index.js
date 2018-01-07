@@ -70,6 +70,7 @@ app.get('/allKategorien', getAlleKategorien);
 //wichtigste Maßnahmen
 app.get('/topmassnahmen', gettopmassnahmen);
 //größte Gefahren
+app.get('/allKundenAssets', getAlleKundenAssets);
 app.get('/topgefahrdungen', gettopgefahrdungen);
 //alle KundenAssets
 app.get('/allKundenAssets', getAlleKundenAssets);
@@ -328,6 +329,7 @@ function getscore(req, res){
       grenze2 = Math.round(grenze2);
       grenze2 = Math.round(grenze2/grenzegesamt*100);
       grenze2= 100 - grenze2;
+      grenzegesamt = 100;
       var obj = {"summe" : summe, "farbe" : farbe,"obergrenze" : grenzegesamt, "grenzerotgelb" : grenze1, "grenzegelbgrün" : grenze2};
       sqlResult = JSON.stringify(obj);
     res.send(sqlResult);

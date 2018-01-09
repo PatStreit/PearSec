@@ -6,9 +6,6 @@ var express = require('express');
 var app = express();
 var bodyparser = require('body-parser');
 app.use(bodyparser.json());
-var NeueKundenAssetIDs;
-var counterErste=0;
-var counterZweite=0;
 // SQL Connections
 var mysql = require('mysql');
 var con = mysql.createConnection({

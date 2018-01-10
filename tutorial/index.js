@@ -407,7 +407,7 @@ var sql4=("UPDATE Kunde1Verbindungen z, (SELECT a.mid, GLOBAL , durchgeführt FR
 var sql5=("UPDATE Kunde1Verbindungen AS t INNER JOIN ( SELECT KundenAssetID, Gid, Durchgeführt FROM Kunde1Verbindungen )t1 ON t.KundenAssetID = t1.KundenAssetID AND t.Gid = t1.Gid AND t1.durchgeführt =1 SET Eintrittswahrscheinlichkeit =1;");
 var sql3 = sql+sql2+sql4+sql5;
  con.query(sql3, (err, result, fields) => {
-  if (err) console.log("Sprung2");//throw err;
+  if (err) console.log("Sprung2");
 _callback("200");
   
 });
@@ -415,7 +415,7 @@ _callback("200");
 }
 // löscht das angegebene Kundenasset aus der Datenbank
 function assetloschen(req, res) {
-  assetloschen2(req.params.kaid, (xy) => { res.send((xy)); });
+  assetloschen2(req.params.kaid, (xy) => { res.sendStatus((xy)); });
 }
 function assetloschen2(kaid, _callback) {
   var sql = "delete from Kunde1Assets where KundenAssetID=\"" + kaid + "\"; delete from Kunde1Verbindungen where KundenAssetID=\"" + kaid + "\";" ;

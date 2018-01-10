@@ -3,6 +3,8 @@ var vorschläge = document.getElementById('vorschläge');
 var assetListe = document.getElementById('assetListe');
 var assetChildes = assetListe.childNodes;
 var collapseCounter = 1;
+var marker = 0;
+var client;
 
 var headerRow = document.createElement('div');
 headerRow.setAttribute('class', 'row');
@@ -22,14 +24,19 @@ headerRow1.appendChild(headerSize1);
 
 window.onload = init(document.getElementById('it'));
 
+function sendText(text) {
+  return client.textRequest(text);
+}
+
 function init(kategorie){
+  client = new ApiAi.ApiAiClient({accessToken: 'e83c6f104b704c738dca743b5b061310'});
   //aktuelle Farben zurücksetzen und aktuelle Kategorie färben
   document.getElementById('it').style.backgroundColor="#FFFFFF";
   document.getElementById('maschinen').style.backgroundColor="#FFFFFF";
   document.getElementById('netze').style.backgroundColor="#FFFFFF";
   document.getElementById('infrastruktur').style.backgroundColor="#FFFFFF";
   document.getElementById('daten').style.backgroundColor="#FFFFFF";
-
+//  alert(kategorie.id);
   document.getElementById(kategorie.id).style.backgroundColor="#E2E2E2";
 
 
@@ -88,7 +95,6 @@ function init(kategorie){
           }
         }
       }
-
     }
   }
 
@@ -167,12 +173,19 @@ function init(kategorie){
   xhttp.open("GET", "/allAssets", true);
   xhttp.send();
 
+
 }
 
 function addAsset(){
-//  alert('WTF SOLL DES');
+
   toastr.success('Vermögenswert wurde hinzugefügt!', 'Hinzugefügt!');
 //      console.log(i);
+  if(marker == 0){
+    this.setAttribute('data-target','#exampleModal');
+    this.setAttribute('data-toggle', 'modal');
+    marker = 1;
+  }
+
   var textAnfang = "{ \"Paket\" : [";
   var textInhalt = "";
   var textEnde = ']}';
@@ -203,33 +216,45 @@ function callAsset(asset, kID){
   addButton.setAttribute('name', kID);
   var icon = document.createElement('i');
   icon.setAttribute('class', 'fa fa-trash fa-2x');
+  icon.setAttribute('data-toggle', 'tooltip');
+  icon.setAttribute('data-placement', 'top');
+  icon.setAttribute('title', 'Entfernen');
   addButton.appendChild(icon);
 
   addButton.addEventListener('click', delAsset);
 
   var assetDIV = document.createElement('div');
-  assetDIV.setAttribute('class', 'btn btn-indigo darken 2 btn-block ml-5 mt-2 mb-3 mr-4 animated fadeIn');
+  assetDIV.setAttribute('class', 'btn btn-indigo darken 2 btn-block ml-3 mt-2 mb-3 mr-4 animated fadeIn');
   assetDIV.setAttribute('id', asset.AID);
+  assetDIV.style.backgroundColor="#2B6CA2";
+ // assetDiv.innerHTML= 'style=background-color="red"';
   assetDIV.style.height = '55px';
   assetDIV.style.width = '60%';
   assetDIV.innerText = asset.Name;
 
+  var assetIcon = document.createElement('i');
+
+  row.appendChild(assetIcon);
   row.appendChild(assetDIV);
 
   var bewerten = document.createElement('a');
   bewerten.setAttribute('class', 'mt-4 mr-3');
   bewerten.setAttribute('data-toggle', 'collapse');
   bewerten.setAttribute('data-target', '#collapseExample' + collapseCounter);
+//  alert(collapseCounter);
   bewerten.setAttribute('aria-expended', 'false');
   bewerten.setAttribute('aria-controls', 'collapseExample' + collapseCounter);
-  bewerten.innerHTML = '<i class="fa fa-gears fa-2x" aria-hidden="true"></i>';
+  bewerten.innerHTML = '<i class="fa fa-gears fa-2x" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Bewerten"></i>';
 
   row.appendChild(bewerten);
   row.appendChild(addButton);
 
   var weiterleiten = document.createElement('a');
   weiterleiten.setAttribute('class', 'mt-4 mr-2');
-  weiterleiten.innerHTML = '<i class="fa fa-share fa-2x" aria-hidden="true"></i>';
+  weiterleiten.innerHTML = '<i class="fa fa-share fa-2x" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Weiterleiten"></i>';
+  weiterleiten.setAttribute('data-target','#modalContactForm');
+  weiterleiten.setAttribute('data-toggle', 'modal');
+  weiterleiten.addEventListener('click', changeModallHeader);
   row.appendChild(weiterleiten);
 
   assetListe.appendChild(row);
@@ -237,6 +262,17 @@ function callAsset(asset, kID){
   var collapse = document.createElement('div');
   collapse.setAttribute('class', 'collapse');
   collapse.setAttribute('id', 'collapseExample' + collapseCounter);
+
+  var closeButton = document.createElement('a');
+  closeButton.setAttribute('class', 'btn mb-5');
+  closeButton.setAttribute('data-toggle', 'collapse');
+  closeButton.setAttribute('href', '#collapseExample' + collapseCounter);
+//      alert(collapseCounter);
+  closeButton.setAttribute('aria-expended', 'false');
+  closeButton.setAttribute('aria-controls', 'collapseExample' + collapseCounter);
+  closeButton.style.backgroundColor = "#2b6ca3";
+  closeButton.innerText = "Fertigstellen";
+//  alert(collapseCounter);
   collapseCounter++;
 
 //  collapseText.innerText = 'Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.'
@@ -262,19 +298,12 @@ function callAsset(asset, kID){
         radio1.setAttribute('id', 'radio' + item);
         radio1.setAttribute('class', obj[item].mid);
 
-        radio1.addEventListener('click', function(){
-//          alert(obj[item].KundenAssetID);
-//          alert(this.className);
-          var xhttp = new XMLHttpRequest();
-          xhttp.open('PUT', '/massnahmeErledigt/' + obj[item].KundenAssetID + '/' + this.className);
-          xhttp.send();
-
-        });
+        radio1.addEventListener('click', pruffragenBeantworten);
 
         var radioLabel1 = document.createElement('label');
         radioLabel1.setAttribute('for', 'radio' + item);
+        radioLabel1.setAttribute('class', obj[item].KundenAssetID);
         radioLabel1.innerText = 'Ja';
-
 
         formGroup1.appendChild(radio1);
         formGroup1.appendChild(radioLabel1);
@@ -287,19 +316,15 @@ function callAsset(asset, kID){
         var radio2 = document.createElement('input');
         radio2.setAttribute('name', 'group20');
         radio2.setAttribute('type', 'radio');
-        radio2.setAttribute('id', 'radio' + (item+1) );
+        radio2.setAttribute('id', 'radioButton2' + item );
         radio2.setAttribute('class', obj[item].mid);
 
         var radioLabel2 = document.createElement('label');
-        radioLabel2.setAttribute('for', 'radio' + (item+1) );
+        radioLabel2.setAttribute('for', 'radioButton2' + item );
+        radioLabel2.setAttribute('class', obj[item].KundenAssetID);
         radioLabel2.innerText = 'Nein';
 
-        radioLabel2.addEventListener('click', function(){
-          var xhr = new XMLHttpRequest();
-
-          xhr.open('PUT', '/massnahmeErledigtNegativ/' + obj[item].KundenAssetID + '/' + this.mid );
-          xhr.send();
-        })
+        radio2.addEventListener('click', pruffragenBeantworten);
 
         if(obj[item].Durchgeführt == "1"){
           radio1.setAttribute('checked', 'checked');
@@ -317,8 +342,10 @@ function callAsset(asset, kID){
           collapse.appendChild(collapseText);
           collapse.appendChild(form);
         }
-
       }
+
+      changePruffragenIcon(collapse, assetIcon);
+      collapse.appendChild(closeButton);
     }
 
   }
@@ -326,6 +353,62 @@ function callAsset(asset, kID){
   xhr.send();
 
   assetListe.appendChild(collapse);
+}
+
+function changePruffragenIcon(collapse, assetIcon){
+  var marker2 = 0;
+  var allInputs = collapse.querySelectorAll('input');
+  var allInputsJa = new Array();
+//     alert(allInputs.length);
+  for(var i = 0; i < allInputs.length;i++){
+    if(allInputs[i].nextSibling.innerText == "Ja"){
+      allInputsJa.push(allInputs[i]);
+    }
+  }
+
+//     alert(allInputsJa.length);
+  for(var i = 0; i < allInputsJa.length;i++){
+    if(allInputsJa[i].checked){
+      marker2 = 1;
+    } else{
+      marker2 = 0;
+      break;
+    }
+  }
+
+  if(marker2 == 1){
+    assetIcon.setAttribute('class', 'fa fa-check ml-3 mt-3 fa-2x');
+    assetIcon.setAttribute('data-toggle', 'tooltip');
+    assetIcon.setAttribute('data-placement', 'top');
+    assetIcon.setAttribute('title', 'Alle Fragen wurden beantwortet');
+    assetIcon.setAttribute('aria-hidden', 'true');
+  } else{
+    assetIcon.setAttribute('class', 'fa fa-remove ml-3 mt-3 fa-2x');
+    assetIcon.setAttribute('data-toggle', 'tooltip');
+    assetIcon.setAttribute('data-placement', 'top');
+    assetIcon.setAttribute('title', 'Einige Fragen wurden nicht beantwortet');
+    assetIcon.setAttribute('aria-hidden', 'true');
+  }
+}
+
+function pruffragenBeantworten(){
+  var collapse = this.parentNode.parentNode.parentNode;
+  var assetIcon = collapse.previousSibling.firstChild;
+
+  toastr.success('Änderung gespeichert', 'Gespeichert!')
+
+  changePruffragenIcon(collapse, assetIcon);
+
+  var xhttp = new XMLHttpRequest();
+//  alert(this.nextSibling.className + this.className);
+  if(this.nextSibling.innerText == "Ja"){
+//    alert(this.nextSibling.className + this.className);
+    xhttp.open('PUT', '/massnahmeErledigt/' + this.nextSibling.className + '/' + this.className);
+    xhttp.send();
+  }else {
+    xhttp.open('PUT', '/massnahmeErledigtNegativ/' + this.nextSibling.className + '/' + this.className);
+    xhttp.send();
+  }
 }
 
 function delAsset(){
@@ -343,6 +426,13 @@ function delAsset(){
 
 }
 
+function changeModallHeader(){
+  var modalHeader = document.getElementById('modalHeader');
+  var buttonName = this.parentNode.querySelector('div.btn-block');
+//  alert(buttonName.innerText);
+  modalHeader.innerHTML = buttonName.innerText + '&nbsp; WEITERLEITEN';
+}
+
 
 
 function loadAssets(obj, kID){
@@ -355,12 +445,10 @@ function loadAssets(obj, kID){
   button.setAttribute('name', kID);
   button.style.height = '55px';
   button.style.width = '200px';
+  button.style.backgroundColor="#2B6CA2";
 //  alert(obj.KundenAssetID);
 
   button.innerHTML = '<div class="float-left"><i class="fa fa-plus mr-1" aria-hidden="true"></i></div>' + obj.Name;
-  button.setAttribute('data-target','#exampleModal');
-  button.setAttribute('data-toggle', 'modal');
-
   button.addEventListener('click', addAsset);
 
 

@@ -12,16 +12,55 @@
     <link href="css/mdb.min.css" rel="stylesheet">
     <!-- Your custom styles (optional) -->
     <link href="css/style.css" rel="stylesheet">
-
+    <script src="target/ApiAi.js"></script>
+    <script src="demoFunctions.js"></script>
   </head>
   <style>
+  .card.chat-room .members-panel-,
+  .card.chat-room .chat-1 {
+    position: relative;
+    overflow-y: scroll; }
+
+    .card.chat-room .chat-1 {
+      height: 295px; }
+
+      .card.chat-room img.rounded-circle {
+        border-radius: 50%; }
+
+        .card.chat-room img.avatar {
+          height: 3rem;
+          width: 3rem; }
+
+          .card.chat-room .text-small {
+            font-size: 0.95rem; }
+
+            .card.chat-room .text-smaller {
+              font-size: 0.75rem; }
+
+              .scrollbar-light-blue::-webkit-scrollbar-track {
+                -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+                background-color: #F5F5F5;
+                border-radius: 10px; }
+
+                .scrollbar-light-blue::-webkit-scrollbar {
+                  width: 12px;
+                  background-color: #F5F5F5; }
+
+                  .scrollbar-light-blue::-webkit-scrollbar-thumb {
+                    border-radius: 10px;
+                    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+                    background-color: #82B1FF; }
+
+                    .fa-remove{
+                      color: red;
+                    }
+
   body{
-    background-color: #e2e2e2;
+    background-color: #F2F2F2;
   }
   .bulb {
     height: 15px;
     width: 15px;
-    background-color: rgba(22, 190, 44, 0.836);
     border-radius: 50%;
     margin: 4px 0;
     transition: background 500ms;
@@ -29,6 +68,14 @@
 
   .success-text {
     color: #00C851;
+  }
+
+  .warning-text{
+    color: orange;
+  }
+
+  .danger-text{
+    color: red;
   }
 
   .checkbox-success-filled [type="checkbox"][class*='filled-in']:checked+label:after {
@@ -64,12 +111,75 @@
 
         <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
           <a class="navbar-brand black-text" href="securityboard.html"><img src="img/PEAR_LOGO_OHNE.png" height="30">Securityboard</a>
-
           <ul class="navbar-nav mr-auto mt-lg-0">
             <li class="nav-item"><a class="nav-link black-text" href="identify.html"> Vermögenswerte<span class="sr-only">(current)</span></a></li>
-            <li class="nav-item"><a class="nav-link black-text" href="risiken2.html">Risiken</a></li>
+            <li class="nav-item"><a style="background-color: #E2E2E2" class="nav-link black-text" href="risiken2.html">Risiken</a></li>
+            <li class="nav-item"><a class="nav-link black-text" href="ticket.html">Ticket erstellen</a></li>
+            <li class="nav-item"><a class="nav-link black-text" href="mediathek.html">Mediathek</a></li>
           </ul>
+          <div>
+            <ul class="navbar-nav ml-auto mt-lg-0">
+              <li class="nav-item"><a class="nav-link black-text" href="/"> Abmelden<span class="sr-only">(current)</span></a></li>
+              <li class="nav-item"><a class="nav-link black-text" data-toggle="modal" data-target="#modalRegister"><i class="fa fa-user-circle" aria-hidden="true"></i></a></li>
+            </ul>
+          </div>
+          <!-- Bearbeiten Modal -->
+          <!--Modal: Register Form-->
+          <div class="modal fade" id="modalRegister" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog cascading-modal" role="document">
+              <!--Content-->
+              <div class="modal-content">
 
+                <!--Header-->
+                <div class="modal-header white-text" style="background-Color:#2B6CA2">
+                  <h4 class="title"><i class="fa fa-user-plus"></i> Profil Bearbeiten</h4>
+                  <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <!--Body-->
+                <div class="modal-body">
+
+
+
+                  <div class="md-form form-sm">
+                    <i class="fa fa-id-card prefix" ></i>
+                    <input type="text" id="form31" class="form-control">
+                    <label for="form31">Max Mustermann</label>
+                  </div>
+                  <div class="md-form form-sm">
+                    <i class="fa fa-industry prefix"></i>
+                    <input type="text" id="form32" class="form-control">
+                    <label for="form32">MusterFirmaName</label>
+                  </div>
+
+
+                  <div class="md-form form-sm">
+                    <i class="fa fa-envelope prefix"></i>
+                    <input type="text" id="form33" class="form-control">
+                    <label for="form33">MaxMustermann@pear.de</label>
+                  </div>
+
+                  <div class="md-form form-sm">
+                    <i class="fa fa-lock prefix"></i>
+                    <input type="password" id="form34" class="form-control">
+                    <label for="form34">***********</label>
+                  </div>
+
+                </div>
+                <!--Footer-->
+                <div class="modal-footer">
+                  <div class="options text-center text-md-right mt-1">
+                    <p>Weitere Fragen ?</p>
+                  </div>
+                  <button type="button" class="btn ml-auto" data-dismiss="modal" style="background-Color:#2B6CA2">Weiter</button>
+                </div>
+              </div>
+              <!--/.Content-->
+            </div>
+          </div>
+          <!--Modal: Register Form-->
+          <!-- Bearbeiten Modal Ende -->
         </div>
       </nav>
 
@@ -114,7 +224,7 @@
           <div class="card white z-depth-2">
             <div id="cardbody" class="card-body" style="overflow:auto">
 
-              <div class="row indigo darken-2 white-text pl-5 pt-3 rounded" id="subHeading">
+              <div class="row  white-text pl-5 pt-3 rounded" id="subHeading" style="background-color:#2B6CA2;">
                 <div class="col-md-3">
                   <p>Vermögenswerte</p>
                 </div>
@@ -142,13 +252,7 @@
                   </div>
 
                   <div class="col-md-3">
-                    <div class="row ml-2">
-                      <div id="traffic-light">
-                        <div id="stopLight" class="bulb">
-                        </div>
-                      </div>
-                      <p class="success-text">&nbsp;Sicher</p>
-                    </div>
+
                   </div>
 
                   <div class="col-md-3">
@@ -277,23 +381,86 @@
           </div>
 
         </div>
+
+        <!-- <div style="height: 200px"></div> -->
+
       </div>
+
+      <div class="collapse" id="chatbot">
+        <div class="card chat-room col-md-4" style="position: fixed; bottom: 10px; right: 10px; z-index: 2">
+
+          <div class="col-md-12">
+            <div class="row float-right">
+              <a data-toggle="collapse" href="#chatbot" aria-expanded="false" aria-controls="chatbot">
+                <i class="fa fa-remove ml-2" aria-hidden="true"></i>
+              </a>
+            </div>
+            <hr class="mt-4" />
+          </div>
+
+          <div class="card-body">
+            <!-- Grid row -->
+            <div class="row">
+
+              <!-- Grid column -->
+              <div class="col-xl-12 px-0">
+
+                <div class="chat-message">
+
+                  <ul class="list-unstyled chat-1 scrollbar-light-blue" id="result">
+                    <li class="d-flex justify-content-between mb-4">
+                      <div class="chat-body white ml-2 p-3 z-depth-1">
+                        <div class="header">
+                          <strong class="primary-font">Lunar</strong>
+                        </div>
+                        <hr class="w-100">
+                        <p class="mb-0">
+                          Hallo, ich bin Lunar. Wie kann ich behilflich sein?
+                        </p>
+                      </div>
+                      <img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-5" alt="avatar" class="avatar rounded-circle mr-0 ml-3 z-depth-1">
+                    </li>
+
+                  </ul>
+                  <div class="white">
+                    <div class="input-field">
+                        <input placeholder="Hey, frag mich etwas..." id="q" type="text" style="color:black" >
+                    </div>
+                  </div>
+
+                </div>
+
+              </div>
+              <!-- Grid column -->
+
+            </div>
+            <!-- Grid row -->
+
+          </div>
+        </div>
+      </div>
+
+      <a class="btn btn-rounded"
+      data-toggle="collapse" href="#chatbot" aria-expanded="false" aria-controls="chatbot"style="position: fixed; bottom: 30px; right: 30px; z-index: 1; background-color:#2B6CA2;">
+        <i class="fa fa-android"></i> Lunar
+      </a>
 
 
 
     </div>
+
     <div class="container-fluid">                            <!--Container Footer-->
       <div class="row">                                              <!--Row Footer-->
-        <div class="col-md-12" style="margin-top: 100px">
-          <footer class="fixed-bottom text-center indigo white">
-            <p class="black-text pt-3">&copy; Pear | <a class="black-text" href="#">Impressum</a></p>
-          </footer>
-        </div>
+
+        <footer id="footer" class="col-md-12 mt-5 text-center white z-depth-1" style="position: fixed; bottom: 0px; z-index:-1">
+          <p class="black-text pt-3">© 2017 Copyright | <a href="#"> PEAR </a></p>
+        </footer>
 
       </div>                                                     <!--End Row Footer-->
     </div>                                               <!--End Container Footer-->
 
 
+    <script defer src="layout.js"></script>
 
     <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
     <!-- Bootstrap tooltips -->

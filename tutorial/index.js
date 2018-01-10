@@ -279,7 +279,7 @@ function getscore(req, res){
     for(var i in result) {
       if(result[i].Wichtig ==1)
       summe = summe + (result[i].erg*0.1); 
-      else    summe = summe + (result[i].erg*0.01); 
+      else    summe = summe + (result[i].erg*0.01);
     }
         
     if (summe >= grenze1)
@@ -314,7 +314,7 @@ function getGrenzwerte(_callback){
         unwichtig = 0;
         wichtig = 0;
       }else if(Object.keys(result).length == 1){
-        if(result[0].Wichtig = 0){
+        if(result[0].Wichtig == 0){
           unwichtig = result[0].anzahl;
           wichtig = 0;
         }else{

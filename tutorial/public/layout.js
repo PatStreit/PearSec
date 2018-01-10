@@ -16,18 +16,16 @@
 
 (function() {
   "use strict";
-
   var ENTER_KEY_CODE = 13;
-  var queryInput, resultDiv, accessTokenInput;
+  var queryInput, resultDiv;
 
-  window.onload = init;
+  window.onload = los();
 
-  function init() {
+  function los() {
     queryInput = document.getElementById("q");
     resultDiv = document.getElementById("result");
 
     queryInput.addEventListener("keydown", queryInputKeyDown);
-    window.init();
   }
 
 
@@ -35,7 +33,7 @@
     if (event.which !== ENTER_KEY_CODE) {
       return;
     }
-
+//    alert('hallo');
     var value = queryInput.value;
     queryInput.value = "";
 
@@ -50,29 +48,75 @@
         } catch(error) {
           result = "";
         }
-//        setResponseJSON(response);
         setResponseOnNode(result, responseNode);
       })
       .catch(function(err) {
-        setResponseJSON(err);
         setResponseOnNode("Something goes wrong", responseNode);
       });
+
+      document.getElementById('result').scrollTo(0,document.getElementById('result').scrollHeight);
   }
 
   function createQueryNode(query) {
-    var node = document.getElementById('eingabe');
+    var node = document.createElement('li');
+    node.setAttribute('class', 'd-flex justify-content-between mb-4');
+    resultDiv.appendChild(node);
+    var img = document.createElement('img');
+    img.setAttribute('src', 'https://mdbootstrap.com/img/Photos/Avatars/avatar-6');
+    img.setAttribute('alt', 'avatar');
+    img.setAttribute('class', 'avatar rounded-circle mr-2 ml-lg-3 ml-0 z-depth-1');
+    node.appendChild(img);
+    var chatbody = document.createElement('div');
+    chatbody.setAttribute('class', 'chat-body white p-3 mx-2 z-depth-1');
+    chatbody.style.width = '400px';
+    node.appendChild(chatbody);
+    var header = document.createElement('div');
+    header.setAttribute('class', 'header');
+    chatbody.appendChild(header);
+    var headerTitle = document.createElement('strong');
+    headerTitle.setAttribute('class', 'primary-font')
+    headerTitle.innerText = "Brad Pitt";
+    header.appendChild(headerTitle);
+    var strich = document.createElement('hr');
+    strich.setAttribute('class', 'w-100');
+    chatbody.appendChild(strich);
+    var eingabeText = document.createElement('p');
+    eingabeText.setAttribute('class', 'mb-0');
+    eingabeText.innerText = query;
+    chatbody.appendChild(eingabeText);
+//    alert(node.innerHTML);
 /*    var node1 = document.createElement('div');
     node1.style.height = "40px";*/
-    node.className = "green rounded accent-1 mt-3 p-3 font-weight-bold";
-    node.innerHTML = query;
   }
 
   function createResponseNode() {
-    var node = document.getElementById("antwort");
-    node.className = "white rounded blue-text mt-2 p-3 font-weight-bold";
-    node.innerHTML = "...";
+    var node = document.createElement('li');
+    node.setAttribute('class', 'd-flex justify-content-between mb-4');
+    resultDiv.appendChild(node);
+    var chatbody = document.createElement('div');
+    chatbody.setAttribute('class', 'chat-body white p-3 mx-2 z-depth-1');
+    node.appendChild(chatbody);
+    var header = document.createElement('div');
+    header.setAttribute('class', 'header');
+    chatbody.style.width = '400px';
+    chatbody.appendChild(header);
+    var headerTitle = document.createElement('strong');
+    headerTitle.setAttribute('class', 'primary-font')
+    headerTitle.innerText = "Lunar";
+    header.appendChild(headerTitle);
+    var strich = document.createElement('hr');
+    strich.setAttribute('class', 'w-100');
+    chatbody.appendChild(strich);
+    var eingabeText = document.createElement('p');
+    eingabeText.setAttribute('class', 'mb-0');
+    chatbody.appendChild(eingabeText);
+    var img = document.createElement('img');
+    img.setAttribute('src', 'https://mdbootstrap.com/img/Photos/Avatars/avatar-5');
+    img.setAttribute('alt', 'avatar');
+    img.setAttribute('class', 'avatar rounded-circle mr-2 ml-lg-3 ml-0 z-depth-1');
+    node.appendChild(img);
 //    resultDiv.appendChild(node);
-    return node;
+    return eingabeText;
   }
 
   function setResponseOnNode(response, node) {

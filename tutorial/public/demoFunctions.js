@@ -21,10 +21,7 @@
  * MAXIMUM clear and easy to understand
  */
 
-var client;
-window.init = function() {
-  client = new ApiAi.ApiAiClient({accessToken: "e83c6f104b704c738dca743b5b061310"});
-};
+var client = new ApiAi.ApiAiClient({accessToken: "e83c6f104b704c738dca743b5b061310"});
 
 function sendText(text) {
   return client.textRequest(text);

@@ -4,7 +4,8 @@ var kategorie="IT-Systeme";
 var cardbody = document.getElementById('cardbody');
 
 var subHeader =document.createElement('div');
-subHeader.setAttribute('class','row indigo darken-2 white-text pl-5 pt-3 rounded');
+subHeader.setAttribute('class','row  white-text pl-5 pt-3 rounded');
+subHeader.style.backgroundColor="#2B6CA2";
 
 var vermögenswerteDiv = document.createElement('div');
 vermögenswerteDiv.setAttribute('class','col-md-3');
@@ -29,21 +30,23 @@ subHeader.appendChild(vermögenswerteDiv);
 subHeader.appendChild(bewertungDiv);
 subHeader.appendChild(gefährdungenDiv);
 subHeader.appendChild(maßnahmenDiv);
+document.getElementById('it').style.backgroundColor="#E2E2E2";
 
 var marker = 0;
 var index = 0;
 
 function init() {
+//  document.getElementById('it').style.backgroundColor="#E2E2E2";
   cardbody.innerHTML="";
   cardbody.appendChild(subHeader);
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (xhttp.readyState == 4 && xhttp.status == 200) {
       var obj = JSON.parse(xhttp.responseText);
-//      alert(obj.length);
+      //      alert(obj.length);
       for(var item in obj){
         if (obj[item].Kategorien == kategorie){
-//          console.log(obj[item]);
+          //          console.log(obj[item]);
           cardbody.appendChild(document.createElement('hr'));
           var mainRow = document.createElement('div');
           mainRow.setAttribute('class', 'row ml-4');
@@ -66,13 +69,14 @@ function init() {
           ratingRow.appendChild(ratingBulb);
 
           var ratingLight = document.createElement('div');
-          ratingLight.setAttribute('id', 'stopLight' + item);
           ratingLight.setAttribute('class', 'bulb');
+          ratingLight.setAttribute('id', obj[item].KundenAssetID);
           ratingBulb.appendChild(ratingLight);
 
           var ratingText = document.createElement('p');
-          ratingText.setAttribute('class', 'success-text');/*BACKEND ANBINDUNG IMPL.*/
-          ratingText.innerHTML = '&nbsp;Sicher';
+          ratingText.setAttribute('class', 'ratingText');
+          ratingText.setAttribute('id', obj[item].KundenAssetID);
+          changeRatingLight(obj[item].KundenAssetID, ratingLight, ratingText);
           ratingRow.appendChild(ratingText);
 
           mainRow.appendChild(ratingCol);
@@ -121,7 +125,7 @@ function init() {
           measureSpan.setAttribute('class','badge badge-primary badge-pill ml-3');
           measureButton.appendChild(measureSpan);
 
-//          alert(measureCol.innerHTML);
+          //          alert(measureCol.innerHTML);
 
           mainRow.appendChild(measureCol);
 
@@ -153,17 +157,37 @@ function init() {
 
           cardDanger.appendChild(cardDangerHeader);
 
-/*          var kID = document.createElement('div');
+          /*          var kID = document.createElement('div');
           kID.setAttribute('id', obj[item].KundenAssetID);*/
 
           loadGefährdungen(obj[item].KundenAssetID, cardDanger, dangerSpan);
 
-          //AB HIER MAßNAHMEN COLLAPSE ALDA
+          // setTimeout(function(){
+          // var uebernehmen = document.createElement('a');
+          // uebernehmen.setAttribute('class', 'btn');
+          // uebernehmen.style.backgroundColor = "#2b6ca3";
+          // uebernehmen.innerText = "Änderungen Übernehmen";
+          // cardDanger.appendChild(uebernehmen);
+          // uebernehmen.addEventListener('click', function(){
+          //   location.reload();
+          // })}, 1000);
+
+          //AB HIER MAßNAHMEN COLLAPSE
           var collapseMeasures = document.createElement('div');
           collapseMeasures.setAttribute('class', 'collapse mx-5 mt-4');
           collapseMeasures.setAttribute('id', 'collapseMeasures' + item);
 
           cardbody.appendChild(collapseMeasures);
+          // setTimeout(function(){
+          // var uebernehmen = document.createElement('a');
+          // uebernehmen.setAttribute('class', 'btn');
+          // uebernehmen.style.width = "98%";
+          // uebernehmen.style.backgroundColor = "#2b6ca3";
+          // uebernehmen.innerText = "Änderungen Übernehmen";
+          // collapseMeasures.appendChild(uebernehmen);
+          // uebernehmen.addEventListener('click', function(){
+          //   location.reload();
+          // })}, 1000);
 
           var tabUl = document.createElement('ul');
           tabUl.setAttribute('class', 'nav nav-tabs nav-justified');
@@ -194,7 +218,7 @@ function init() {
           linkGlobal1.setAttribute('role', 'tab');
           linkGlobal1.innerText = 'Lokale Massnahmen';
           tabGlobalLi1.appendChild(linkGlobal1);
-//          alert(linkGlobal1.href);
+          //          alert(linkGlobal1.href);
 
 
           var tabContent = document.createElement('div');
@@ -220,8 +244,34 @@ function init() {
           globalCell2.innerText = "Beschreibung";
           var globalCell3 = globalRow.insertCell(2);
           globalCell3.innerText = "Wirksamkeit";
+          // <a href="javascript://" data-toggle="popover" title="Risikoscore" data-content="Hier können Sie testen, wie sich die Durchführung gewisser Maßnahmen auf Ihr Unternehmen auswirkt." data-trigger="focus">
+          //   <i class="fa fa-question-circle-o" aria-hidden="true"></i>
+          // </a>
+          var question = document.createElement('a');
+          question.setAttribute('href', 'javascript://');
+          question.setAttribute('data-toggle', 'popover');
+          question.setAttribute('data-content', 'Die Wirksamkeit beschreibt welchen Einfluss die Maßnahmme auf die Sicherheit des Unternehmens hat. Ein höherer Wert bedeutet mehr Einfluss');
+          question.setAttribute('data-trigger', 'focus');
+          question.innerHTML = '<i style="display: inline" class="fa fa-question-circle-o ml-1" aria-hidden="true"></i>';
+          globalCell3.appendChild(question);
+          $(function () {
+            $('[data-toggle="popover"]').popover()
+          });
+
           var globalCell4 = globalRow.insertCell(3);
           globalCell4.innerText = "Umsetzbarkeit";
+
+          var question1 = document.createElement('a');
+          question1.setAttribute('href', 'javascript://');
+          question1.setAttribute('data-toggle', 'popover');
+          question1.setAttribute('data-content', 'Beschreibt, wie schwer es ist die Maßnahme umzusetzen.');
+          question1.setAttribute('data-trigger', 'focus');
+          question1.innerHTML = '<i style="display: inline" class="fa fa-question-circle-o ml-1" aria-hidden="true"></i>';
+          globalCell4.appendChild(question1);
+          $(function () {
+            $('[data-toggle="popover"]').popover()
+          });
+
           var globalCell5 = globalRow.insertCell(4);
           globalCell5.innerText = "Erledigt";
           var globalBody = document.createElement('tbody');
@@ -256,7 +306,18 @@ function init() {
           tableLokal.appendChild(lokalBody);
           tabPanel2.appendChild(tableLokal);
 
-          loadMassnahmen(obj[item].KundenAssetID ,globalBody, lokalBody, measureSpan);
+          loadMassnahmen(obj[item].KundenAssetID ,globalBody, lokalBody);
+
+          var uebernehmen = document.createElement('a');
+          uebernehmen.setAttribute('class', 'btn');
+          uebernehmen.style.width = "98%";
+          uebernehmen.style.backgroundColor = "#2b6ca3";
+          uebernehmen.innerText = "Änderungen Übernehmen";
+          collapseMeasures.appendChild(uebernehmen);
+          uebernehmen.addEventListener('click', function(){
+            location.reload();
+          });
+
         }
       }
     }
@@ -266,83 +327,176 @@ function init() {
 
 }
 
-function loadMassnahmen(kID, globalBody, lokalBody, measureSpan){
+function changeRatingLight(kID, ratingLight, ratingText){
   var xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function(){
     if(xhr.readyState == 4 && xhr.status == 200){
       var obj = JSON.parse(xhr.responseText);
       for(var item in obj){
         console.log(obj[item]);
+//        alert(kID);
+        if(obj[item] >= 20){
+          ratingLight.style.backgroundColor = 'red';
+          ratingText.setAttribute('class', 'ratingText danger-text');/*BACKEND ANBINDUNG IMPL.*/
+          ratingText.innerHTML = '&nbsp;Kritisch';
+        }
+        if(obj[item] > 5 && obj[item] < 20){
+          ratingLight.style.backgroundColor = 'orange';
+          ratingText.setAttribute('class', 'ratingText warning-text');/*BACKEND ANBINDUNG IMPL.*/
+          ratingText.innerHTML = '&nbsp;Bedenklich';
+        }
+        if(obj[item] >= 0 && obj[item] <= 5 ){
+          ratingLight.style.backgroundColor = 'green';
+          ratingText.setAttribute('class', 'ratingText success-text');/*BACKEND ANBINDUNG IMPL.*/
+          ratingText.innerHTML = '&nbsp;Sicher';
+        }
+      }
+    }
+  }
+  xhr.open("GET", '/getRisikoFurEinAsset/' + kID, true);
+  xhr.send();
+}
+
+function loadMassnahmen(kID, globalBody, lokalBody){
+  var xhr = new XMLHttpRequest();
+  xhr.onreadystatechange = function(){
+    if(xhr.readyState == 4 && xhr.status == 200){
+      var obj = JSON.parse(xhr.responseText);
+      for(var item in obj){
+//        console.log(obj[item]);
         var globalRow = globalBody.insertRow(item);
         var globalCell1 = globalRow.insertCell(0);
-        globalCell1.innerText = obj[item].Titel;
+        globalCell1.innerText = obj[item].titel;
         var globalCell2 = globalRow.insertCell(1);
-        globalCell2.innerText = obj[item].Beschreibung;
+        globalCell2.innerText = obj[item].beschreibung;
         var globalCell3 = globalRow.insertCell(2);
-        //WIRKSAMKEIT
+        globalCell3.innerText = obj[item].erg;
         var globalCell4 = globalRow.insertCell(3);
-        //UMSETZBARKEIT
+        globalCell4.innerText = obj[item].umsetzbarkeit;
         var globalCell5 = globalRow.insertCell(4);
 
         var checkboxDiv = document.createElement('div');
         checkboxDiv.setAttribute('class','form-group checkbox-success-filled');
 
         globalCell5.appendChild(checkboxDiv);
-//        alert(globalCell5.innerHTML);
+        //        alert(globalCell5.innerHTML);
         var input = document.createElement('input');
         input.setAttribute('type', 'checkbox');
         input.setAttribute('class', 'filled-in');
         input.setAttribute('name', kID);
         input.setAttribute('alt', obj[item].mid);
-        input.setAttribute('id','measure' + item);
+        input.setAttribute('id','measure' + kID + item);
+        if(obj[item].durchgeführt == 1){
+          input.checked = true;
+        }
         input.addEventListener('click', massnahmeErledigen);
 
         //IF Durchgeführt!!!!!!!!
 
         checkboxDiv.appendChild(input);
-//        alert(checkboxDiv.innerHTML);
+        //        alert(checkboxDiv.innerHTML);
         var label = document.createElement('label');
-        label.setAttribute('for', 'measure' + item);
+        label.setAttribute('for', 'measure' + kID + item);
 
         checkboxDiv.appendChild(label);
       }
     }
   }
-  xhr.open('GET', '/allMassnahmenFurAsset/' + kID, true);
+  xhr.open('GET', '/globalemassnahmen/' + kID, true);
   xhr.send();
+
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function(){
+    if(xhttp.readyState == 4 && xhttp.status == 200){
+      var obj = JSON.parse(xhttp.responseText);
+      for(var item in obj){
+//        console.log(obj[item]);
+        var lokalRow = lokalBody.insertRow(item);
+        var lokalCell1 = lokalRow.insertCell(0);
+        lokalCell1.innerText = obj[item].titel;
+        var lokalCell2 = lokalRow.insertCell(1);
+        lokalCell2.innerText = obj[item].beschreibung;
+        var lokalCell3 = lokalRow.insertCell(2);
+        lokalCell3.innerText = obj[item].erg;
+        var lokalCell4 = lokalRow.insertCell(3);
+        lokalCell4.innerText = obj[item].umsetzbarkeit;
+        var lokalCell5 = lokalRow.insertCell(4);
+
+        var checkboxDiv = document.createElement('div');
+        checkboxDiv.setAttribute('class','form-group checkbox-success-filled');
+
+        lokalCell5.appendChild(checkboxDiv);
+        //        alert(lokalCell5.innerHTML);
+        var input = document.createElement('input');
+        input.setAttribute('type', 'checkbox');
+        input.setAttribute('class', 'filled-in');
+        input.setAttribute('name', kID);
+        input.setAttribute('alt', obj[item].mid);
+        input.setAttribute('id','measureLokal' + item);
+        if(obj[item].durchgeführt == 1){
+          input.checked = true;
+        }
+        input.addEventListener('click', massnahmeErledigen);
+
+        //IF Durchgeführt!!!!!!!!
+
+        checkboxDiv.appendChild(input);
+        //        alert(checkboxDiv.innerHTML);
+        var label = document.createElement('label');
+        label.setAttribute('for', 'measureLokal' + item);
+
+        checkboxDiv.appendChild(label);
+      }
+    }
+  }
+  xhttp.open('GET', '/lokalemassnahmen/' + kID, true);
+  xhttp.send();
 }
 
 function massnahmeErledigen(){
   var xhr = new XMLHttpRequest();
+//  alert(this.name);
   if(this.checked){
-    xhr.open('GET', '/massnahmeErledigt/' + this.name + '/' + this.alt, true);
+    xhr.open('PUT', '/massnahmeErledigt/' + this.name + '/' + this.alt, false);
     xhr.send();
   } else{
-    xhr.open('GET', '/massnahmeErledigtNegativ/' + this.name + '/' + this.alt, true);
+    xhr.open('PUT', '/massnahmeErledigtNegativ/' + this.name + '/' + this.alt, false);
     xhr.send();
+  }
+
+  var ratingLightAll = document.querySelectorAll('div.bulb');
+  var ratingTextAll = document.querySelectorAll('p.ratingText');
+//  alert(ratingLightAll.length);
+
+  for(var i = 0; i < ratingLightAll.length; i++){
+
+    changeRatingLight(ratingLightAll[i].id, ratingLightAll[i], ratingTextAll[i]);
+
   }
 }
 
 function closeGefährdungen(){
-//    alert(this.parentNode.previousSibling.firstChild);
+  //    alert(this.parentNode.previousSibling.firstChild);
+
   $(this.parentNode.parentNode.nextSibling).collapse('hide');
 }
 
 function closeMaßnahmen(){
+
   $(this.parentNode.parentNode.nextSibling.nextSibling).collapse('hide');
 }
 
 function loadGefährdungen(kID, cardDanger, dangerSpan){
   var xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function(){
-//            alert("hallo");
+    //            alert("hallo");
     if(xhr.readyState == 4 && xhr.status == 200){
       var obj = JSON.parse(xhr.responseText);
       dangerSpan.innerText = obj.length;
       for(var item in obj){
-//        console.log(obj[item]);
+                console.log(obj[item]);
         //ACCORDION ITEM ANFANG
-//        alert(obj[item].Asset)
+        //        alert(obj[item].Asset)
         var accordionItem = document.createElement('div');
         accordionItem.setAttribute('class', 'card-header');
         accordionItem.setAttribute('role', 'tab');
@@ -350,15 +504,24 @@ function loadGefährdungen(kID, cardDanger, dangerSpan){
 
         cardDanger.appendChild(accordionItem);
 
+        var dangerItem = document.createElement('p');
+        dangerItem.setAttribute('class', 'font-weight-bold');
+        dangerItem.innerText = obj[item].Name;
+        accordionItem.appendChild(dangerItem);
+
+        var dangerText = document.createElement('p');
+        dangerText.innerText = obj[item].Beschreibung;
+        accordionItem.appendChild(dangerText);
+
         var accordionLink = document.createElement('a');
         accordionLink.setAttribute('class', 'collapsed');
         accordionLink.setAttribute('data-toggle','collapse');
         accordionLink.setAttribute('data-parent','#accordianEx');
         accordionLink.setAttribute('href','#collapseOne'+kID + item);
-//        alert(accordionLink.href);
+        //        alert(accordionLink.href);
 
         var gefahrHeading = document.createElement('h5');
-        gefahrHeading.innerHTML = '<p class="col-md-10">' + obj[item].Name + '</p>';
+  //      gefahrHeading.innerHTML = '<p class="col-md-10">' + obj[item].Name + '</p>';
         var ratingIcon = document.createElement('i');
         ratingIcon.setAttribute('id', obj[item].GID);
 
@@ -375,13 +538,13 @@ function loadGefährdungen(kID, cardDanger, dangerSpan){
         accordionItem.appendChild(accordionLink);
         //ACCORDION ITEM ENDE
 
-//        loadMeasure(kID, obj[item].GID, cardDanger);
+        //        loadMeasure(kID, obj[item].GID, cardDanger);
 
         var collapseDiv = document.createElement('div');
         collapseDiv.setAttribute('id', 'collapseOne'+kID + item);
         collapseDiv.setAttribute('class', 'collapse');
         collapseDiv.setAttribute('role', 'tabpanel');
-//        alert(collapseDiv.id);
+        //        alert(collapseDiv.id);
 
         cardDanger.appendChild(collapseDiv);
         cardDanger.appendChild(document.createElement('hr'));
@@ -397,8 +560,16 @@ function loadGefährdungen(kID, cardDanger, dangerSpan){
         cardbodyDanger.appendChild(listDanger);
 
         loadMeasure(kID, obj[item].GID, listDanger, ratingIcon);
-//        alert(cardDanger.innerHTML);
+        //        alert(cardDanger.innerHTML);
       }
+      var uebernehmen = document.createElement('a');
+      uebernehmen.setAttribute('class', 'btn');
+      uebernehmen.style.backgroundColor = "#2b6ca3";
+      uebernehmen.innerText = "Änderungen Übernehmen";
+      cardDanger.appendChild(uebernehmen);
+      uebernehmen.addEventListener('click', function(){
+        location.reload();
+      });
     }
   }
   xhr.open('GET', '/allGefahrenFurAsset/' + kID, true);
@@ -410,10 +581,10 @@ function loadMeasure(kID, gID, listDanger, ratingIcon){
   xhr.onreadystatechange = function(){
     if(xhr.readyState == 4 && xhr.status == 200){
       var obj = JSON.parse(xhr.responseText);
-//      alert(obj.length);
+      //      alert(obj.length);
       for(var item in obj){
         //ANFANG MAßNAHMEN
-//        console.log(obj[item]);
+//                console.log(obj[item]);
         var listDangerItem = document.createElement('li');
         listDangerItem.setAttribute('class', 'list-group-item');
 
@@ -428,8 +599,8 @@ function loadMeasure(kID, gID, listDanger, ratingIcon){
         listDangerCol.setAttribute('class', 'col-md-10');
 
         listDangerRow.appendChild(listDangerCol);
-        //        alert(obj[item].Beschreibung);
-        listDangerCol.innerText = obj[item].Beschreibung;
+        //                alert(obj[item].gid);
+        listDangerCol.innerHTML =  '<p class="font-weight-bold">' + obj[item].Titel + '</p>' + obj[item].Beschreibung;//HIER OBJ[ITEM].TITEL
         //          alert(listDangerCol.innerHTML);
 
         var dangerCheckBoxDiv = document.createElement('div');
@@ -445,14 +616,14 @@ function loadMeasure(kID, gID, listDanger, ratingIcon){
         if(obj[item].Durchgeführt == 1){
           dangerInput.setAttribute('checked', 'checked');
         }
-//        alert(dangerInput.id);
+        //        alert(dangerInput.id);
         dangerInput.addEventListener('click', checkMeasure);
 
         var dangerLabel = document.createElement('label');
         dangerLabel.innerText = 'Erledigt'
         dangerLabel.setAttribute('id', gID);
         dangerLabel.setAttribute('for', 'checkbox101'+ kID + index);
-//        alert(dangerLabel.id);
+        //        alert(dangerLabel.id);
         dangerCheckBoxDiv.appendChild(dangerInput);
         dangerCheckBoxDiv.appendChild(dangerLabel);
 
@@ -462,7 +633,7 @@ function loadMeasure(kID, gID, listDanger, ratingIcon){
         //ENDE GEFÄHRDUNGEN MAßNAHMEN
         index++;
       }
-//      alert(listDanger.innerHTML);
+      //      alert(listDanger.innerHTML);
       changeRatingIcon(listDanger, ratingIcon);
     }
   }
@@ -491,7 +662,7 @@ function changeRatingIcon(listDanger){
     }
 
     var input = ulList[i].firstChild.querySelector('input');
-//    alert(ulList[i].firstChild.innerHTML);
+    //    alert(ulList[i].firstChild.innerHTML);
     if(signal == true){
       for(var y = 0; y < iconList.length; y++){
         if(iconList[y].id == input.nextSibling.id){
@@ -512,7 +683,7 @@ function changeRatingIcon(listDanger){
 }
 
 function checkMeasure(){
-//  alert('hallo');
+  //  alert('hallo');
   var ul = this.parentNode.parentNode.parentNode.parentNode;
   var inputListAll = document.querySelectorAll('input.filled-in');
 
@@ -546,5 +717,15 @@ function checkMeasure(){
 
 function toggleKategorie(kat){
   kategorie = kat.innerText;
+
+  // alle Hintergründe auf weiß
+document.getElementById('it').style.backgroundColor="#FFFFFF";
+document.getElementById('maschinen').style.backgroundColor="#FFFFFF";
+document.getElementById('netze').style.backgroundColor="#FFFFFF";
+document.getElementById('infrastruktur').style.backgroundColor="#FFFFFF";
+document.getElementById('daten').style.backgroundColor="#FFFFFF";
+
+  // jetzt die aktuelle kartegorie markieren
+ document.getElementById(kat.id).style.backgroundColor="#E2E2E2";
   init();
 }

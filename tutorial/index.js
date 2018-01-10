@@ -393,7 +393,6 @@ function getGefahrenFurAsset(req, res){
 }
 //pflegt die in der empfangenen JSON-Datei erhaltenen Kundenassets in die Datenbank ein
 function postDaten(req, res) {
-
   var data = (req.body).Paket;
   
       var id = data[0].AID;
@@ -407,7 +406,6 @@ var sql2=("INSERT INTO Kunde1Verbindungen( KundenAssetID, GID, Eintrittswahrsche
 var sql4=("UPDATE Kunde1Verbindungen z, (SELECT a.mid, GLOBAL , durchgeführt FROM Kunde1Verbindungen a, Maßnahmen b WHERE a.mid = b.mid AND GLOBAL =1 AND durchgeführt =1) AS cnt SET z.durchgeführt = cnt.durchgeführt WHERE cnt.mid = z.mid;");
 var sql5=("UPDATE Kunde1Verbindungen AS t INNER JOIN ( SELECT KundenAssetID, Gid, Durchgeführt FROM Kunde1Verbindungen )t1 ON t.KundenAssetID = t1.KundenAssetID AND t.Gid = t1.Gid AND t1.durchgeführt =1 SET Eintrittswahrscheinlichkeit =1;");
 var sql3 = sql+sql2+sql4+sql5;
-counterErste++;
  con.query(sql3, (err, result, fields) => {
   if (err) console.log("Sprung2");//throw err;
 _callback("200");
